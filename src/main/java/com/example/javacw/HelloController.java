@@ -72,6 +72,4 @@ public class HelloController {
         }
         passwordErrorText.setText("Incorrect Password");
     }
-
-
 }
