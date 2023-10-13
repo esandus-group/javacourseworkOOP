@@ -64,7 +64,7 @@ public class HelloController {
         if(password.equals("")){
             passwordErrorText.setText("Enter your password");
             return;
-        } else if (firstLetterPassword.equals("S")) {
+        } else if (firstLetterPassword.equals("S123")) {
             usernameErrorText.setText(" ");
             passwordErrorText.setText(" ");
             navigateToStudentPage();
