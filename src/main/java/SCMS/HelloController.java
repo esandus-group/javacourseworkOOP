@@ -1,4 +1,4 @@
-package com.example.javacw;
+package SCMS;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

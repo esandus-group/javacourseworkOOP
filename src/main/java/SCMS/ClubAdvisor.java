@@ -1,4 +1,4 @@
-package com.example.javacw;
+package SCMS;
 
 public class ClubAdvisor {
 }

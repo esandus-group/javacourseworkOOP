@@ -1,4 +1,4 @@
-package com.example.javacw;
+package SCMS;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -5,7 +5,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javacw.HelloController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.HelloController">
    <children>
       <Button layoutX="429.0" layoutY="145.0" mnemonicParsing="false" prefHeight="111.0" prefWidth="121.0" text="Club 3" />
       <Button layoutX="48.0" layoutY="145.0" mnemonicParsing="false" prefHeight="111.0" prefWidth="121.0" text="Club 1" />
