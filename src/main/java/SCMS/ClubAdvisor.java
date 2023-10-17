@@ -6,7 +6,8 @@ import java.util.Date;
 public class ClubAdvisor extends Person{
     private ArrayList<Club> managingClubs = new ArrayList<Club>();
 
-    private final int advisorId;
+    private final int advisorId;//hello ma nigsdfsfs
+
 
     public ClubAdvisor(int id, int advisorId, String firstName, String lastName, Date dateOfBirth, int advisorId1){
         super(id, firstName, lastName, dateOfBirth);
@@ -17,10 +18,10 @@ public class ClubAdvisor extends Person{
         return managingClubs;
     }
 
-    public int getAdvisorId() { //hello
+    public int getAdvisorId() {
         return advisorId;
     }
-    public void createClub(){//siluni changed this
+    public void createClub(){
         // get the stuff from the text fields,
         // create the club object
         // make it available for the students to join
