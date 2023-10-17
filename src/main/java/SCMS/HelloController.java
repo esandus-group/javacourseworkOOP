@@ -27,31 +27,42 @@ public class HelloController {
 
     @FXML
     private Button studentLoginButton;
-
+    @FXML
+    private Button advisorLogin;
     @FXML
     private TextField studentNameTextField;
+    @FXML
+    private TextField clubName;
+    @FXML
+    private TextField clubAdvisorID;
 
     public  String username;
     public  String password;
-
+    public String clubNam;
+    //=====================================================================
     public void navigateToStudentPage() throws IOException {
         Stage Stage2 = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("StudentDashboard.fxml"));
         Stage2.setScene(new Scene(root));
         Stage2.show();
     }
-    public void navigateToCBAPage() throws IOException {
-        Stage Stage2 = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("StudentDashboard.fxml"));
-        Stage2.setScene(new Scene(root));
-        Stage2.show();
+    //===============================================================
+    public void navigateToAdvisorPage() throws IOException {
+        Stage Stage3 = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("Club advisor.fxml"));
+        Stage3.setScene(new Scene(root));
+        Stage3.show();
     }
-    public void navigateToAdminPage() throws IOException {
-        Stage Stage2 = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("StudentDashboard.fxml"));
-        Stage2.setScene(new Scene(root));
-        Stage2.show();//bhhbb
+    //==============================================================================
+    public void navigateToCreateNewClub() throws IOException {
+        Stage Stage4 = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("CreateClub.fxml"));
+        Stage4.setScene(new Scene(root));
+        Stage4.show();
     }
+    //=====================================================================
+
+    //==========================================================================
     public void onStudentLoginClick(ActionEvent event) throws Exception{
         String firstLetterPassword;
         username = studentNameTextField.getText();
@@ -64,7 +75,7 @@ public class HelloController {
         if(password.equals("")){
             passwordErrorText.setText("Enter your password");
             return;
-        } else if (firstLetterPassword.equals("S123")) {
+        } else if (password.equals("S123")) {
             usernameErrorText.setText(" ");
             passwordErrorText.setText(" ");
             navigateToStudentPage();
@@ -72,4 +83,13 @@ public class HelloController {
         }
         passwordErrorText.setText("Incorrect Password");
     }
+    public void onAdvisorLoginClick(ActionEvent event) throws Exception{
+        navigateToAdvisorPage();
+    }
+    public void onAddClubClick(ActionEvent event) throws Exception{
+        navigateToCreateNewClub();
+        clubNam = clubName.getText();
+
+    }
+
 }

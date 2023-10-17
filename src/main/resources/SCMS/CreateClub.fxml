@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.HelloController">
    <children>
       <ImageView fitHeight="600.0" fitWidth="807.0" layoutX="-5.0">
          <image>
@@ -23,12 +23,12 @@
                </font>
             </Label>
             <AnchorPane layoutX="119.0" layoutY="76.0" prefHeight="5.0" prefWidth="187.0" style="-fx-background-color: #76ff03;" />
-            <TextField layoutX="84.0" layoutY="216.0" prefHeight="27.0" prefWidth="289.0" promptText="Name" style="-fx-border-color: #334d00;">
+            <TextField fx:id="clubName" layoutX="84.0" layoutY="216.0" prefHeight="27.0" prefWidth="289.0" promptText="Name" style="-fx-border-color: #334d00;">
                <font>
                   <Font name="Tahoma" size="13.0" />
                </font>
             </TextField>
-            <TextField layoutX="84.0" layoutY="293.0" prefHeight="27.0" prefWidth="289.0" promptText="Club advisor ID" style="-fx-border-color: #334d00;">
+            <TextField fx:id="clubAdvisorID" layoutX="84.0" layoutY="293.0" prefHeight="27.0" prefWidth="289.0" promptText="Club advisor ID" style="-fx-border-color: #334d00;">
                <font>
                   <Font name="Tahoma" size="13.0" />
                </font>
