@@ -10,7 +10,7 @@ public class ClubAdvisor extends Person{
 
     public ClubAdvisor(int id, int advisorId, String firstName, String lastName, Date dateOfBirth, int advisorId1){
         super(id, firstName, lastName, dateOfBirth);
-        this.advisorId = advisorId1;
+        this.advisorId = advisorId1;//hello esandu
     }
 
     public ArrayList<Club> getManagingClubs() {
