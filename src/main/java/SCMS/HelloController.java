@@ -50,7 +50,7 @@ public class HelloController {
         Stage Stage2 = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("StudentDashboard.fxml"));
         Stage2.setScene(new Scene(root));
-        Stage2.show();
+        Stage2.show();//bhhbb
     }
     public void onStudentLoginClick(ActionEvent event) throws Exception{
         String firstLetterPassword;
