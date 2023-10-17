@@ -20,7 +20,7 @@ public class ClubAdvisor extends Person{
     public int getAdvisorId() { //hello
         return advisorId;
     }
-    public void createClub(){
+    public void createClub(){//siluni changed this
         // get the stuff from the text fields,
         // create the club object
         // make it available for the students to join
