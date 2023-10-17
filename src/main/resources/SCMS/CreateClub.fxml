@@ -12,7 +12,7 @@
    <children>
       <ImageView fitHeight="600.0" fitWidth="807.0" layoutX="-5.0">
          <image>
-            <Image url="@../../../../../../../../../../../../../135960.jpg" />
+            <Image url="@images/135960.jpg" />
          </image>
       </ImageView>
       <AnchorPane layoutX="179.0" layoutY="70.0" prefHeight="459.0" prefWidth="441.0" style="-fx-background-color: #000000;">
@@ -40,7 +40,7 @@
             </Button>
             <ImageView fitHeight="110.0" fitWidth="102.0" layoutX="162.0" layoutY="92.0">
                <image>
-                  <Image url="@../../../../../../../../../../../../../user.jpg" />
+                  <Image url="@images/user.jpg" />
                </image>
             </ImageView>
          </children>
