@@ -17,7 +17,7 @@ public class ClubAdvisor extends Person{
         return managingClubs;
     }
 
-    public int getAdvisorId() { //akjsfghkjsagfjisfgiu
+    public int getAdvisorId() { //hello siluni
         return advisorId;
     }
     public void createClub(){
