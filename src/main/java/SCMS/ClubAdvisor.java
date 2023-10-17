@@ -6,7 +6,7 @@ import java.util.Date;
 public class ClubAdvisor extends Person{
     private ArrayList<Club> managingClubs = new ArrayList<Club>();
 
-    private final int advisorId;
+    private final int advisorId; // hello laki
 
     public ClubAdvisor(int id, int advisorId, String firstName, String lastName, Date dateOfBirth, int advisorId1){
         super(id, firstName, lastName, dateOfBirth);
