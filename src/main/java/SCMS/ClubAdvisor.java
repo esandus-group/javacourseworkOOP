@@ -6,11 +6,11 @@ import java.util.Date;
 public class ClubAdvisor extends Person{
     private ArrayList<Club> managingClubs = new ArrayList<Club>();
 
-    private final int advisorId; // hello laki
+    private final int advisorId;
 
     public ClubAdvisor(int id, int advisorId, String firstName, String lastName, Date dateOfBirth, int advisorId1){
         super(id, firstName, lastName, dateOfBirth);
-        this.advisorId = advisorId1;//siluni changed this AGAIN
+        this.advisorId = advisorId1;
     }
 
     public ArrayList<Club> getManagingClubs() {
