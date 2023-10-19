@@ -21,12 +21,13 @@ public class ClubAdvisor extends Person{
     public int getAdvisorId() {
         return advisorId;
     }
-    public void createClub(){
+    public void createClub(int clubId,String clubName,int advisorId){
         // get the stuff from the text fields,
         // create the club object
         // make it available for the students to join
 
     }
+
 
     @Override
     public void displayInfo() {

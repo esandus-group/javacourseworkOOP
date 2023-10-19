@@ -12,6 +12,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class HelloController {
     @FXML
@@ -39,6 +41,14 @@ public class HelloController {
     public  String username;
     public  String password;
     public String clubNam;
+
+    public int clubAdvisorId;
+
+    public int clubId;
+
+    public ArrayList<Club> allClubs = new ArrayList<>();
+
+
     //=====================================================================
     public void navigateToStudentPage() throws IOException {
         Stage Stage2 = new Stage();
@@ -86,10 +96,21 @@ public class HelloController {
     public void onAdvisorLoginClick(ActionEvent event) throws Exception{
         navigateToAdvisorPage();
     }
-    public void onAddClubClick(ActionEvent event) throws Exception{
+    public void onAddClubClick(ActionEvent event) throws Exception{ //nikoyas add club
         navigateToCreateNewClub();
         clubNam = clubName.getText();
+        clubAdvisorId = Integer.parseInt(clubAdvisorID.getText());
 
+        boolean found = true;
+
+        for (Club club:allClubs){
+            if (Objects.equals(clubNam, club.getName())){
+                found = true;
+            }
+        }
+        if (found !=true){
+            allClubs.add(new Club(clubId,clubNam,clubAdvisorId));
+        }
     }
 
 }
