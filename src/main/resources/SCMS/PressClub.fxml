@@ -9,27 +9,38 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.HelloController">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane layoutX="-1.0" layoutY="29.0" prefHeight="675.0" prefWidth="313.0" style="-fx-border-color: #334db3; -fx-border-width: 2; -fx-background-color: #ffb3e6;">
+            <AnchorPane layoutX="-1.0" layoutY="29.0" prefHeight="675.0" prefWidth="318.0" style="-fx-border-color: #334db3; -fx-border-width: 2; -fx-background-color: #ffb3e6;">
                <children>
-                  <Button layoutX="35.0" layoutY="129.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="191.0" text="Student present" />
-                  <Button layoutX="35.0" layoutY="216.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="191.0" text="Schedule Activity" />
-                  <Button layoutX="35.0" layoutY="297.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="191.0" text="Schedule event" />
-                  <Button layoutX="35.0" layoutY="596.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="191.0" text="Delete" />
-                  <Button layoutX="35.0" layoutY="383.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="191.0" text="Schedule meeting" />
-                  <Label layoutX="35.0" layoutY="480.0" prefHeight="29.0" prefWidth="111.0" text="Type confirm">
+                  <Button layoutX="57.0" layoutY="71.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="191.0" text="Student present" />
+                  <Button layoutX="64.0" layoutY="142.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="191.0" text="Schedule Activity" />
+                  <Button layoutX="64.0" layoutY="217.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="191.0" text="Schedule event" />
+                  <Button fx:id="deleteClub" layoutX="42.0" layoutY="604.0" mnemonicParsing="false" onAction="#onDeleteClubClick" prefHeight="39.0" prefWidth="191.0" text="Delete" />
+                  <Button layoutX="64.0" layoutY="283.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="191.0" text="Schedule meeting" />
+                  <Label layoutX="41.0" layoutY="526.0" prefHeight="29.0" prefWidth="111.0" text="Type confirm">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="35.0" layoutY="519.0" prefHeight="39.0" prefWidth="191.0">
+                  <TextField fx:id="confirmText" layoutX="40.0" layoutY="553.0" prefHeight="39.0" prefWidth="191.0" promptText="CONFIRM">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </TextField>
+                  <TextField fx:id="clubIdToDelete" layoutX="41.0" layoutY="472.0" prefHeight="39.0" prefWidth="191.0" promptText="Club ID">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="42.0" layoutY="443.0" prefHeight="29.0" prefWidth="153.0" text="Enter the club Id to delete">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="removeStudent" layoutX="64.0" layoutY="350.0" mnemonicParsing="false" onAction="#onRemoveStudentClick" prefHeight="39.0" prefWidth="191.0" text="Remove a Student from Club" />
                </children></AnchorPane>
             <AnchorPane layoutX="323.0" layoutY="66.0" prefHeight="623.0" prefWidth="509.0" style="-fx-border-color: #334db3; -fx-border-width: 2;">
                <children>
@@ -42,7 +53,7 @@
                   </TableView>
                </children>
             </AnchorPane>
-            <Label alignment="CENTER" layoutX="338.0" layoutY="27.0" prefHeight="32.0" prefWidth="492.0" text="WELCOME TO STUDENTS DASHBOARD" textFill="#d730b8">
+            <Label alignment="CENTER" layoutX="338.0" layoutY="27.0" prefHeight="32.0" prefWidth="492.0" text="WELCOME TO CLUB DASHBOARD" textFill="#d730b8">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>

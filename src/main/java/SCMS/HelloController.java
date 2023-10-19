@@ -5,14 +5,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Objects;
 
 public class HelloController {
@@ -20,7 +19,8 @@ public class HelloController {
     private Text passwordErrorText;
     @FXML
     private Text usernameErrorText;
-
+    @FXML
+    private TextField clubIdToDelete;
     @FXML
     private Text welcomeText;
 
@@ -38,6 +38,24 @@ public class HelloController {
     @FXML
     private TextField clubAdvisorID;
 
+    @FXML
+    private TableColumn<?, ?> colAttendance;
+
+    @FXML
+    private TableColumn<?, ?> colDate;
+
+    @FXML
+    private TableColumn<?, ?> colFunction;
+
+    @FXML
+    private TextField confirmText;
+
+    @FXML
+    private Button deleteClub;
+
+    @FXML
+    private TableView<?> toUsers;
+
     public  String username;
     public  String password;
     public String clubNam;
@@ -46,7 +64,16 @@ public class HelloController {
 
     public int clubId;
 
+    public String confirmation;
+    public int clubIdDelete;
+
+    public int studentId;
+
+    public int clubIdToDeleteStudent;
+
     public ArrayList<Club> allClubs = new ArrayList<>();
+
+
 
 
     //=====================================================================
@@ -113,4 +140,39 @@ public class HelloController {
         }
     }
 
+    public void onDeleteClubClick(ActionEvent event) throws Exception {
+        confirmation = confirmText.getText();
+        clubIdDelete = Integer.parseInt(clubIdToDelete.getText());
+
+        if (confirmation.equals("CONFIRM")) {
+
+
+            Iterator<Club> iterator = allClubs.iterator();
+            while (iterator.hasNext()) {
+                Club club = iterator.next();
+                if (clubIdDelete == club.getClubId()) {
+                    iterator.remove();
+                    System.out.println("Club with ID " + clubIdDelete + " has been deleted.");
+                    break;
+                }
+            }
+        } else {
+            System.out.println("Deletion not confirmed. Club was not deleted.");
+        }
+    }
+    public void onRemoveStudentClick(ActionEvent event) throws Exception{
+        //navigate to the new fxml to delete student
+        //studentId = //studentIdDelete.getText();
+
+        //clubIdToDeleteStudent = Integer.parseInt(clubIdDeleteStudent.getText());
+
+
+
+
+
+
+
+    }
+
 }
+

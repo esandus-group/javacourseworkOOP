@@ -39,17 +39,17 @@
             <Font size="13.0" />
          </font>
       </Button>
-      <Button fx:id="club3" layoutX="498.0" layoutY="207.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="107.0" style="-fx-background-color: #f0bcdd; -fx-background-radius: 10; -fx-border-color: #000000; -fx-border-radius: 10;" text="Club 3">
+      <Button fx:id="club3" layoutX="498.0" layoutY="197.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="107.0" style="-fx-background-color: #f0bcdd; -fx-background-radius: 10; -fx-border-color: #000000; -fx-border-radius: 10;" text="Club 3">
          <font>
             <Font size="13.0" />
          </font>
       </Button>
-      <Button fx:id="club4" layoutX="498.0" layoutY="297.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="107.0" style="-fx-background-color: #f0bcdd; -fx-background-radius: 10; -fx-border-color: #000000; -fx-border-radius: 10;" text="Club 4">
+      <Button fx:id="club4" layoutX="498.0" layoutY="287.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="107.0" style="-fx-background-color: #f0bcdd; -fx-background-radius: 10; -fx-border-color: #000000; -fx-border-radius: 10;" text="Club 4">
          <font>
             <Font size="13.0" />
          </font>
       </Button>
-      <Button fx:id="addclub" layoutX="457.0" layoutY="403.0" mnemonicParsing="false" onAction="#onAddClubClick" prefHeight="72.0" prefWidth="212.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #000000; -fx-background-color: #ff80d5;" text="ADD NEW CLUB">
+      <Button fx:id="addclub" layoutX="446.0" layoutY="384.0" mnemonicParsing="false" onAction="#onAddClubClick" prefHeight="72.0" prefWidth="212.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #000000; -fx-background-color: #ff80d5;" text="ADD NEW CLUB">
          <font>
             <Font name="Tahoma Bold" size="18.0" />
          </font>
