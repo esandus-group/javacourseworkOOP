@@ -5,21 +5,22 @@ import java.util.Date;
 
 public class Student extends Person{
 
-    private final int admissionNo;
-    private ArrayList<String> clubsJoined = new ArrayList<>();
 
-    public Student(int id,int admissionNo, String firstName, String lastName, Date dateOfBirth) {
-        super(id, firstName, lastName, dateOfBirth);
-        this.admissionNo=admissionNo;
+    private ArrayList<Club> clubsJoined = new ArrayList<>();
+
+
+    public Student(int id, String firstName, String lastName, Date dateOfBirth,String password) {
+        super(id, firstName, lastName, dateOfBirth,password);
+
     }
 
-    public void joinClub(String clubName) {
-        clubsJoined.add(clubName);
+    public void joinClub(Club club) {
+        clubsJoined.add(club);
         //add student to the club eke arraylist
     }
 
-    public void leaveClub(String clubName) {
-        clubsJoined.remove(clubName);
+    public void leaveClub(Club club) {
+        clubsJoined.remove(club);
     }
 
     @Override
@@ -31,11 +32,8 @@ public class Student extends Person{
         System.out.println("Clubs Joined: " + clubsJoined);
     }
 
-    public ArrayList<String> getClubsJoined() {
+    public ArrayList<Club> getClubsJoined() {
         return clubsJoined;
     }
 
-    public int getAdmissionNo() {
-        return admissionNo;
-    }
 }

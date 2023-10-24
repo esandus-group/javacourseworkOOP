@@ -7,12 +7,14 @@ abstract class Person {
     private String firstName;
     private String lastName;
     private Date dateOfBirth;
+    private String password;
 
-    public Person(int id, String firstName, String lastName, Date dateOfBirth) {
+    public Person(int id, String firstName, String lastName, Date dateOfBirth,String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
+        this.password=password;
     }
 
     public abstract void displayInfo();
@@ -47,5 +49,13 @@ abstract class Person {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

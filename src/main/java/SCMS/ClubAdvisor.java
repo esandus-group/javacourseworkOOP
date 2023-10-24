@@ -6,26 +6,21 @@ import java.util.Date;
 public class ClubAdvisor extends Person{
     private ArrayList<Club> managingClubs = new ArrayList<Club>();
 
-    private final int advisorId;//hello ma nigsdfsfs
 
+    public ClubAdvisor(int id, String firstName, String lastName, Date dateOfBirth,String password){
+        super(id, firstName, lastName, dateOfBirth,password);
 
-    public ClubAdvisor(int id, int advisorId, String firstName, String lastName, Date dateOfBirth, int advisorId1){
-        super(id, firstName, lastName, dateOfBirth);
-        this.advisorId = advisorId1;
     }
 
     public ArrayList<Club> getManagingClubs() {
         return managingClubs;
     }
 
-    public int getAdvisorId() {
-        return advisorId;
-    }
-    public void createClub(int clubId,String clubName,int advisorId){
-        // get the stuff from the text fields,
-        // create the club object
-        // make it available for the students to join
 
+    public Club createClub(int clubId,String clubName,int id){
+        Club newClub = new Club(clubId,clubName,id);
+        managingClubs.add(newClub);
+        return newClub;
     }
 
 
@@ -33,7 +28,6 @@ public class ClubAdvisor extends Person{
     public void displayInfo() {
         System.out.println("Club Advisor details:");
         System.out.println("ID: " + this.getId());
-        System.out.println("Advisor ID:" +this.getAdvisorId());
         System.out.println("Name: " + this.getFirstName() + " " + this.getLastName());
         System.out.println("Date of Birth: " + this.getDateOfBirth());
         System.out.println("Managed Club: " + managingClubs);

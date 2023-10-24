@@ -73,7 +73,8 @@ public class HelloController {
 
     public ArrayList<Club> allClubs = new ArrayList<>();
 
-
+    public ArrayList<ClubAdvisor> allClubAdvisors = new ArrayList<>();
+    ClubAdvisor currentClubAdvisor=null;
 
 
     //=====================================================================
@@ -124,19 +125,29 @@ public class HelloController {
         navigateToAdvisorPage();
     }
     public void onAddClubClick(ActionEvent event) throws Exception{ //nikoyas add club
-        navigateToCreateNewClub();
-        clubNam = clubName.getText();
+        navigateToCreateNewClub();                                  //open the page
+        clubNam = clubName.getText();                               //getting the information
         clubAdvisorId = Integer.parseInt(clubAdvisorID.getText());
 
-        boolean found = true;
-
-        for (Club club:allClubs){
-            if (Objects.equals(clubNam, club.getName())){
-                found = true;
+        Iterator<ClubAdvisor> iterators = allClubAdvisors.iterator();//getting the current using advisor
+        while (iterators.hasNext()) {
+            ClubAdvisor gettingClubAdvisor = iterators.next();
+            if (gettingClubAdvisor.getId() == clubAdvisorId) {
+                currentClubAdvisor = gettingClubAdvisor;
+                break;
             }
         }
-        if (found !=true){
-            allClubs.add(new Club(clubId,clubNam,clubAdvisorId));
+
+        boolean found = true;
+        for (Club club:allClubs){                                   //checking if club already exits
+            if (Objects.equals(clubNam, club.getName())){
+                found = true;
+                System.out.println("club with this name, already exits");
+            }
+        }
+
+        if (found !=true){                                          // if the club doesn't exit
+            allClubs.add(currentClubAdvisor.createClub(clubId,clubNam,clubAdvisorId));
         }
     }
 
