@@ -19,10 +19,7 @@ public class HelloController {
     private Text passwordErrorText;
     @FXML
     private Text usernameErrorText;
-    @FXML
-    private TextField clubIdToDelete;
-    @FXML
-    private Text welcomeText;
+
 
     @FXML
     private TextField passwordTextField;
@@ -33,48 +30,9 @@ public class HelloController {
     private Button advisorLogin;
     @FXML
     private TextField studentNameTextField;
-    @FXML
-    private TextField clubName;
-    @FXML
-    private TextField clubAdvisorID;
-
-    @FXML
-    private TableColumn<?, ?> colAttendance;
-
-    @FXML
-    private TableColumn<?, ?> colDate;
-
-    @FXML
-    private TableColumn<?, ?> colFunction;
-
-    @FXML
-    private TextField confirmText;
-
-    @FXML
-    private Button deleteClub;
-
-    @FXML
-    private TableView<?> toUsers;
 
     public  String username;
     public  String password;
-    public String clubNam;
-
-    public int clubAdvisorId;
-
-    public int clubId;
-
-    public String confirmation;
-    public int clubIdDelete;
-
-    public int studentId;
-
-    public int clubIdToDeleteStudent;
-
-    public ArrayList<Club> allClubs = new ArrayList<>();
-
-    public ArrayList<ClubAdvisor> allClubAdvisors = new ArrayList<>();
-    ClubAdvisor currentClubAdvisor=null;
 
 
     //=====================================================================
@@ -92,12 +50,7 @@ public class HelloController {
         Stage3.show();
     }
     //==============================================================================
-    public void navigateToCreateNewClub() throws IOException {
-        Stage Stage4 = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("CreateClub.fxml"));
-        Stage4.setScene(new Scene(root));
-        Stage4.show();
-    }
+
     //=====================================================================
 
     //==========================================================================
@@ -124,66 +77,8 @@ public class HelloController {
     public void onAdvisorLoginClick(ActionEvent event) throws Exception{
         navigateToAdvisorPage();
     }
-    public void onAddClubClick(ActionEvent event) throws Exception{ //nikoyas add club
-        navigateToCreateNewClub();                                  //open the page
-        clubNam = clubName.getText();                               //getting the information
-        clubAdvisorId = Integer.parseInt(clubAdvisorID.getText());
-
-        Iterator<ClubAdvisor> iterators = allClubAdvisors.iterator();//getting the current using advisor
-        while (iterators.hasNext()) {
-            ClubAdvisor gettingClubAdvisor = iterators.next();
-            if (gettingClubAdvisor.getId() == clubAdvisorId) {
-                currentClubAdvisor = gettingClubAdvisor;
-                break;
-            }
-        }
-
-        boolean found = true;
-        for (Club club:allClubs){                                   //checking if club already exits
-            if (Objects.equals(clubNam, club.getName())){
-                found = true;
-                System.out.println("club with this name, already exits");
-            }
-        }
-
-        if (found !=true){                                          // if the club doesn't exit
-            allClubs.add(currentClubAdvisor.createClub(clubId,clubNam,clubAdvisorId));
-        }
-    }
-
-    public void onDeleteClubClick(ActionEvent event) throws Exception {
-        confirmation = confirmText.getText();
-        clubIdDelete = Integer.parseInt(clubIdToDelete.getText());
-
-        if (confirmation.equals("CONFIRM")) {
 
 
-            Iterator<Club> iterator = allClubs.iterator();
-            while (iterator.hasNext()) {
-                Club club = iterator.next();
-                if (clubIdDelete == club.getClubId()) {
-                    iterator.remove();
-                    System.out.println("Club with ID " + clubIdDelete + " has been deleted.");
-                    break;
-                }
-            }
-        } else {
-            System.out.println("Deletion not confirmed. Club was not deleted.");
-        }
-    }
-    public void onRemoveStudentClick(ActionEvent event) throws Exception{
-        //navigate to the new fxml to delete student
-        //studentId = //studentIdDelete.getText();
-
-        //clubIdToDeleteStudent = Integer.parseInt(clubIdDeleteStudent.getText());
-
-
-
-
-
-
-
-    }
 
 }
 

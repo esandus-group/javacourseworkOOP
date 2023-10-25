@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.HelloController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.createClubController">
    <children>
       <ImageView fitHeight="600.0" fitWidth="807.0" layoutX="-5.0">
          <image>
@@ -33,7 +33,7 @@
                   <Font name="Tahoma" size="13.0" />
                </font>
             </TextField>
-            <Button layoutX="144.0" layoutY="370.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: #009933; -fx-background-radius: 90; -fx-font-size: 20; -fx-font-weight: 7px;" text="Save" textFill="#5c3737">
+            <Button fx:id="saveNewClub" layoutX="144.0" layoutY="370.0" mnemonicParsing="false" onAction="#onSaveNewClubClick" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: #009933; -fx-background-radius: 90; -fx-font-size: 20; -fx-font-weight: 7px;" text="Save" textFill="#5c3737">
                <font>
                   <Font name="Tahoma" size="17.0" />
                </font>

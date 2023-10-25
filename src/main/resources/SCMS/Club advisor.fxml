@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.HelloController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.clubAdvisorController">
    <children>
       <ImageView fitHeight="500.0" fitWidth="412.0" layoutX="-1.0" layoutY="1.0">
          <image>
@@ -29,22 +29,22 @@
             <Image url="@images/images-modified.png" />
          </image>
       </ImageView>
-      <Button fx:id="club1" layoutX="498.0" layoutY="27.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="107.0" style="-fx-background-color: #f0bcdd; -fx-background-radius: 10; -fx-border-color: #000000; -fx-border-radius: 10;" text="Club 1">
+      <Button fx:id="club1" layoutX="498.0" layoutY="27.0" mnemonicParsing="false" onAction="#onClub1PressClick" prefHeight="59.0" prefWidth="107.0" style="-fx-background-color: #f0bcdd; -fx-background-radius: 10; -fx-border-color: #000000; -fx-border-radius: 10;" text="Club 1">
          <font>
             <Font size="13.0" />
          </font>
       </Button>
-      <Button fx:id="club2" layoutX="498.0" layoutY="115.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="107.0" style="-fx-background-color: #f0bcdd; -fx-background-radius: 10; -fx-border-color: #000000; -fx-border-radius: 10;" text="Club 2">
+      <Button fx:id="club2" layoutX="498.0" layoutY="115.0" mnemonicParsing="false" onAction="#onClub2PressClick" prefHeight="59.0" prefWidth="107.0" style="-fx-background-color: #f0bcdd; -fx-background-radius: 10; -fx-border-color: #000000; -fx-border-radius: 10;" text="Club 2">
          <font>
             <Font size="13.0" />
          </font>
       </Button>
-      <Button fx:id="club3" layoutX="498.0" layoutY="197.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="107.0" style="-fx-background-color: #f0bcdd; -fx-background-radius: 10; -fx-border-color: #000000; -fx-border-radius: 10;" text="Club 3">
+      <Button fx:id="club3" layoutX="498.0" layoutY="197.0" mnemonicParsing="false" onAction="#onClub3PressClick" prefHeight="59.0" prefWidth="107.0" style="-fx-background-color: #f0bcdd; -fx-background-radius: 10; -fx-border-color: #000000; -fx-border-radius: 10;" text="Club 3">
          <font>
             <Font size="13.0" />
          </font>
       </Button>
-      <Button fx:id="club4" layoutX="498.0" layoutY="287.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="107.0" style="-fx-background-color: #f0bcdd; -fx-background-radius: 10; -fx-border-color: #000000; -fx-border-radius: 10;" text="Club 4">
+      <Button fx:id="club4" layoutX="498.0" layoutY="287.0" mnemonicParsing="false" onAction="#onClub4PressClick" prefHeight="59.0" prefWidth="107.0" style="-fx-background-color: #f0bcdd; -fx-background-radius: 10; -fx-border-color: #000000; -fx-border-radius: 10;" text="Club 4">
          <font>
             <Font size="13.0" />
          </font>
