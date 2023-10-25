@@ -31,7 +31,7 @@ public class PressClubController {
     private TextField advisorIdDeleting;
 
     int advisorIdWhoIsDeleting;
-    Database db2 = new Database();
+    //Database db2 = new Database();
 
     @FXML
     private TableColumn<?, ?> colAttendance;

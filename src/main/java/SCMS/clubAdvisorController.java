@@ -23,7 +23,7 @@ public class clubAdvisorController {
     public String fileName;
     Stage stage;
 
-    Database db1 = new Database();
+    //Database db1 = new Database();
     //=============================================================
     public void stageLoader(ActionEvent event, String fileName) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource(fileName));

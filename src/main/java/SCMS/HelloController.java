@@ -15,6 +15,10 @@ import java.util.Iterator;
 import java.util.Objects;
 
 public class HelloController {
+
+
+
+
     @FXML
     private Text passwordErrorText;
     @FXML
@@ -33,6 +37,9 @@ public class HelloController {
 
     public  String username;
     public  String password;
+
+    public HelloController() throws Exception {
+    }
 
 
     //=====================================================================

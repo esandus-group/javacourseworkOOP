@@ -8,6 +8,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
+    public HelloApplication() throws Exception {
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("MainLoginPage.fxml"));
@@ -16,7 +19,14 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        DatabaseConnection sql = new DatabaseConnection();
+        sql.removeStudent();
         launch();
     }
+
+
+
+
+
 }
