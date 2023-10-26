@@ -7,9 +7,9 @@ public class Club {
     private String name;
     private ArrayList<Student> studentsPresent = new ArrayList<Student>();
 
-    private int idOfAdvisor;
+    private String idOfAdvisor;
 
-    public Club(int clubId,String name,int idOfAdvisor){
+    public Club(int clubId,String name,String idOfAdvisor){
         this.clubId=clubId;
         this.name=name;
         this.idOfAdvisor=idOfAdvisor;
@@ -27,7 +27,7 @@ public class Club {
         return studentsPresent;
     }
 
-    public int getIdOfAdvisor() {
+    public String getIdOfAdvisor() {
         return idOfAdvisor;
     }
 
@@ -39,7 +39,7 @@ public class Club {
         this.name = name;
     }
 
-    public void setIdOfAdvisor(int idOfAdvisor) {
+    public void setIdOfAdvisor(String idOfAdvisor) {
         this.idOfAdvisor = idOfAdvisor;
     }
 

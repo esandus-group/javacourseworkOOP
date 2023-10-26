@@ -20,9 +20,10 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) throws Exception {
-        DatabaseConnection sql = new DatabaseConnection();
-        sql.removeStudent();
+
+        createClubController controller = new createClubController();
         launch();
+
     }
 
 

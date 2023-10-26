@@ -28,7 +28,7 @@
                   <Font name="Tahoma" size="13.0" />
                </font>
             </TextField>
-            <TextField fx:id="clubAdvisorID" layoutX="84.0" layoutY="293.0" prefHeight="27.0" prefWidth="289.0" promptText="Club advisor ID" style="-fx-border-color: #334d00;">
+            <TextField fx:id="clubAdvisorID" layoutX="84.0" layoutY="308.0" prefHeight="27.0" prefWidth="289.0" promptText="Club advisor ID" style="-fx-border-color: #334d00;">
                <font>
                   <Font name="Tahoma" size="13.0" />
                </font>
@@ -43,6 +43,26 @@
                   <Image url="@images/user.jpg" />
                </image>
             </ImageView>
+            <Label layoutX="83.0" layoutY="192.0" prefHeight="17.0" prefWidth="102.0" text="Name" textFill="#4ee125">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="85.0" layoutY="284.0" prefHeight="23.0" prefWidth="123.0" text="Club advisor ID" textFill="#4ee125">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="nameStatus" layoutX="83.0" layoutY="243.0" prefHeight="23.0" prefWidth="263.0" textFill="#4ee125">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="idStatus" layoutX="83.0" layoutY="335.0" prefHeight="23.0" prefWidth="263.0" textFill="#4ee125">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
 

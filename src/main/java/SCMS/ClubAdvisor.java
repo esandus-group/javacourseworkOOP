@@ -8,7 +8,7 @@ public class ClubAdvisor extends Person{
     Club clubToDelete=null;
     private ArrayList<Club> managingClubs = new ArrayList<Club>();
 
-    public ClubAdvisor(int id, String firstName, String lastName, Date dateOfBirth,String password){
+    public ClubAdvisor(String id, String firstName, String lastName, String dateOfBirth,String password){
         super(id, firstName, lastName, dateOfBirth,password);
     }
 
@@ -16,7 +16,7 @@ public class ClubAdvisor extends Person{
         return managingClubs;
     }
 
-    public Club createClub(int clubId,String clubName,int id){
+    public Club createClub(int clubId,String clubName,String id){
         Club newClub = new Club(clubId,clubName,id);
         managingClubs.add(newClub);
         return newClub;

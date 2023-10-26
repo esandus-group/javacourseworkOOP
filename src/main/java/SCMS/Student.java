@@ -9,7 +9,7 @@ public class Student extends Person{
     private ArrayList<Club> clubsJoined = new ArrayList<>();
 
 
-    public Student(int id, String firstName, String lastName, Date dateOfBirth,String password) {
+    public Student(String id, String firstName, String lastName, String dateOfBirth,String password) {
         super(id, firstName, lastName, dateOfBirth,password);
 
     }

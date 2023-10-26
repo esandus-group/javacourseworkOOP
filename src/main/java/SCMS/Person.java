@@ -3,13 +3,13 @@ package SCMS;
 import java.util.Date;
 
 abstract class Person {
-    private int id;
+    private String id;
     private String firstName;
     private String lastName;
-    private Date dateOfBirth;
+    private String dateOfBirth;
     private String password;
 
-    public Person(int id, String firstName, String lastName, Date dateOfBirth,String password) {
+    public Person(String id, String firstName, String lastName, String dateOfBirth,String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -19,11 +19,11 @@ abstract class Person {
 
     public abstract void displayInfo();
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -43,11 +43,11 @@ abstract class Person {
         this.lastName = lastName;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
