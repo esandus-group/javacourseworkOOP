@@ -1,26 +1,21 @@
 package SCMS;
 
 import java.sql.*;
-import java.util.Scanner;
 
 public class DatabaseConnection {
 
-    private  Connection connections;
-    private  Statement statement;
+    private Connection connections;
+    private Statement statement;
+    //mf
     public DatabaseConnection() throws Exception {
-        String url = "jdbc:mysql://localhost:3306/School_Activity_Club_Management_System";
+
+        String url = "jdbc:mysql://localhost:3306/school_club_management";
         String username = "root";
-        String password = "";
+        String password = "esandu12345";
         Class.forName("com.mysql.cj.jdbc.Driver");
         connections = DriverManager.getConnection(url,username,password);
         statement = connections.createStatement();
-        ResultSet st_IDs = statement.executeQuery("SELECT firstName, lastName FROM ClubAdvisor WHERE id = 'T1'");
-
-//        statement.close();
-//        connections.close();
-
-
-    }
+        ResultSet st_IDs = statement.executeQuery("SELECT firstName, lastName FROM ClubAdvisor WHERE id = 'T1'");}
 //    public void printtt(ResultSet st_IDs) throws SQLException {
 //        while (st_IDs.next()) {
 //            String firstName = st_IDs.getString("firstName");
@@ -35,7 +30,7 @@ public class DatabaseConnection {
     public void removeStudent() throws SQLException {
 //        Scanner input = new Scanner(System.in);
 //        int St_ID = input.nextInt();
-        try{
+        try {
             String sql = "SELECT firstName, lastName FROM ClubAdvisor WHERE id = 'T1'";
             ResultSet resultSet = statement.executeQuery(sql);
 
@@ -45,17 +40,17 @@ public class DatabaseConnection {
 
                 System.out.println("First Name: " + firstName + ", Last Name: " + lastName);
             }
-        } catch(SQLIntegrityConstraintViolationException e){
+        } catch (SQLIntegrityConstraintViolationException e) {
             System.out.println("ff");
-
-//            int new_ID = input.nextInt();
-//            addStudent(new_ID,fName,lName,t_index);
+//
+////            int new_ID = input.nextInt();
+////            addStudent(new_ID,fName,lName,t_index);
         }
-
-        statement.close();
-        connections.close();
-
-    }
+//
+//        statement.close();
+//        connections.close();
+//
+//    }
 //    public void addStudent(int index, String fName, String lName,int [][] module_teacher) throws SQLException {
 //        Scanner input = new Scanner(System.in);
 //        try{
@@ -93,4 +88,4 @@ public class DatabaseConnection {
 //        connections.close();
 //
 //    }
-}
+    }}
