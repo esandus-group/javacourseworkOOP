@@ -37,4 +37,4 @@ build/
 ### Mac OS ###
 .DS_Store
 
-.DatabaseConnection
+src/main/java/SCMS/DatabaseConnection.java
