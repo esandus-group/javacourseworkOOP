@@ -21,7 +21,10 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) throws Exception {
 
+        PressClubController controller3 = new PressClubController();
+        RemoveStudentController controller2 = new RemoveStudentController();
         createClubController controller = new createClubController();
+        ViewStudentsController controller1 =new ViewStudentsController();
         launch();
 
     }
