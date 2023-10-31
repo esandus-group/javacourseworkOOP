@@ -1,5 +1,7 @@
-package SCMS;
+package SCMS.Controllers;
 
+import SCMS.Utils.SCMSEnvironment;
+import io.github.cdimascio.dotenv.Dotenv;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,6 +50,7 @@ public class PressClubController {
     @FXML
     private Button removeStudent;
 
+
     @FXML
     private TableView<?> toUsers;
 
@@ -55,11 +58,12 @@ public class PressClubController {
     public PressClubController() {
         try {
             // Initialize the database connection when the controller is created
-            String url = "jdbc:mysql://localhost:3306/school_club_management";
-            String username = "root";
-            String password = "esandu12345";
+//            Dotenv env = Dotenv.configure().load();
+//            String url = env.get("MYSQL_DB_URL");
+//            String username = "root";
+//            String password = "";
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connections = DriverManager.getConnection(url, username, password);
+            connections = DriverManager.getConnection(SCMSEnvironment.getInstance().getSqlConnectionString());
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -74,13 +78,13 @@ public class PressClubController {
     }
     //=======================================================
     public void onRemoveStudentClick(ActionEvent event) throws Exception{
-        String fileName="DeleteStudent.fxml";      //open the page
+        String fileName="/SCMS/FxmlFiles/DeleteStudent.fxml";      //open the page
         stageLoader(event,fileName);
 
     }
     //=======================================================
     public void onVeiwStudentsButtonClick(ActionEvent event) throws Exception{
-        String fileName="view Students.fxml";      //open the page
+        String fileName="/SCMS/FxmlFiles/view Students.fxml";      //open the page
         stageLoader(event,fileName);
 
     }

@@ -5,7 +5,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.StudentDashboardController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.StudentDashboardController">
    <children>
       <Button fx:id="club3Button" layoutX="415.0" layoutY="158.0" mnemonicParsing="false" onAction="#onClub3ButtonClick" prefHeight="111.0" prefWidth="121.0" text="Club 3" />
       <Button fx:id="club1Button" layoutX="64.0" layoutY="158.0" mnemonicParsing="false" onAction="#onClub1ButtonClick" prefHeight="111.0" prefWidth="121.0" text="Club 1" />

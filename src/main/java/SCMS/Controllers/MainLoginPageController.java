@@ -1,4 +1,4 @@
-package SCMS;
+package SCMS.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,7 +12,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class MainLoginPageController {
 
@@ -44,17 +43,17 @@ public class MainLoginPageController {
         stage.show();
     }
     public void onRegisterButtonClick(ActionEvent event) throws IOException{
-        fileName = "RegisterToSCMS.fxml";
+        fileName = "/SCMS/FxmlFiles/RegisterToSCMS.fxml";
         stageLoader(event, fileName);
     }
     public void onClubAdvisorLoginButtonClick(ActionEvent event) throws IOException{
-        fileName = "Club advisor.fxml";
+        fileName = "/SCMS/FxmlFiles/Club advisor.fxml";
         stageLoader(event, fileName);
     }
     public void Login(ActionEvent event) throws IOException{
-        fileName = "StudentDashboard.fxml";
+        fileName = "/SCMS/FxmlFiles/StudentDashboard.fxml";
         if (validateUsername() && validatePassword()){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentDashboard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/StudentDashboard.fxml"));
             Parent root = loader.load();
             StudentDashboardController SDC = loader.getController();
             SDC.setWelcomeText(username);

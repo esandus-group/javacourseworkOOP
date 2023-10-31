@@ -1,7 +1,6 @@
-package SCMS;
+package SCMS.Objects;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Student extends Person{
 

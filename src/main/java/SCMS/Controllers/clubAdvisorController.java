@@ -1,4 +1,4 @@
-package SCMS;
+package SCMS.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,31 +31,31 @@ public class clubAdvisorController {
     }
     //---------------------------------------------------------------------
     public void onAddClubClick(ActionEvent event) throws Exception{ //nikoyas add club
-        fileName="CreateClub.fxml";      //open the page
+        fileName="/SCMS/FxmlFiles/CreateClub.fxml";      //open the page
         stageLoader(event,fileName);
 
     }
     //---------------------------------------------------------------------
     public void onClub1PressClick(ActionEvent event) throws Exception{
-        fileName="PressClub.fxml";      //open the page
+        fileName="/SCMS/FxmlFiles/PressClub.fxml";      //open the page
         stageLoader(event,fileName);
     }
 
     public void onClub2PressClick(ActionEvent event) throws Exception{
-        fileName="PressClub.fxml";      //open the page
+        fileName="/SCMS/FxmlFiles/PressClub.fxml";      //open the page
         stageLoader(event,fileName);
     }
     public void onClub3PressClick(ActionEvent event) throws Exception{
-        fileName="PressClub.fxml";      //open the page
+        fileName="/SCMS/FxmlFiles/PressClub.fxml";      //open the page
         stageLoader(event,fileName);
     }
     public void onClub4PressClick(ActionEvent event) throws Exception{
-        fileName="PressClub.fxml";      //open the page
+        fileName="/SCMS/FxmlFiles/PressClub.fxml";      //open the page
         stageLoader(event,fileName);
     }
 
     public void onRemoveStudentClick(ActionEvent event) throws Exception{
-        fileName="DeleteStudent.fxml";      //open the page
+        fileName="/SCMS/FxmlFiles/DeleteStudent.fxml";      //open the page
         stageLoader(event,fileName);
 
     }

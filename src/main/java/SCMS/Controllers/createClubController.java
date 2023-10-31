@@ -1,5 +1,8 @@
-package SCMS;
+package SCMS.Controllers;
 
+import SCMS.Objects.Club;
+import SCMS.Objects.ClubAdvisor;
+import SCMS.Utils.SCMSEnvironment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -31,15 +34,10 @@ public class createClubController {
     //=========================================================================
     public createClubController() {
         try {
-            // Initialize the database connection when the controller is created
-            String url = "jdbc:mysql://localhost:3306/school_club_management";
-            String username = "root";
-            String password = "esandu12345";
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connections = DriverManager.getConnection(url, username, password);
+            connections = DriverManager.getConnection(SCMSEnvironment.getInstance().getSqlConnectionString());
         } catch (Exception e) {
             e.printStackTrace();
-            // Handle the exception appropriately
         }
     }
     //=========================================================================

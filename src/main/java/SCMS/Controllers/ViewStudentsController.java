@@ -1,5 +1,7 @@
-package SCMS;
+package SCMS.Controllers;
 
+import SCMS.Objects.Student;
+import SCMS.Utils.SCMSEnvironment;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,7 +21,7 @@ public class ViewStudentsController {
     @FXML
     private Label idStatusLabel;
 
-    private Connection connections;
+    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection();
     @FXML
     private TableColumn<Student, String> StudentNameCol;
     @FXML
@@ -36,19 +38,25 @@ public class ViewStudentsController {
     private TableColumn<Student, String> studentIdCol;
     ArrayList<Student> studentsPresent = new ArrayList<>();
     //=======================================================
-    public ViewStudentsController() {
-        try {
-            // Initialize the database connection when the controller is created
-            String url = "jdbc:mysql://localhost:3306/school_club_management";
-            String username = "root";
-            String password = "esandu12345";
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connections = DriverManager.getConnection(url, username, password);
-        } catch (Exception e) {
-            e.printStackTrace();
 
-        }
-    }
+
+
+
+//    public ViewStudentsController() {
+//        try {
+//            // Initialize the database connection when the controller is created
+////
+////            Dotenv env = Dotenv.configure().load();
+////            String url = env.get("MYSQL_DB_URL");
+////            String username = "root";
+////            String password = "";
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//            connections = DriverManager.getConnection(SCMSEnvironment.getInstance().getSqlConnectionString());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//
+//        }
+//    }
     //=======================================================
     public ArrayList<Student> getStudentsByClubId(String clubId) {
         ArrayList<Student> studentsList = new ArrayList<>();

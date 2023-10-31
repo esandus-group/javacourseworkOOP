@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="427.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.ViewStudentsController">
+<AnchorPane prefHeight="427.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.ViewStudentsController">
    <children>
       <TableView fx:id="viewStudentsTable" layoutX="24.0" layoutY="19.0" prefHeight="389.0" prefWidth="406.0">
         <columns>

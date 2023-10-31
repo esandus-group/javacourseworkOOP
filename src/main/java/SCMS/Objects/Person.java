@@ -1,4 +1,4 @@
-package SCMS;
+package SCMS.Objects;
 
 import java.util.Date;
 

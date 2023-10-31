@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.clubAdvisorController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.clubAdvisorController">
    <children>
       <ImageView fitHeight="500.0" fitWidth="412.0" layoutX="-1.0" layoutY="1.0">
          <image>
-            <Image url="@images/background.jpg" />
+            <Image url="@../images/background.jpg" />
          </image>
       </ImageView>
       <Label alignment="CENTER" layoutX="15.0" layoutY="190.0" prefHeight="47.0" prefWidth="379.0" text="WELCOME TO CLUB ADVISORS " textFill="#9c1098">
@@ -26,7 +26,7 @@
       </Label>
       <ImageView fitHeight="116.0" fitWidth="120.0" layoutX="128.0" layoutY="57.0">
          <image>
-            <Image url="@images/images-modified.png" />
+            <Image url="@../images/images-modified.png" />
          </image>
       </ImageView>
       <Button fx:id="club1" layoutX="498.0" layoutY="27.0" mnemonicParsing="false" onAction="#onClub1PressClick" prefHeight="59.0" prefWidth="107.0" style="-fx-background-color: #f0bcdd; -fx-background-radius: 10; -fx-border-color: #000000; -fx-border-radius: 10;" text="Club 1">

@@ -1,9 +1,12 @@
-package SCMS;
+package SCMS.Controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
+
+import java.io.IOException;
 
 public class ClubDashboardController {
 
@@ -15,12 +18,21 @@ public class ClubDashboardController {
 
     @FXML
     private Button leaveClubButton;
+    @FXML
+    private Button createNewEvent;
+    MainLoginPageController HelloApplication;
+
+
 
     String name;
 
     public void setClubNameText(String name){
         clubNameText.setText(name);
     }
+//    public void onCreateNewEvent(ActionEvent event) throws IOException {
+//        HelloApplication.stageLoader(event, "Event.fxml");
+//    }
 
 }
+
 

@@ -1,4 +1,4 @@
-package SCMS;
+package SCMS.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,14 +45,14 @@ public class HelloController {
     //=====================================================================
     public void navigateToStudentPage() throws IOException {
         Stage Stage2 = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("StudentDashboard.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/SCMS/FxmlFiles/StudentDashboard.fxml"));
         Stage2.setScene(new Scene(root));
         Stage2.show();
     }
     //===============================================================
     public void navigateToAdvisorPage() throws IOException {
         Stage Stage3 = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("Club advisor.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/SCMS/FxmlFiles/Club advisor.fxml"));
         Stage3.setScene(new Scene(root));
         Stage3.show();
     }
