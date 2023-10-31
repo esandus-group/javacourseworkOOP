@@ -23,7 +23,7 @@ public class PressClubController {
 
     public String confirmation;
     public String clubIdDelete;
-    private Connection connections;
+
     @FXML
     private Button deleteClub;
 
@@ -36,6 +36,7 @@ public class PressClubController {
     private TextField advisorIdDeleting;
 
     String advisorIdWhoIsDeleting;
+    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection();
 
 
     @FXML
@@ -55,20 +56,20 @@ public class PressClubController {
     private TableView<?> toUsers;
 
     Stage stage;
-    public PressClubController() {
-        try {
-            // Initialize the database connection when the controller is created
-//            Dotenv env = Dotenv.configure().load();
-//            String url = env.get("MYSQL_DB_URL");
-//            String username = "root";
-//            String password = "";
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connections = DriverManager.getConnection(SCMSEnvironment.getInstance().getSqlConnectionString());
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-    }
+//    public PressClubController() {
+//        try {
+//            // Initialize the database connection when the controller is created
+////            Dotenv env = Dotenv.configure().load();
+////            String url = env.get("MYSQL_DB_URL");
+////            String username = "root";
+////            String password = "";
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//            connections = DriverManager.getConnection(SCMSEnvironment.getInstance().getSqlConnectionString());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//
+//        }
+//    }
     public void stageLoader(ActionEvent event, String fileName) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource(fileName));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

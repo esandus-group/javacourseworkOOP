@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import java.sql.*;
 
 public class createClubController {
+    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection();
     @FXML
     private TextField clubName;
     @FXML
@@ -28,18 +29,18 @@ public class createClubController {
     public int clubId;
     public String clubNam;
 
-    private Connection connections;
+
 
 
     //=========================================================================
-    public createClubController() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connections = DriverManager.getConnection(SCMSEnvironment.getInstance().getSqlConnectionString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    public createClubController() {
+//            try {
+//                Class.forName("com.mysql.cj.jdbc.Driver");
+//                connections = DriverManager.getConnection(SCMSEnvironment.getInstance().getSqlConnectionString());
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//    }
     //=========================================================================
     public int getNewClubId() {
         int newClubId = 0;

@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import java.sql.*;
 
 public class RemoveStudentController {
-
+    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection();
     @FXML
     private TextField deleteStudentClub;
 
@@ -23,25 +23,25 @@ public class RemoveStudentController {
 
     @FXML
     private Button removeStudentButton;
-    private Connection connections;
+
     @FXML
     private Label statusShowLabel;
     //=======================================================
-    public RemoveStudentController() {
-        try {
-            // Initialize the database connection when the controller is created
-//            Dotenv env = Dotenv.configure().load();
-//            String url = env.get("MYSQL_DB_URL");
-//            String username = "root";
-//            String password = "";
-
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connections = DriverManager.getConnection(SCMSEnvironment.getInstance().getSqlConnectionString());
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-    }
+//    public RemoveStudentController() {
+//        try {
+//            // Initialize the database connection when the controller is created
+////            Dotenv env = Dotenv.configure().load();
+////            String url = env.get("MYSQL_DB_URL");
+////            String username = "root";
+////            String password = "";
+//
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//            connections = DriverManager.getConnection(SCMSEnvironment.getInstance().getSqlConnectionString());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//
+//        }
+//    }
     //=======================================================
     public String getStudentFirstName(String studentId) {
         String firstName = null;
