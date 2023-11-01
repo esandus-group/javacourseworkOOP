@@ -19,8 +19,8 @@ public class ClubDashboardController {
     @FXML
     private Button leaveClubButton;
     @FXML
-    private Button createNewEvent;
-    MainLoginPageController HelloApplication;
+
+
 
 
 
@@ -29,9 +29,7 @@ public class ClubDashboardController {
     public void setClubNameText(String name){
         clubNameText.setText(name);
     }
-//    public void onCreateNewEvent(ActionEvent event) throws IOException {
-//        HelloApplication.stageLoader(event, "Event.fxml");
-//    }
+
 
 }
 

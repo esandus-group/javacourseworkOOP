@@ -1,5 +1,6 @@
 package SCMS.Controllers;
 
+import SCMS.HelloApplication;
 import SCMS.Utils.SCMSEnvironment;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.sql.*;
 
 public class PressClubController {
+    HelloApplication helloApplicationInstance = new HelloApplication();
     @FXML
     private TextField clubIdToDelete;
 
@@ -54,6 +56,8 @@ public class PressClubController {
 
     @FXML
     private TableView<?> toUsers;
+    @FXML
+    private Button createNewEvent;
 
     Stage stage;
 //    public PressClubController() {
@@ -168,6 +172,10 @@ public class PressClubController {
         } else {
             System.out.println("Deletion not confirmed. Club was not deleted.");
         }
+    }
+
+    public void onCreateNewEvent(ActionEvent event) throws IOException {
+        helloApplicationInstance.stageLoader(event, "/SCMS/FxmlFiles/Event.fxml");
     }
     //=========================================================================
 }
