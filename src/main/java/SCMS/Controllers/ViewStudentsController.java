@@ -98,6 +98,24 @@ public class ViewStudentsController {
 
         return studentsList;
     }
+    public boolean checkIfClubExists(String clubId) {
+        String query = "SELECT 1 FROM Club WHERE clubId = ?";
+        boolean clubExists = false;
+
+        try (PreparedStatement statement = connections.prepareStatement(query)) {
+            statement.setString(1, clubId);
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                clubExists = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+        return clubExists;
+    }
     //=======================================================
 
     public void loadingStudents(){
@@ -114,8 +132,15 @@ public class ViewStudentsController {
 
     public void onFillTableButtonClick(ActionEvent event) throws Exception {
         idOfClub = clubIdStudents.getText();
-        studentsPresent = getStudentsByClubId(idOfClub);
-        loadingStudents();
+        if (!checkIfClubExists(idOfClub)){
+            idStatusLabel.setText("Club not found");
+        }
+        else {
+            studentsPresent = getStudentsByClubId(idOfClub);
+            idStatusLabel.setText("");
+            loadingStudents();
+        }
+
     }
     //===================================================================
 }

@@ -2,17 +2,13 @@ package SCMS.Controllers;
 
 import SCMS.HelloApplication;
 import SCMS.Utils.SCMSEnvironment;
-import io.github.cdimascio.dotenv.Dotenv;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,6 +22,12 @@ public class PressClubController {
     public String confirmation;
     public String clubIdDelete;
 
+
+    @FXML
+    private Label deletingStatus;
+
+    @FXML
+    private Label deletingStatus1;
     @FXML
     private Button deleteClub;
 
@@ -38,8 +40,8 @@ public class PressClubController {
     private TextField advisorIdDeleting;
 
     String advisorIdWhoIsDeleting;
-    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection();
 
+    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection();
 
     @FXML
     private TableColumn<?, ?> colAttendance;
@@ -60,20 +62,7 @@ public class PressClubController {
     private Button createNewEvent;
 
     Stage stage;
-//    public PressClubController() {
-//        try {
-//            // Initialize the database connection when the controller is created
-////            Dotenv env = Dotenv.configure().load();
-////            String url = env.get("MYSQL_DB_URL");
-////            String username = "root";
-////            String password = "";
-//            Class.forName("com.mysql.cj.jdbc.Driver");
-//            connections = DriverManager.getConnection(SCMSEnvironment.getInstance().getSqlConnectionString());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//
-//        }
-//    }
+
     public void stageLoader(ActionEvent event, String fileName) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource(fileName));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -88,7 +77,7 @@ public class PressClubController {
 
     }
     //=======================================================
-    public void onVeiwStudentsButtonClick(ActionEvent event) throws Exception{
+    public void onViewStudentsButtonClick(ActionEvent event) throws Exception{
         String fileName="/SCMS/FxmlFiles/view Students.fxml";      //open the page
         stageLoader(event,fileName);
 
@@ -167,9 +156,13 @@ public class PressClubController {
                 clubIdToDelete.clear();
                 advisorIdDeleting.clear();
             } else {
+                deletingStatus.setText("An advisor with That ID does not manage a Club");
+                deletingStatus1.setText("Club not deleted");
+
                 System.out.println("Advisor with ID " + advisorIdWhoIsDeleting + " does not manage the club with ID " + clubIdDelete + ". Club was not deleted.");
             }
         } else {
+            deletingStatus1.setText("Deletion not confirmed. Club was not deleted.");
             System.out.println("Deletion not confirmed. Club was not deleted.");
         }
     }

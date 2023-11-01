@@ -20,28 +20,18 @@ public class RemoveStudentController {
 
     @FXML
     private TextField deleteStudentReason;
-
+    @FXML
+    private Label reasonStatus;
+    @FXML
+    private Label clubIdStatus;
+    @FXML
+    private Label studentIdStatus;
     @FXML
     private Button removeStudentButton;
 
     @FXML
     private Label statusShowLabel;
-    //=======================================================
-//    public RemoveStudentController() {
-//        try {
-//            // Initialize the database connection when the controller is created
-////            Dotenv env = Dotenv.configure().load();
-////            String url = env.get("MYSQL_DB_URL");
-////            String username = "root";
-////            String password = "";
-//
-//            Class.forName("com.mysql.cj.jdbc.Driver");
-//            connections = DriverManager.getConnection(SCMSEnvironment.getInstance().getSqlConnectionString());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//
-//        }
-//    }
+
     //=======================================================
     public String getStudentFirstName(String studentId) {
         String firstName = null;
@@ -129,6 +119,43 @@ public class RemoveStudentController {
             return false; // Return false in case of an exception.
         }
     }
+    public boolean isStudentIdValid(String studentId){
+        if ( studentId== null || studentId.equals("")){
+            return false;
+        }
+        return true;
+    }
+    public boolean isClubIdValid(String clubId){
+        if ( clubId== null || clubId.equals("")){
+            return false;
+        }
+        return true;
+    }
+    public boolean isReasonValid(String reason){
+        if ( reason== null || reason.equals("")){
+            return false;
+        }
+        return true;
+    }
+    public boolean checkIfClubExists(String clubId) {
+        String query = "SELECT 1 FROM Club WHERE clubId = ?";
+        boolean clubExists = false;
+
+        try (PreparedStatement statement = connections.prepareStatement(query)) {
+            statement.setString(1, clubId);
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                clubExists = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+        return clubExists;
+    }
+
     //=======================================================
     public void onRemoveStudentButtonClick(ActionEvent event) throws Exception {
         String studentId = deleteStudentId.getText();
@@ -136,27 +163,36 @@ public class RemoveStudentController {
         String reason = deleteStudentReason.getText();
         String firstNameOfStudent= getStudentFirstName(studentId);
 
-        if (studentId.isEmpty() || clubIdToDeleteStudent.isEmpty() || reason.isEmpty()) {
-            // Handle empty input fields (you can show an error message)
-            System.out.println("Please fill in all fields.");
+        if (!isStudentIdValid(studentId)) {
+            studentIdStatus.setText("please enter the ID");
             return;
         }
-        // Check if the student ID exists in the club_student table
-        if (!studentExistsInClub(clubIdToDeleteStudent, studentId)) {
-            System.out.println("Student with ID " + studentId + " does not exist in the club.");
-            // You can show an error message here or handle it as needed.
+        if (!isClubIdValid(clubIdToDeleteStudent)) {
+            clubIdStatus.setText("please enter the ID");
+            return;
+        }
+        if (!isReasonValid(reason)) {
+            reasonStatus.setText("please enter the Reason");
+            return;
+        }
+        if (!checkIfClubExists(clubIdToDeleteStudent)){
+            statusShowLabel.setText("Club not found");
             return;
         }
 
-        // Call the methods to save the removed student and remove them from the club
+        // Checking if the student ID exists in the club_student table
+        if (!studentExistsInClub(clubIdToDeleteStudent, studentId)) {
+            System.out.println("Student with ID " + studentId + " does not exist in the club.");
+            statusShowLabel.setText("Student not Found");
+            return;
+        }
+
+        // Calling the methods to save the removed student and remove them from the club
         saveRemovedStudent(clubIdToDeleteStudent, studentId,firstNameOfStudent, reason);
         removeStudentFromClub(clubIdToDeleteStudent, studentId);
 
-        // Optionally, you can clear the input fields or perform other actions
         deleteStudentId.clear();
         deleteStudentClub.clear();
         deleteStudentReason.clear();
     }
-
-
 }

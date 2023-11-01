@@ -17,8 +17,7 @@ import java.io.IOException;
 
 public class HelloApplication extends Application {
     Stage stage;
-//    public HelloApplication() throws Exception {
-//    }
+
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -27,6 +26,7 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
     public static void main(String[] args) {
 
         PressClubController controller3 = new PressClubController();

@@ -18,7 +18,8 @@ public class createClubController {
     private TextField clubAdvisorID;
 
     public String clubAdvisorId;
-
+    @FXML
+    private Label creationStatus;
     @FXML
     private Label idStatus;
 
@@ -32,15 +33,7 @@ public class createClubController {
 
 
 
-    //=========================================================================
-//    public createClubController() {
-//            try {
-//                Class.forName("com.mysql.cj.jdbc.Driver");
-//                connections = DriverManager.getConnection(SCMSEnvironment.getInstance().getSqlConnectionString());
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//    }
+
     //=========================================================================
     public int getNewClubId() {
         int newClubId = 0;
@@ -77,7 +70,7 @@ public class createClubController {
         return null; // ClubAdvisor not found
     }
     //=========================================================================
-    public boolean isClubExists(String clubName) {
+    public boolean doesClubExists(String clubName) {
         String query = "SELECT COUNT(*) FROM Club WHERE name = ?";
         try (PreparedStatement statement = connections.prepareStatement(query)) {
             statement.setString(1, clubName);
@@ -90,18 +83,35 @@ public class createClubController {
             return false; // In this case, return false to indicate that an error occurred
         }
     }
+    public boolean isAdvisorIdValid(String id){
+        if ( id== null || id.equals("")){
+            return false;
+        }
+        return true;
+    }
+    public boolean isClubNameValid(String name){
+        if ( name== null || name.equals("")){
+            return false;
+        }
+        return true;
+    }
     //=========================================================================
 
     public void onSaveNewClubClick(ActionEvent event) throws Exception {
         clubNam = clubName.getText();                               //getting the information
         clubAdvisorId = clubAdvisorID.getText();
-
+        if (!isClubNameValid(clubNam)){
+            nameStatus.setText("pls enter the name of the club");
+        }
+        if (!isAdvisorIdValid(clubAdvisorId)){
+            idStatus.setText("pls enter the id of the advisor");
+            return;
+        }
         if (getClubAdvisor(clubAdvisorId) == null) {
-
             idStatus.setText("suck a ID not found, re enter");
         } else {
             currentClubAdvisor = getClubAdvisor(clubAdvisorId);
-            if (isClubExists(clubNam)) {
+            if (doesClubExists(clubNam)) {
 
                 nameStatus.setText("A club with this name already exists.");
 
