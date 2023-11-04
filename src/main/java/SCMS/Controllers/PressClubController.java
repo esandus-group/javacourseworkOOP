@@ -41,7 +41,7 @@ public class PressClubController {
 
     String advisorIdWhoIsDeleting;
 
-    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection();
+    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETING THE CONNECTION OF THE DB
 
     @FXML
     private TableColumn<?, ?> colAttendance;
@@ -63,13 +63,14 @@ public class PressClubController {
 
     Stage stage;
 
-    public void stageLoader(ActionEvent event, String fileName) throws IOException {
+    public void stageLoader(ActionEvent event, String fileName) throws IOException { //STAGE LOADER METHOD
         Parent root = FXMLLoader.load(getClass().getResource(fileName));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+
     //=======================================================
     public void onRemoveStudentClick(ActionEvent event) throws Exception{
         String fileName="/SCMS/FxmlFiles/DeleteStudent.fxml";      //open the page
@@ -85,6 +86,7 @@ public class PressClubController {
     //=======================================================
     public boolean checkIfAdvisorManagesClub(String clubId, String advisorId) {
         String query = "SELECT 1 FROM Club WHERE clubId = ? AND idOfAdvisor = ?";
+
         boolean advisorManagesClub = false;
 
         try (PreparedStatement statement = connections.prepareStatement(query)) {
@@ -95,6 +97,7 @@ public class PressClubController {
             if (resultSet.next()) {
                 advisorManagesClub = true;
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -103,6 +106,7 @@ public class PressClubController {
         return advisorManagesClub;
     }
     public void deleteClub(String clubId) {
+
         try {
             // Delete all students from the Club_Student table
             String deleteStudentsQuery = "DELETE FROM Club_Student WHERE clubId = ?";
@@ -142,28 +146,31 @@ public class PressClubController {
 
     //=======================================================
     public void onDeleteClubClick(ActionEvent event) throws Exception {
-        confirmation = confirmText.getText();
+        confirmation = confirmText.getText(); //getting the stuff from the text fields
         clubIdDelete = clubIdToDelete.getText();
         advisorIdWhoIsDeleting =advisorIdDeleting.getText();
 
         if (confirmation.equals("CONFIRM")) {
-            // Check if the advisor manages the club
+
+            // Checking if the advisor manages the club
             if (checkIfAdvisorManagesClub(clubIdDelete, advisorIdWhoIsDeleting)) {
+
                 // Proceed with club deletion
-                deleteClub(clubIdDelete);
-                System.out.println("Club with ID " + clubIdDelete + " has been deleted.");
+                deleteClub(clubIdDelete);          //have to change and then the advisor cant make a new one
+
+                //clearing the text fields
                 confirmText.clear();
                 clubIdToDelete.clear();
                 advisorIdDeleting.clear();
+
             } else {
+
                 deletingStatus.setText("An advisor with That ID does not manage a Club");
                 deletingStatus1.setText("Club not deleted");
 
-                System.out.println("Advisor with ID " + advisorIdWhoIsDeleting + " does not manage the club with ID " + clubIdDelete + ". Club was not deleted.");
             }
         } else {
             deletingStatus1.setText("Deletion not confirmed. Club was not deleted.");
-            System.out.println("Deletion not confirmed. Club was not deleted.");
         }
     }
 

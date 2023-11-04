@@ -22,17 +22,18 @@ public class clubAdvisorController {
 
     //Database db1 = new Database();
     //=============================================================
-    public void stageLoader(ActionEvent event, String fileName) throws IOException {
+    public void stageLoader(ActionEvent event, String fileName) throws IOException { //used to load the new stage
         Parent root = FXMLLoader.load(getClass().getResource(fileName));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+
     //---------------------------------------------------------------------
-    public void onAddClubClick(ActionEvent event) throws Exception{ //nikoyas add club
-        fileName="/SCMS/FxmlFiles/CreateClub.fxml";      //open the page
-        stageLoader(event,fileName);
+    public void onAddClubClick(ActionEvent event) throws Exception{ // add club
+        fileName="/SCMS/FxmlFiles/CreateClub.fxml";      //the fxml path
+        stageLoader(event,fileName);                    //call the stage loader method passing the fxml path
 
     }
     //---------------------------------------------------------------------
@@ -52,12 +53,6 @@ public class clubAdvisorController {
     public void onClub4PressClick(ActionEvent event) throws Exception{
         fileName="/SCMS/FxmlFiles/PressClub.fxml";      //open the page
         stageLoader(event,fileName);
-    }
-
-    public void onRemoveStudentClick(ActionEvent event) throws Exception{
-        fileName="/SCMS/FxmlFiles/DeleteStudent.fxml";      //open the page
-        stageLoader(event,fileName);
-
     }
 
 }

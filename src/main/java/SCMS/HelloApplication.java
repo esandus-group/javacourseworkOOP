@@ -18,7 +18,6 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     Stage stage;
 
-
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/SCMS/FxmlFiles/MainLoginPage.fxml"));

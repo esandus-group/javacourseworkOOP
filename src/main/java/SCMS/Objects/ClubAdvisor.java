@@ -40,6 +40,7 @@ public class ClubAdvisor extends Person{
             managingClubs.remove(clubToDelete);
         }
     }
+
     public void removeStudent(){
 
     }

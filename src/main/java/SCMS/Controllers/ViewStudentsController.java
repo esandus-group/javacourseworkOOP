@@ -61,6 +61,7 @@ public class ViewStudentsController {
     public ArrayList<Student> getStudentsByClubId(String clubId) {
         ArrayList<Student> studentsList = new ArrayList<>();
 
+        //GETTING THE STUDENT IDS FROM THE TABLE
         // Step 1: Execute a query to get student IDs from Club_Students for the given clubId
         String query1 = "SELECT id FROM Club_Student WHERE clubid = ?";
         try (PreparedStatement statement1 = connections.prepareStatement(query1)) {
@@ -70,6 +71,7 @@ public class ViewStudentsController {
             while (resultSet1.next()) {
                 String studentId = resultSet1.getString("id");
 
+                //GETTING THE STUDENT OBJECTS USING THOSE IDS FROM STUDENT TABLE
                 // Step 2: Execute a query to get student details from the Student table
                 String query2 = "SELECT * FROM Student WHERE id = ?";
                 try (PreparedStatement statement2 = connections.prepareStatement(query2)) {
@@ -88,12 +90,12 @@ public class ViewStudentsController {
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    // Handle the exception here
+
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle the exception here
+
         }
 
         return studentsList;
@@ -132,13 +134,16 @@ public class ViewStudentsController {
 
     public void onFillTableButtonClick(ActionEvent event) throws Exception {
         idOfClub = clubIdStudents.getText();
+
         if (!checkIfClubExists(idOfClub)){
             idStatusLabel.setText("Club not found");
         }
+
         else {
             studentsPresent = getStudentsByClubId(idOfClub);
             idStatusLabel.setText("");
             loadingStudents();
+            fillTableButton.setDisable(true);
         }
 
     }

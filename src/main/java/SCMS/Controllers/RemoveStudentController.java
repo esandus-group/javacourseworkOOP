@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import java.sql.*;
 
 public class RemoveStudentController {
-    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection();
+    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection();//getting the connection
     @FXML
     private TextField deleteStudentClub;
 
@@ -97,7 +97,6 @@ public class RemoveStudentController {
 
             } catch (SQLException e) {
                 e.printStackTrace();
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,19 +111,23 @@ public class RemoveStudentController {
             statement.setString(2, studentId);
 
             ResultSet resultSet = statement.executeQuery();
-            return resultSet.next(); // If the result set has a row, the student exists in the club.
+            return resultSet.next();
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle the exception here.
-            return false; // Return false in case of an exception.
+
+            return false;
         }
     }
+
+
+    //checking code part
     public boolean isStudentIdValid(String studentId){
         if ( studentId== null || studentId.equals("")){
             return false;
         }
         return true;
     }
+
     public boolean isClubIdValid(String clubId){
         if ( clubId== null || clubId.equals("")){
             return false;
@@ -137,8 +140,10 @@ public class RemoveStudentController {
         }
         return true;
     }
+
     public boolean checkIfClubExists(String clubId) {
         String query = "SELECT 1 FROM Club WHERE clubId = ?";
+
         boolean clubExists = false;
 
         try (PreparedStatement statement = connections.prepareStatement(query)) {
@@ -158,28 +163,34 @@ public class RemoveStudentController {
 
     //=======================================================
     public void onRemoveStudentButtonClick(ActionEvent event) throws Exception {
+        //getting the information
         String studentId = deleteStudentId.getText();
         String clubIdToDeleteStudent = deleteStudentClub.getText(); // Assuming clubId is a string
         String reason = deleteStudentReason.getText();
-        String firstNameOfStudent= getStudentFirstName(studentId);
 
+        //checking whether they are empty
         if (!isStudentIdValid(studentId)) {
             studentIdStatus.setText("please enter the ID");
             return;
         }
+
         if (!isClubIdValid(clubIdToDeleteStudent)) {
             clubIdStatus.setText("please enter the ID");
             return;
         }
+
         if (!isReasonValid(reason)) {
             reasonStatus.setText("please enter the Reason");
             return;
         }
-        if (!checkIfClubExists(clubIdToDeleteStudent)){
+
+        //checking if the club exists to delete the student
+        if (!checkIfClubExists(clubIdToDeleteStudent)) {
             statusShowLabel.setText("Club not found");
             return;
         }
 
+        //checking if that student is in the club to delete
         // Checking if the student ID exists in the club_student table
         if (!studentExistsInClub(clubIdToDeleteStudent, studentId)) {
             System.out.println("Student with ID " + studentId + " does not exist in the club.");
@@ -187,12 +198,17 @@ public class RemoveStudentController {
             return;
         }
 
-        // Calling the methods to save the removed student and remove them from the club
+        String firstNameOfStudent= getStudentFirstName(studentId); //getting the first name of the student
+
+
+        // Calling the methods to save the removed student table and remove them from the club_student table
         saveRemovedStudent(clubIdToDeleteStudent, studentId,firstNameOfStudent, reason);
+
         removeStudentFromClub(clubIdToDeleteStudent, studentId);
 
         deleteStudentId.clear();
         deleteStudentClub.clear();
         deleteStudentReason.clear();
+
     }
 }
