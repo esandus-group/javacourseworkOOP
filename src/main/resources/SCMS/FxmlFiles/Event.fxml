@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -37,5 +38,10 @@
       <DatePicker fx:id="eventDate" layoutX="251.0" layoutY="169.0" />
       <Text layoutX="449.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="time" />
       <ChoiceBox fx:id="eventTypeChoiceBox" layoutX="255.0" layoutY="253.0" prefWidth="150.0" />
+      <TextField fx:id="clubIdTextBoxData" layoutX="407.0" layoutY="83.0" />
+      <Text layoutX="331.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Club ID" />
+      <TextField fx:id="timeHourTextBoxData" layoutX="449.0" layoutY="199.0" prefHeight="26.0" prefWidth="94.0" promptText="Hour" />
+      <TextField fx:id="timeMinuteTextBoxData" layoutX="449.0" layoutY="234.0" prefHeight="26.0" prefWidth="94.0" promptText="Minute" />
+      <Label fx:id="errorMessageLabel" layoutX="40.0" layoutY="88.0" />
     </children>
 </AnchorPane>
