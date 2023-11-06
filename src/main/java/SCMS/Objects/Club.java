@@ -3,19 +3,25 @@ package SCMS.Objects;
 import java.util.ArrayList;
 
 public class Club {
-    private int clubId;
+    private String clubId;
     private String name;
     private ArrayList<Student> studentsPresent = new ArrayList<Student>();
 
     private String idOfAdvisor;
 
-    public Club(int clubId,String name,String idOfAdvisor){
+    public Club(String clubId,String name,String idOfAdvisor){
         this.clubId=clubId;
         this.name=name;
         this.idOfAdvisor=idOfAdvisor;
     }
+    public Club(String clubId,String name,String idOfAdvisor,ArrayList<Student> studentsPresent){
+        this.clubId=clubId;
+        this.name=name;
+        this.idOfAdvisor=idOfAdvisor;
+        this.studentsPresent=studentsPresent;
+    }
 
-    public int getClubId() {
+    public String getClubId() {
         return clubId;
     }
 
@@ -27,11 +33,15 @@ public class Club {
         return studentsPresent;
     }
 
+    public void setStudentsPresent(ArrayList<Student> studentsPresent) {
+        this.studentsPresent = studentsPresent;
+    }
+
     public String getIdOfAdvisor() {
         return idOfAdvisor;
     }
 
-    public void setClubId(int clubId) {
+    public void setClubId(String clubId) {
         this.clubId = clubId;
     }
 

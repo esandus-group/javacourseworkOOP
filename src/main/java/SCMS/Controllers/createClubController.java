@@ -27,15 +27,11 @@ public class createClubController {
     private Label nameStatus;
     ClubAdvisor currentClubAdvisor = null;
 
-    public int clubId;
+    public String clubId;
     public String clubNam;
 
-
-
-
-
     //=========================================================================
-    public int getNewClubId() { //we count how many rows are there and add 1 to get the new id
+    public String getNewClubId() { //we count how many rows are there and add 1 to get the new id
         //generating new club id
 
         int newClubId = 0;
@@ -52,7 +48,7 @@ public class createClubController {
 
         }
 
-        return newClubId;
+        return Integer.toString(newClubId);
     }
 
     //=========================================================================
@@ -73,7 +69,7 @@ public class createClubController {
                 return new ClubAdvisor(id, firstName, lastName, dateOfBirth, password); // Create a new ClubAdvisor object
             }
         }
-        return null; // ClubAdvisor not found
+        return null;
     }
 
     //=========================================================================
@@ -158,7 +154,7 @@ public class createClubController {
         String query = "INSERT INTO Club (clubId, name, idOfAdvisor) VALUES (?, ?, ?)";
 
         try (PreparedStatement statement = connections.prepareStatement(query)) {
-            statement.setInt(1, newClub.getClubId());
+            statement.setString(1, newClub.getClubId());
             statement.setString(2, newClub.getName());
             statement.setString(3, newClub.getIdOfAdvisor());
 

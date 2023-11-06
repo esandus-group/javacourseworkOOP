@@ -1,5 +1,8 @@
 package SCMS.Controllers;
 
+import SCMS.Objects.Club;
+import SCMS.Objects.ClubAdvisor;
+import SCMS.Objects.Student;
 import SCMS.Utils.SCMSEnvironment;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.event.ActionEvent;
@@ -9,9 +12,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class RemoveStudentController {
-    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection();//getting the connection
+    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //getting the connection
     @FXML
     private TextField deleteStudentClub;
 
@@ -29,8 +33,74 @@ public class RemoveStudentController {
     @FXML
     private Button removeStudentButton;
 
+    ClubAdvisor currentClubAdvisor = null;
+
+    Club currentClub = null;
+
     @FXML
     private Label statusShowLabel;
+    public Student getStudent(String studentId) {
+        String query = "SELECT * FROM Student WHERE id = ?";
+        Student student = null;
+
+        try (PreparedStatement statement = connections.prepareStatement(query)) {
+            statement.setString(1, studentId);
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                // Retrieve student details from the result set
+                String id = resultSet.getString("id");
+                String firstName = resultSet.getString("firstName");
+                String lastName = resultSet.getString("lastName");
+                String dateOfBirth = resultSet.getString("dateOfBirth");
+                String password =  resultSet.getString("password");
+                // Add more fields as needed
+
+                // Create a Student object with the retrieved data
+                student = new Student(id, firstName, lastName, dateOfBirth,password);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+        return student;
+    }
+    public ClubAdvisor getClubAdvisor(String clubAdvisorId) throws SQLException {
+        String advisorQuery = "SELECT * FROM ClubAdvisor WHERE id = ?";
+        String clubsQuery = "SELECT * FROM Club WHERE idOfAdvisor = ?";
+
+        try (PreparedStatement advisorStatement = this.connections.prepareStatement(advisorQuery);
+             PreparedStatement clubsStatement = this.connections.prepareStatement(clubsQuery)) {
+            advisorStatement.setString(1, clubAdvisorId);
+            clubsStatement.setString(1, clubAdvisorId);
+
+            ResultSet advisorResultSet = advisorStatement.executeQuery();
+            ResultSet clubsResultSet = clubsStatement.executeQuery();
+
+            if (advisorResultSet.next()) {
+                String id = advisorResultSet.getString("id");
+                String firstName = advisorResultSet.getString("firstName");
+                String lastName = advisorResultSet.getString("lastName");
+                String dateOfBirth = advisorResultSet.getString("dateOfBirth");
+                String password = advisorResultSet.getString("password");
+
+                ArrayList<Club> managingClubs = new ArrayList<>();
+                while (clubsResultSet.next()) {
+                    String clubId = clubsResultSet.getString("clubId");
+                    String clubName = clubsResultSet.getString("name");
+
+                    // Create a Club object and add it to the managingClubs list
+                    Club club = new Club(clubId,clubName,id);
+                    managingClubs.add(club);
+                }
+
+                return new ClubAdvisor(id, firstName, lastName, dateOfBirth, password, managingClubs);
+            }
+        }
+
+        return null; // ClubAdvisor not found
+    }
 
     //=======================================================
     public String getStudentFirstName(String studentId) {
@@ -46,7 +116,6 @@ public class RemoveStudentController {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle the exception here
         }
 
         return firstName;
@@ -55,7 +124,7 @@ public class RemoveStudentController {
     public void saveRemovedStudent(String clubId, String studentId, String studentFirstName, String reason) {
         try {
 
-            String query = "INSERT INTO RemovedStudents (clubid, studentid, studentFirstName, reason) VALUES (?, ?, ?, ?)";
+            String query = "INSERT INTO RemovedStudents (clubId, studentId, studentFirstName, reason) VALUES (?, ?, ?, ?)";
 
             try (PreparedStatement statement = connections.prepareStatement(query)) {
                 statement.setString(1, clubId);
@@ -117,6 +186,47 @@ public class RemoveStudentController {
 
             return false;
         }
+    }
+    public Club getClub(String clubId) throws SQLException {
+        String clubQuery = "SELECT * FROM Club WHERE clubId = ?";
+        String clubStudentQuery = "SELECT * FROM Club_Student WHERE clubId = ?";
+
+        Club club = null;
+
+            // Retrieve club details from the Club table
+            try (PreparedStatement clubStatement = connections.prepareStatement(clubQuery)) {
+                clubStatement.setString(1, clubId);
+                ResultSet clubResult = clubStatement.executeQuery();
+
+                if (clubResult.next()) {
+                    String name = clubResult.getString("name");
+                    String idOfAdvisor = clubResult.getString("idOfAdvisor");
+
+                    // Create a list to hold students present
+                    ArrayList<Student> studentsPresent = new ArrayList<>();
+
+                    // Retrieve student IDs associated with the club from the Club_Student table
+                    try (PreparedStatement clubStudentStatement = connections.prepareStatement(clubStudentQuery)) {
+                        clubStudentStatement.setString(1, clubId);
+                        ResultSet clubStudentResult = clubStudentStatement.executeQuery();
+
+                        while (clubStudentResult.next()) {
+                            String studentId = clubStudentResult.getString("id");
+                            // Fetch student objects using the studentId and add to the list
+                            Student student = getStudent(studentId);
+                            if (student != null) {
+                                studentsPresent.add(student);
+                            }
+                        }
+                    }
+
+                    // Create the Club object with the retrieved data
+                    club = new Club(clubId, name, idOfAdvisor, studentsPresent);
+                }
+            }
+
+
+        return club;
     }
 
 
@@ -198,9 +308,11 @@ public class RemoveStudentController {
             return;
         }
 
-        String firstNameOfStudent= getStudentFirstName(studentId); //getting the first name of the student
+        String firstNameOfStudent= getStudent(studentId).getFirstName(); //getting the first name of the student
+        currentClub = getClub(clubIdToDeleteStudent);
+        currentClubAdvisor = getClubAdvisor(currentClub.getIdOfAdvisor());
 
-
+        currentClubAdvisor.removeStudent(studentId,currentClub);
         // Calling the methods to save the removed student table and remove them from the club_student table
         saveRemovedStudent(clubIdToDeleteStudent, studentId,firstNameOfStudent, reason);
 
@@ -209,6 +321,10 @@ public class RemoveStudentController {
         deleteStudentId.clear();
         deleteStudentClub.clear();
         deleteStudentReason.clear();
+        statusShowLabel.setText("");
+        clubIdStatus.setText("");
+        studentIdStatus.setText("");
+
 
     }
 }

@@ -116,23 +116,6 @@ public class EventContorller implements Initializable {
 
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }}
 
 

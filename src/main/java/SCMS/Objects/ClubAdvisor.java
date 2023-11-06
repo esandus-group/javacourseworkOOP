@@ -10,17 +10,20 @@ public class ClubAdvisor extends Person{
     public ClubAdvisor(String id, String firstName, String lastName, String dateOfBirth,String password){
         super(id, firstName, lastName, dateOfBirth,password);
     }
-
+    public ClubAdvisor(String id, String firstName, String lastName, String dateOfBirth,String password,ArrayList managingClubs){
+        super(id, firstName, lastName, dateOfBirth,password);
+        this.managingClubs = managingClubs;
+    }
     public ArrayList<Club> getManagingClubs() {
         return managingClubs;
     }
 
-    public Club createClub(int clubId,String clubName,String id){
+    public Club createClub(String clubId,String clubName,String id){
         Club newClub = new Club(clubId,clubName,id);
-        managingClubs.add(newClub);
+        this.managingClubs.add(newClub);
         return newClub;
     }
-    public void deleteClub(int clubId){
+    public void deleteClub(String clubId){
         boolean found = false;
 
         Iterator<Club> iterator = managingClubs.iterator();
@@ -28,21 +31,25 @@ public class ClubAdvisor extends Person{
             Club club = iterator.next();
             if (clubId == club.getClubId()) {
                 iterator.remove();
-                clubToDelete=club;
-                found = true;
                 break;
             }
         }
-        if (!found == true){
-            System.out.println("club not found to delete");
-        }
-        else{
-            managingClubs.remove(clubToDelete);
-        }
+
     }
 
-    public void removeStudent(){
+    public void removeStudent(String studentId, Club club){
 
+        ArrayList<Student> studentsPresent = new ArrayList<>();
+        studentsPresent = club.getStudentsPresent();
+        Iterator<Student> iterator = studentsPresent.iterator();
+        while (iterator.hasNext()) {
+            Student student= iterator.next();
+            if (studentId == student.getId()) {
+                iterator.remove();
+                club.setStudentsPresent(studentsPresent);
+                break;
+            }
+        }
     }
 
     @Override

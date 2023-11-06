@@ -1,6 +1,8 @@
 package SCMS.Controllers;
 
 import SCMS.HelloApplication;
+import SCMS.Objects.Club;
+import SCMS.Objects.ClubAdvisor;
 import SCMS.Utils.SCMSEnvironment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class PressClubController {
     HelloApplication helloApplicationInstance = new HelloApplication();
@@ -41,7 +44,7 @@ public class PressClubController {
 
     String advisorIdWhoIsDeleting;
 
-    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETING THE CONNECTION OF THE DB
+    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
 
     @FXML
     private TableColumn<?, ?> colAttendance;
@@ -62,6 +65,9 @@ public class PressClubController {
     private Button createNewEvent;
 
     Stage stage;
+    ClubAdvisor currentClubAdvisor = null;
+
+    Club currentClub = null;
 
     public void stageLoader(ActionEvent event, String fileName) throws IOException { //STAGE LOADER METHOD
         Parent root = FXMLLoader.load(getClass().getResource(fileName));
@@ -105,7 +111,7 @@ public class PressClubController {
 
         return advisorManagesClub;
     }
-    public void deleteClub(String clubId) {
+    public void deleteClub(String clubId) { //modify to pass the object and use getters to get infor
 
         try {
             // Delete all students from the Club_Student table
@@ -125,43 +131,66 @@ public class PressClubController {
 
 
     //------------------------------------------------------------------------------
-    public boolean checkIfClubExists(String clubId) {
-        String query = "SELECT 1 FROM Club WHERE clubId = ?";
-        boolean clubExists = false;
+    public ClubAdvisor getClubAdvisor(String clubAdvisorId) throws SQLException {
+        String advisorQuery = "SELECT * FROM ClubAdvisor WHERE id = ?";
+        String clubsQuery = "SELECT * FROM Club WHERE idOfAdvisor = ?";
 
-        try (PreparedStatement statement = connections.prepareStatement(query)) {
-            statement.setString(1, clubId);
+        try (PreparedStatement advisorStatement = this.connections.prepareStatement(advisorQuery);
+             PreparedStatement clubsStatement = this.connections.prepareStatement(clubsQuery)) {
+            advisorStatement.setString(1, clubAdvisorId);
+            clubsStatement.setString(1, clubAdvisorId);
 
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                clubExists = true;
+            ResultSet advisorResultSet = advisorStatement.executeQuery();
+            ResultSet clubsResultSet = clubsStatement.executeQuery();
+
+            if (advisorResultSet.next()) {
+                String id = advisorResultSet.getString("id");
+                String firstName = advisorResultSet.getString("firstName");
+                String lastName = advisorResultSet.getString("lastName");
+                String dateOfBirth = advisorResultSet.getString("dateOfBirth");
+                String password = advisorResultSet.getString("password");
+
+                ArrayList<Club> managingClubs = new ArrayList<>();
+                while (clubsResultSet.next()) {
+                    String clubId = clubsResultSet.getString("clubId");
+                    String clubName = clubsResultSet.getString("name");
+
+                    // Create a Club object and add it to the managingClubs list
+                    Club club = new Club(clubId,clubName,id);
+                    managingClubs.add(club);
+                }
+
+                return new ClubAdvisor(id, firstName, lastName, dateOfBirth, password, managingClubs);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-
         }
 
-        return clubExists;
+        return null; // ClubAdvisor not found
     }
 
     //=======================================================
-    public void onDeleteClubClick(ActionEvent event) throws Exception {
-        confirmation = confirmText.getText(); //getting the stuff from the text fields
+    public void onDeleteClubClick(ActionEvent event) throws Exception { //using the advisorID create the object
+        confirmation = confirmText.getText();                          //getting the stuff from the text fields
         clubIdDelete = clubIdToDelete.getText();
         advisorIdWhoIsDeleting =advisorIdDeleting.getText();
 
         if (confirmation.equals("CONFIRM")) {
 
             // Checking if the advisor manages the club
-            if (checkIfAdvisorManagesClub(clubIdDelete, advisorIdWhoIsDeleting)) {
+            if (!checkIfAdvisorManagesClub(clubIdDelete, advisorIdWhoIsDeleting)) {
 
-                // Proceed with club deletion
-                deleteClub(clubIdDelete);          //have to change and then the advisor cant make a new one
+                currentClubAdvisor = getClubAdvisor(advisorIdWhoIsDeleting);
+                currentClubAdvisor.deleteClub(clubIdDelete);
+                    deletingStatus.setText("An advisor with That ID does not manage a Club");
+                    deletingStatus1.setText("Club not deleted");
 
-                //clearing the text fields
-                confirmText.clear();
-                clubIdToDelete.clear();
-                advisorIdDeleting.clear();
+
+                    // Proceed with club deletion
+                    deleteClub(clubIdDelete);          //have to change and then the advisor cant make a new one
+
+                    //clearing the text fields
+                    confirmText.clear();
+                    clubIdToDelete.clear();
+                    advisorIdDeleting.clear();
 
             } else {
 

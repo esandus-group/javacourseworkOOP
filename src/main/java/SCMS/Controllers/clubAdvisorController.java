@@ -14,8 +14,6 @@ import java.io.IOException;
 
 public class clubAdvisorController {
 
-    public int clubIdToDeleteStudent;
-    public int studentId;
 
     public String fileName;
     Stage stage;
