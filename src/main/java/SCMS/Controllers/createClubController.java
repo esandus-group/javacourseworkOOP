@@ -5,9 +5,16 @@ import SCMS.Objects.ClubAdvisor;
 import SCMS.Utils.SCMSEnvironment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.*;
 
 public class createClubController {
@@ -30,6 +37,20 @@ public class createClubController {
     public String clubId;
     public String clubNam;
 
+    @FXML
+    private Button backButtonCDD;
+
+    public void stageLoader(ActionEvent event, String fileName) throws IOException { //STAGE LOADER METHOD
+        Parent root = FXMLLoader.load(getClass().getResource(fileName));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    public void  backButtonCDD  (ActionEvent event) throws Exception{
+        String fileName = "/SCMS/FxmlFiles/Club advisor.fxml";      //open the page
+        stageLoader(event,fileName);
+    }
     //=========================================================================
     public String getNewClubId() { //we count how many rows are there and add 1 to get the new id
         //generating new club id

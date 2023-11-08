@@ -7,10 +7,16 @@ import SCMS.Utils.SCMSEnvironment;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -18,7 +24,8 @@ public class RemoveStudentController {
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //getting the connection
     @FXML
     private TextField deleteStudentClub;
-
+    @FXML
+    private Button backButtonCDD;
     @FXML
     private TextField deleteStudentId;
 
@@ -39,6 +46,20 @@ public class RemoveStudentController {
 
     @FXML
     private Label statusShowLabel;
+    //=====================================
+    public void stageLoader(ActionEvent event, String fileName) throws IOException { //STAGE LOADER METHOD
+        Parent root = FXMLLoader.load(getClass().getResource(fileName));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void  backButtonCDD  (ActionEvent event) throws Exception{
+        String fileName = "/SCMS/FxmlFiles/PressClub.fxml";      //open the page
+        stageLoader(event,fileName);
+    }
+    //====================================
     public Student getStudent(String studentId) {
         String query = "SELECT * FROM Student WHERE id = ?";
         Student student = null;

@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class ClubAdvisor extends Person{
-    Club clubToDelete=null;
-    private ArrayList<Club> managingClubs = new ArrayList<Club>();
+    private ArrayList<Club> managingClubs = new ArrayList<Club>(4);
 
     public ClubAdvisor(String id, String firstName, String lastName, String dateOfBirth,String password){
         super(id, firstName, lastName, dateOfBirth,password);
@@ -14,6 +13,7 @@ public class ClubAdvisor extends Person{
         super(id, firstName, lastName, dateOfBirth,password);
         this.managingClubs = managingClubs;
     }
+
     public ArrayList<Club> getManagingClubs() {
         return managingClubs;
     }

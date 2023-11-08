@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -14,8 +15,10 @@ import java.io.IOException;
 
 public class clubAdvisorController {
 
-
+    @FXML
+    private Button backButtonCDD;
     public String fileName;
+
     Stage stage;
 
     //Database db1 = new Database();
@@ -52,5 +55,11 @@ public class clubAdvisorController {
         fileName="/SCMS/FxmlFiles/PressClub.fxml";      //open the page
         stageLoader(event,fileName);
     }
+    //=========================================================
+    public void  backButtonCDD  (ActionEvent event) throws Exception{
+        fileName="/SCMS/FxmlFiles/PressClub.fxml";      //open the page
+        stageLoader(event,fileName);
+    }
+
 
 }

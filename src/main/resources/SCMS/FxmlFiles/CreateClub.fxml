@@ -70,6 +70,7 @@
             </Label>
          </children>
       </AnchorPane>
+      <Button fx:id="backButtonCDD" layoutX="38.0" layoutY="21.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="26.0" prefWidth="40.0" text="&lt;--" />
 
    </children>
 </AnchorPane>

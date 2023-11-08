@@ -22,12 +22,6 @@ public class SCMSEnvironment {
     }
     public Connection makeSqlDBConnection(){
         try {
-            // Initialize the database connection when the controller is created
-//
-//            Dotenv env = Dotenv.configure().load();
-//            String url = env.get("MYSQL_DB_URL");
-//            String username = "root";
-//            String password = "";
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connections = DriverManager.getConnection(SCMSEnvironment.getInstance().getSqlConnectionString());
             return connections;

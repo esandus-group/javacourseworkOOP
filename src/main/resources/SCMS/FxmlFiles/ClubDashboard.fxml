@@ -29,5 +29,6 @@
       </Text>
       <Button fx:id="leaveClubButton" layoutX="24.0" layoutY="357.0" mnemonicParsing="false" text="Leave Club" />
       <Button layoutX="475.0" layoutY="65.0" mnemonicParsing="false" text="Create New Event" />
+      <Button fx:id="backButtonCDD" layoutX="35.0" layoutY="29.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="26.0" prefWidth="40.0" text="&lt;--" />
    </children>
 </AnchorPane>

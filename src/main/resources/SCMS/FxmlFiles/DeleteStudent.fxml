@@ -68,5 +68,6 @@
             <Label fx:id="reasonStatus" layoutX="207.0" layoutY="306.0" prefHeight="18.0" prefWidth="279.0" textFill="#e80f0f" />
             </children>
         </AnchorPane>
+      <Button fx:id="backButtonCDD" layoutX="48.0" layoutY="31.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="26.0" prefWidth="40.0" text="&lt;--" />
     </children>
 </AnchorPane>

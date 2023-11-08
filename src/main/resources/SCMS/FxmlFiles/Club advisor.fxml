@@ -54,5 +54,6 @@
             <Font name="Tahoma Bold" size="18.0" />
          </font>
       </Button>
+      <Button fx:id="backButtonCDD" layoutX="17.0" layoutY="15.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="26.0" prefWidth="40.0" text="&lt;--" />
    </children>
 </AnchorPane>

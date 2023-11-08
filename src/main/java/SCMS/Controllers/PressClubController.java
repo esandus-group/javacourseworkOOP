@@ -25,6 +25,8 @@ public class PressClubController {
     public String confirmation;
     public String clubIdDelete;
 
+    @FXML
+    private Button approveStudents;
 
     @FXML
     private Label deletingStatus;
@@ -63,7 +65,8 @@ public class PressClubController {
     private TableView<?> toUsers;
     @FXML
     private Button createNewEvent;
-
+    @FXML
+    private Button backButtonCDD;
     Stage stage;
     ClubAdvisor currentClubAdvisor = null;
 
@@ -76,7 +79,10 @@ public class PressClubController {
         stage.setScene(scene);
         stage.show();
     }
-
+    public void  backButtonCDD  (ActionEvent event) throws Exception{
+        String fileName = "/SCMS/FxmlFiles/Club advisor.fxml";      //open the page
+        stageLoader(event,fileName);
+    }
     //=======================================================
     public void onRemoveStudentClick(ActionEvent event) throws Exception{
         String fileName="/SCMS/FxmlFiles/DeleteStudent.fxml";      //open the page
@@ -207,4 +213,8 @@ public class PressClubController {
         helloApplicationInstance.stageLoader(event, "/SCMS/FxmlFiles/Event.fxml");
     }
     //=========================================================================
+
+    public void onApproveStudentsClick(ActionEvent event) throws IOException {
+        helloApplicationInstance.stageLoader(event, "/SCMS/FxmlFiles/AcceptStudents.fxml");
+    }
 }

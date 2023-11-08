@@ -11,12 +11,12 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.EventContorller">
     <children>
-        <Text layoutX="31.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Club Name">
+        <Text layoutX="202.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Club Name">
             <font>
                 <Font size="20.0" />
             </font>
         </Text>
-        <Text fx:id="clubNameText" layoutX="156.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create new event">
+        <Text fx:id="clubNameText" layoutX="154.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create new event">
             <font>
                 <Font size="40.0" />
             </font>
@@ -38,10 +38,11 @@
       <DatePicker fx:id="eventDate" layoutX="251.0" layoutY="169.0" />
       <Text layoutX="449.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="time" />
       <ChoiceBox fx:id="eventTypeChoiceBox" layoutX="255.0" layoutY="253.0" prefWidth="150.0" />
-      <TextField fx:id="clubIdTextBoxData" layoutX="407.0" layoutY="83.0" />
-      <Text layoutX="331.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Club ID" />
+      <TextField fx:id="clubIdTextBoxData" layoutX="405.0" layoutY="79.0" />
+      <Text layoutX="329.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Club ID" />
       <TextField fx:id="timeHourTextBoxData" layoutX="449.0" layoutY="199.0" prefHeight="26.0" prefWidth="94.0" promptText="Hour" />
       <TextField fx:id="timeMinuteTextBoxData" layoutX="449.0" layoutY="234.0" prefHeight="26.0" prefWidth="94.0" promptText="Minute" />
       <Label fx:id="errorMessageLabel" layoutX="40.0" layoutY="88.0" />
+      <Button fx:id="backButtonCDD" layoutX="20.0" layoutY="17.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="26.0" prefWidth="40.0" text="&lt;--" />
     </children>
 </AnchorPane>
