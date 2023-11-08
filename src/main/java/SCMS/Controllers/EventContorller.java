@@ -112,6 +112,7 @@ public class EventContorller implements Initializable {
                 if (errorMessage.equalsIgnoreCase("")){
 
                     Event newEvent = new Event(title, dateTime,venue, type, description, clubId);
+                    newEvent.writeEventsToSqlDB();
                 }
 
         }

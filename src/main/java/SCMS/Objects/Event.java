@@ -104,8 +104,38 @@ public class Event {
             return null;
             // Handle the exception here
         }
+    }
+
+    public void writeEventsToSqlDB(){
+        try {
+            String query = "INSERT INTO Event (eventId, title, dateTime, venue, typeOfClubFunction, description, clubId) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+            // Create a PreparedStatement
+            PreparedStatement statement = connections.prepareStatement(query);
+
+            // Set the values for the parameters in the SQL query
+            statement.setString(1, this.eventId);
+            statement.setString(2, this.title);
+            statement.setObject(3, this.dateTime); // LocalDateTime to SQL DATETIME
+            statement.setString(4, this.venue);
+            statement.setString(5, this.type);
+            statement.setString(6, this.description);
+            statement.setString(7, this.clubId);
+
+            // Execute the INSERT query
+            statement.executeUpdate();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle or log the exception appropriately
+        }
+
+
+
+
 
 
     }
+
+
 
 }
