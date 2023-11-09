@@ -17,8 +17,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
-//frnn
-
 
 public class EventContorller implements Initializable {
     @FXML

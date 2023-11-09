@@ -1,6 +1,5 @@
 package SCMS.Controllers;
-
-
+import SCMS.Utils.SCMSEnvironment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,14 +16,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 public class StudentDashboardController {
     ArrayList<String> clubs = new ArrayList<>();
     public String studentId;
     @FXML
     private Text welcomeText;
     public String studentName;
-    private String fileName;
     String club1name = null;
     String club2name = null;
     String club3name = null;
@@ -34,7 +31,7 @@ public class StudentDashboardController {
 
     @FXML
     private Button club2Button;
-
+    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
     @FXML
     private Button club3Button;
 
@@ -43,12 +40,10 @@ public class StudentDashboardController {
     Stage stage;
 
     public void getRegisteredClubs() throws Exception {
-        String url = "jdbc:mysql://localhost:3306/school_club_management?user=root";
-        String DBusername = "root";
-        String DBpassword = "esandu12345";
 
-        try (Connection con = DriverManager.getConnection(url, DBusername, DBpassword);
-             Statement st = con.createStatement()) {
+
+        try (
+             Statement st = connections.createStatement()) {
 
             String studentIdQuery = "SELECT id FROM student WHERE firstName = '" + studentName + "'";
             ResultSet studentIdResult = st.executeQuery(studentIdQuery);

@@ -1,5 +1,6 @@
 package SCMS.Controllers;
 
+import SCMS.Utils.SCMSEnvironment;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 
 public class ClubDashboardController {
     public ArrayList<Event> functionsPresent = new ArrayList<>();
-
+    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
     @FXML
     private TableView<Event> functionsTable;
     @FXML
@@ -36,9 +37,6 @@ public class ClubDashboardController {
     private TableColumn<Event, String> datenTimeCol;
     @FXML
     private TableColumn<Event, String> venueCol;
-    String url = "jdbc:mysql://localhost:3306/school_club_management?user=root";
-    String DBusername = "root";
-    String DBpassword = "esandu12345";
 
 
     @FXML
@@ -73,9 +71,8 @@ public class ClubDashboardController {
         ArrayList<Event> functions = new ArrayList<>();
         try {
 
-            Class.forName("com.mysql.cj.jdbc.Driver"); // Use com.mysql.cj.jdbc.Driver
-            Connection con = DriverManager.getConnection(url, DBusername, DBpassword);
-            Statement st = con.createStatement();
+
+            Statement st = connections.createStatement();
 
             // First, let's retrieve the club ID based on the club name
             String clubIdQuery = "SELECT clubId FROM club WHERE name = '" + clubName + "'";
@@ -103,7 +100,7 @@ public class ClubDashboardController {
 
             clubIdResult.close();
             st.close();
-            con.close();
+            connections.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,9 +109,8 @@ public class ClubDashboardController {
 
     public void onLeaveClubButtonClick(ActionEvent event) throws Exception {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver"); // Use com.mysql.cj.jdbc.Driver
-            Connection con = DriverManager.getConnection(url, DBusername, DBpassword);
-            Statement st = con.createStatement();
+
+            Statement st = connections.createStatement();
 
             // First, let's retrieve the club ID based on the club name
             String clubIdQuery = "SELECT clubId FROM club WHERE name = '" + clubName + "'";
@@ -144,7 +140,7 @@ public class ClubDashboardController {
             }
             clubIdResult.close();
             st.close();
-            con.close();
+            connections.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

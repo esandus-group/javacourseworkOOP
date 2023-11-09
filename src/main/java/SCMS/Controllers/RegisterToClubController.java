@@ -1,5 +1,6 @@
 package SCMS.Controllers;
 
+import SCMS.Utils.SCMSEnvironment;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -17,7 +18,7 @@ public class RegisterToClubController {
     ArrayList<String> studentId = new ArrayList<>();
 
     ArrayList<String> clubs = new ArrayList<>();
-
+    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
     @FXML
     private TextField stdIdTextField;
     @FXML
@@ -52,12 +53,8 @@ public class RegisterToClubController {
 
     public void setClubsComboBox() {
         try {
-            String url = "jdbc:mysql://localhost:3306/school_club_management?user=root";
-            String DBusername = "root";
-            String DBpassowrd = "esandu12345";
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(url, DBusername, DBpassowrd);
-            Statement st = con.createStatement();
+
+            Statement st = connections.createStatement();
             System.out.println(stdId);
             String joinedClubsQuery = "select * from club_student where id !='"+stdId+"'";
             ResultSet joinedClubs = st.executeQuery(joinedClubsQuery);
@@ -95,12 +92,8 @@ public class RegisterToClubController {
         return true;
     }
     public void registerStudentToClub(String clubId, String stdId) throws Exception{
-        String url = "jdbc:mysql://localhost:3306/school_club_management?user=root";
-        String DBusername = "root";
-        String DBpassowrd = "esandu12345";
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, DBusername, DBpassowrd);
-        Statement st = con.createStatement();
+
+        Statement st = connections.createStatement();
         String query = "INSERT INTO  culb_student VALUES (clubId, stdId);";
         st.executeQuery(query);
         System.out.println("Done");
