@@ -9,7 +9,7 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 
 public class ClubDashboardController {
-//hello nigga 123
+//hello nigga 1234
     @FXML
     private Text clubNameText;
 
