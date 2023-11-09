@@ -29,6 +29,12 @@ public class Event {
 
 
     }
+    public Event(String funcType, String title, LocalDateTime dateTime, String venue){
+        this.type = funcType;
+        this.title = title;
+        this.dateTime = dateTime;
+        this.venue = venue;
+    }
 
     public String getEventId() {
         return eventId;

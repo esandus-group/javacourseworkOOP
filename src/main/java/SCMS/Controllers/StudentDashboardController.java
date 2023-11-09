@@ -7,17 +7,27 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 public class StudentDashboardController {
-
+    ArrayList<String> clubs = new ArrayList<>();
+    public String studentId;
     @FXML
     private Text welcomeText;
+    public String studentName;
     private String fileName;
+    String club1name = null;
+    String club2name = null;
+    String club3name = null;
 
     @FXML
     private Button club1Button;
@@ -32,53 +42,101 @@ public class StudentDashboardController {
 
     Stage stage;
 
-    public void setWelcomeText(String name){
+    public void getRegisteredClubs() throws Exception {
+        String url = "jdbc:mysql://localhost:3306/school_club_management?user=root";
+        String DBusername = "root";
+        String DBpassword = "esandu12345";
+
+        try (Connection con = DriverManager.getConnection(url, DBusername, DBpassword);
+             Statement st = con.createStatement()) {
+
+            String studentIdQuery = "SELECT id FROM student WHERE firstName = '" + studentName + "'";
+            ResultSet studentIdResult = st.executeQuery(studentIdQuery);
+            if (studentIdResult.next()) {
+                studentId = studentIdResult.getString("id");
+                String studentClubQuery = "SELECT clubId FROM club_student WHERE id = '" + studentId + "'";
+                ResultSet studentClubResult = st.executeQuery(studentClubQuery);
+                int clubCount = 0;
+                while(studentClubResult.next()){
+                    clubs.add(studentClubResult.getString("clubId"));
+                }
+                club1Button.setVisible(false);
+                club2Button.setVisible(false);
+                club3Button.setVisible(false);
+                for(String clubId:clubs){
+                    String clubQuery = "SELECT name FROM club WHERE clubId = '" + clubId + "'";
+                    ResultSet clubResult = st.executeQuery(clubQuery);
+                    if (clubResult.next()) {
+                        String clubName = clubResult.getString("name");
+                        clubCount++;
+
+                        if (clubCount == 1) {
+                            club1Button.setVisible(true);
+                            club1name = clubName;
+                            club1Button.setText(club1name);
+                        } else if (clubCount == 2) {
+                            club2Button.setVisible(true);
+                            club2name = clubName;
+                            club2Button.setText(club2name);
+                        } else if (clubCount == 3) {
+                            club3Button.setVisible(true);
+                            club3name = clubName;
+                            club3Button.setText(club3name);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    public void setWelcomeText(String name) throws Exception {
+        this.studentName = name;
+        getRegisteredClubs();
         welcomeText.setText(name);
     }
 
-    public void stageLoader(ActionEvent event, String fileName) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource(fileName));
+
+
+    public void onRegisterClubButtonClick(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("RegisterToClubs.fxml"));
+        Parent root = loader.load();
+        RegisterToClubController RTC = loader.getController();
+        System.out.println(studentName+" "+ studentId);
+        RTC.setStudentName(studentName, studentId);
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
-
-
-    public void onRegisterClubButtonClick(ActionEvent event) throws IOException {
-        fileName = "/SCMS/FxmlFiles/RegisterToClubs.fxml";
-        stageLoader(event, fileName);
-    }
     public void onClub1ButtonClick(ActionEvent event) throws  IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/ClubDashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ClubDashboard.fxml"));
         Parent root = loader.load();
         buttonText = club1Button.getText();
         ClubDashboardController CDC = loader.getController();
-        CDC.setClubNameText(buttonText);
+        CDC.setClubNameText(buttonText, studentName);
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
-
     public void onClub2ButtonClick(ActionEvent event) throws  IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/ClubDashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ClubDashboard.fxml"));
         Parent root = loader.load();
         buttonText = club2Button.getText();
         ClubDashboardController CDC = loader.getController();
-        CDC.setClubNameText(buttonText);
+        CDC.setClubNameText(buttonText, studentName);
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
-
     public void onClub3ButtonClick(ActionEvent event) throws  IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/ClubDashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ClubDashboard.fxml"));
         Parent root = loader.load();
         buttonText = club3Button.getText();
         ClubDashboardController CDC = loader.getController();
-        CDC.setClubNameText(buttonText);
+        CDC.setClubNameText(buttonText, studentName);
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);

@@ -7,14 +7,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.ClubDashboardController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.ClubDashboardController">
    <children>
-      <TableView fx:id="functionsTable" layoutX="14.0" layoutY="102.0" prefHeight="246.0" prefWidth="576.0">
+      <TableView fx:id="functionsTable" layoutX="13.0" layoutY="109.0" prefHeight="241.0" prefWidth="573.0">
         <columns>
-          <TableColumn prefWidth="98.0" text="Function Type" />
-          <TableColumn prefWidth="96.66665649414062" text="Date" />
-            <TableColumn prefWidth="111.33331298828125" text="Time" />
-            <TableColumn prefWidth="248.66668701171875" text="Venue" />
+          <TableColumn fx:id="funcTypeCol" prefWidth="83.33334350585938" text="Type" />
+            <TableColumn fx:id="titleCol" minWidth="0.0" prefWidth="250.00003051757812" text="Title" />
+          <TableColumn fx:id="datenTimeCol" minWidth="0.0" prefWidth="108.6666259765625" text="DateTime" />
+            <TableColumn fx:id="venueCol" minWidth="0.0" prefWidth="128.6666259765625" text="Venue" />
         </columns>
       </TableView>
       <Text layoutX="220.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Upcoming Events ">
@@ -27,8 +27,7 @@
             <Font size="40.0" />
          </font>
       </Text>
-      <Button fx:id="leaveClubButton" layoutX="24.0" layoutY="357.0" mnemonicParsing="false" text="Leave Club" />
-      <Button layoutX="475.0" layoutY="65.0" mnemonicParsing="false" text="Create New Event" />
-      <Button fx:id="backButtonCDD" layoutX="35.0" layoutY="29.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="26.0" prefWidth="40.0" text="&lt;--" />
+      <Button fx:id="leaveClubButton" layoutX="24.0" layoutY="357.0" mnemonicParsing="false" onAction="#onLeaveClubButtonClick" text="Leave Club" />
+      <Button fx:id="loadEventsButton" layoutX="35.0" layoutY="76.0" mnemonicParsing="false" onAction="#loadingStudents" text="Load Events" />
    </children>
 </AnchorPane>
