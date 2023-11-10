@@ -1,5 +1,6 @@
 package SCMS.Controllers;
 
+import SCMS.Utils.SCMSEnvironment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 public class MainLoginPageController {
     public ArrayList<String> studentNames = new ArrayList<>();
     public ArrayList<String> studentPassowrd = new ArrayList<>();
+    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
+
     @FXML
     private TextField passwordTextField;
 
@@ -33,16 +36,11 @@ public class MainLoginPageController {
     private TextField studentNameTextField;
     public String username = "Username";
     public String password;
-    public static String fileName;
+    String fileName;
     Stage stage;
 
     public void loadStudentData() throws Exception{
-        String url = "jdbc:mysql://localhost:3306/school_club_management?user=root";
-        String DBusername = "root";
-        String DBpassowrd = "esandu12345";
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, DBusername, DBpassowrd);
-        Statement st = con.createStatement();
+        Statement st = connections.createStatement();
         String query = "select * from student";
         ResultSet rs = st.executeQuery(query);
         while(rs.next()){
@@ -50,7 +48,7 @@ public class MainLoginPageController {
             studentPassowrd.add(rs.getString(5));
         }
         st.close();
-        con.close();
+        connections.close();
     }
 
     public void stageLoader(ActionEvent event, String fileName) throws IOException {
@@ -61,14 +59,13 @@ public class MainLoginPageController {
         stage.show();
     }
     public void onRegisterButtonClick(ActionEvent event) throws IOException{
-        fileName = "RegisterToSCMS.fxml";
+        fileName = "/SCMS/FxmlFiles/RegisterToSCMS.fxml";
         stageLoader(event, fileName);
     }
     public void Login(ActionEvent event) throws Exception {
-        fileName = "StudentDashboard.fxml";
         loadStudentData();
         if (validateUsername() && validatePassword()){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentDashboard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/StudentDashboard.fxml"));
             Parent root = loader.load();
             StudentDashboardController SDC = loader.getController();
             SDC.setWelcomeText(username);
@@ -80,6 +77,9 @@ public class MainLoginPageController {
 
     }
     public boolean validateUsername(){
+        for(String student: studentNames){
+            System.out.println(student);
+        }
         username = studentNameTextField.getText();
         stdNameErrorText.setText(" ");
         if(username.equals("")){
@@ -121,6 +121,10 @@ public class MainLoginPageController {
         }
 
         return true;
+    }
+    public void onLoginAsClubAdvisorButtonClick(ActionEvent event) throws IOException {
+        fileName = "/SCMS/FxmlFiles/Club advisor.fxml";
+        stageLoader(event, fileName);
     }
 
 

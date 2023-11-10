@@ -1,22 +1,26 @@
 package SCMS.Controllers;
 
 import SCMS.Utils.SCMSEnvironment;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 
 public class RegisterToClubController {
 //Load data to the 2 array lists.
     ArrayList<String> studentNames = new ArrayList<>();
-    ArrayList<String> studentId = new ArrayList<>();
 
+
+    ArrayList<String> clubsIdNotJoined = new ArrayList<>();
     ArrayList<String> clubs = new ArrayList<>();
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
     @FXML
@@ -28,20 +32,25 @@ public class RegisterToClubController {
 
     String studentFName;
     String stdId;
+    String selectedClubId;
 
-    public void onRegisterToClubButtonClick() throws Exception{
+    public void onRegisterToClubButtonClick(ActionEvent event) throws Exception{
         String studentId = stdIdTextField.getText();
         String studentName = stdNameTextField.getText();
         String selectedClub = clubComboBox.getValue().toString();
-
-        System.out.println("Here");
+        Statement st = connections.createStatement();
+        String getClubId = "SELECT * FROM club WHERE name='"+selectedClub+"'";
+        ResultSet selectedClubIdrs = st.executeQuery(getClubId);
+        if(selectedClubIdrs.next()){
+            selectedClubId = selectedClubIdrs.getString("clubId");
+        }
 
         if (isStudentValid(studentId, studentName)) {
-            System.out.println("Here2");
-            registerStudentToClub(studentId, selectedClub);
-        } else {
-            // Handle the case where the student is not valid or is already a member
-            // Show an error message or prevent registration
+            if (!isStudentRemoved(studentId, selectedClubId)){
+                System.out.println("Nigga");
+                registerStudentToClub(event, studentId, selectedClubId);
+            }
+
         }
     }
     public void setStudentName(String name, String stdId){
@@ -59,7 +68,14 @@ public class RegisterToClubController {
             String joinedClubsQuery = "select * from club_student where id !='"+stdId+"'";
             ResultSet joinedClubs = st.executeQuery(joinedClubsQuery);
             while(joinedClubs.next()){
-                clubs.add(joinedClubs.getString("clubId"));
+                clubsIdNotJoined.add(joinedClubs.getString("clubId"));
+            }
+            for (String club_Id: clubsIdNotJoined) {
+                String getClubNameFromIdQuery = "select * from club where clubId ='" + club_Id + "'";
+                ResultSet clubNames = st.executeQuery(getClubNameFromIdQuery);
+                while (clubNames.next()) {
+                    clubs.add(clubNames.getString("name"));
+                }
             }
             for(String club: clubs){
                 System.out.println(club);
@@ -69,35 +85,63 @@ public class RegisterToClubController {
             System.out.println(e);
         }
     }
-    public boolean isStudentValid(String stdId, String stdName){
-        System.out.println(stdId + stdName);
-        for(String name:studentNames){
-            System.out.println(name);
-        }
-        int index = studentNames.indexOf(stdName);
-        System.out.println(index);
-        if(stdName.equals("")){
-            return false;
-        }
-        if (!studentNames.contains(stdName)) {
-            return false;
-        }
-
-        if (index >= 0) {
-            if (!stdId.equals(studentId.get(index))) {
-                return false;
+    public boolean isStudentValid(String stdId, String stdName) throws Exception{
+        System.out.println(stdId+"."+stdName);
+        Statement st = connections.createStatement();
+        String query = "select * from student where id = '"+stdId+"'";
+        ResultSet rs = st.executeQuery(query);
+        while(rs.next()){
+            System.out.println(rs.getString("firstName")+"Before");
+            if(stdName.equals(rs.getString("firstName"))){
+                System.out.println("Valid");
+                return true;
             }
         }
-
-        return true;
-    }
-    public void registerStudentToClub(String clubId, String stdId) throws Exception{
-
-        Statement st = connections.createStatement();
-        String query = "INSERT INTO  culb_student VALUES (clubId, stdId);";
-        st.executeQuery(query);
-        System.out.println("Done");
+        return false;
     }
 
+    public boolean isStudentRemoved(String studentId, String clubId) {
+        System.out.println("Checking if student is removed");
+        String selectQuery = "SELECT * FROM removedstudents WHERE studentId = ? AND clubId = ?";
+
+        try (PreparedStatement preparedStatement = connections.prepareStatement(selectQuery)) {
+            preparedStatement.setString(1, studentId);
+            preparedStatement.setString(2, clubId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return resultSet.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+        return false;
+    }
+
+
+    public void registerStudentToClub( ActionEvent event, String studentId, String clubId) throws  Exception{
+    String insertQuery = "INSERT INTO club_student (clubId, id) VALUES (?, ?)";
+
+        try (PreparedStatement preparedStatement = connections.prepareStatement(insertQuery)) {
+            preparedStatement.setString(1, clubId);
+            preparedStatement.setString(2, studentId);
+
+            preparedStatement.executeUpdate();
+            System.out.println("Data inserted into ApproveStudents table successfully.");
+            loadStudentDashboard(event);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle any exceptions here
+        }
+    }
+    public void loadStudentDashboard(ActionEvent event) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/StudentDashboard.fxml"));
+        Parent root = loader.load();
+        StudentDashboardController SDC = loader.getController();
+        SDC.setWelcomeText(studentFName);
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
 
 }

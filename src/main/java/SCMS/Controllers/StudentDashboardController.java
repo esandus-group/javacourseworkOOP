@@ -94,7 +94,7 @@ public class StudentDashboardController {
 
 
     public void onRegisterClubButtonClick(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("RegisterToClubs.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/RegisterToClubs.fxml"));
         Parent root = loader.load();
         RegisterToClubController RTC = loader.getController();
         System.out.println(studentName+" "+ studentId);
@@ -105,7 +105,7 @@ public class StudentDashboardController {
         stage.show();
     }
     public void onClub1ButtonClick(ActionEvent event) throws  IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ClubDashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/ClubDashboard.fxml"));
         Parent root = loader.load();
         buttonText = club1Button.getText();
         ClubDashboardController CDC = loader.getController();
@@ -116,7 +116,7 @@ public class StudentDashboardController {
         stage.show();
     }
     public void onClub2ButtonClick(ActionEvent event) throws  IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ClubDashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/ClubDashboard.fxml"));
         Parent root = loader.load();
         buttonText = club2Button.getText();
         ClubDashboardController CDC = loader.getController();
@@ -127,7 +127,7 @@ public class StudentDashboardController {
         stage.show();
     }
     public void onClub3ButtonClick(ActionEvent event) throws  IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ClubDashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/ClubDashboard.fxml"));
         Parent root = loader.load();
         buttonText = club3Button.getText();
         ClubDashboardController CDC = loader.getController();

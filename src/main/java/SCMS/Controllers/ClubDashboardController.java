@@ -47,6 +47,7 @@ public class ClubDashboardController {
 
     String clubName;
     String stdName;
+    String stdId;
 
     public void setClubNameText(String clubName, String studentName) {
         this.clubName = clubName;
@@ -100,7 +101,6 @@ public class ClubDashboardController {
 
             clubIdResult.close();
             st.close();
-            connections.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,32 +112,30 @@ public class ClubDashboardController {
 
             Statement st = connections.createStatement();
 
-            // First, let's retrieve the club ID based on the club name
+            String stdIdQuery = "SELECT * FROM student WHERE firstName = '" + stdName + "'";
+            ResultSet stdIdResult = st.executeQuery(stdIdQuery);
+            if(stdIdResult.next()){
+                stdId = stdIdResult.getString(1);
+            }
+
             String clubIdQuery = "SELECT clubId FROM club WHERE name = '" + clubName + "'";
             ResultSet clubIdResult = st.executeQuery(clubIdQuery);
 
             if (clubIdResult.next()) {
                 String clubId = clubIdResult.getString("clubId");
 
-                String stdIdQuery = "SELECT * FROM student WHERE firstName = '" + stdName + "'";
-                ResultSet stdIdResult = st.executeQuery(stdIdQuery);
-                if(stdIdResult.next()){
-                    String stdId = stdIdResult.getString(1);
-                    System.out.println(clubId);
-                    System.out.println(stdId);
-                    // Delete the student from the club
-                    String deleteQuery = "DELETE FROM club_student WHERE clubId = '" + clubId + "' AND id = '" + stdId + "'";
-                    int deletedRows = st.executeUpdate(deleteQuery);
+                System.out.println(clubId+"Leave club");
+                System.out.println(stdId);
+                String deleteQuery = "DELETE FROM club_student WHERE clubId = '" + clubId + "' AND id = '" + stdId + "'";
+                int deletedRows = st.executeUpdate(deleteQuery);
 
-                    if (deletedRows > 0) {
-                        System.out.println("Student removed from the club.");
-                    }
+                if (deletedRows > 0) {
+                    System.out.println("Student removed from the club.");
+                }
                 } else {
                     // Club not found, handle this situation accordingly
                     System.out.println("Club not found.");
                 }
-
-            }
             clubIdResult.close();
             st.close();
             connections.close();
@@ -145,7 +143,7 @@ public class ClubDashboardController {
             e.printStackTrace();
         }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentDashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/StudentDashboard.fxml"));
         Parent root = loader.load();
         StudentDashboardController SDC = loader.getController();
         SDC.setWelcomeText(stdName);

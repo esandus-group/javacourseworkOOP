@@ -17,7 +17,7 @@
       </Text>
       <Text layoutX="72.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Name :" />
       <Text layoutX="72.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password :" />
-      <Button layoutX="389.0" layoutY="304.0" mnemonicParsing="false" text="LOGIN AS CLUB ADVISOR" />
+      <Button fx:id="loginAsClubAdvisorButton" layoutX="389.0" layoutY="304.0" mnemonicParsing="false" onAction="#onLoginAsClubAdvisorButtonClick" text="LOGIN AS CLUB ADVISOR" />
       <Button fx:id="studentLoginButton" layoutX="240.0" layoutY="229.0" mnemonicParsing="false" onAction="#Login" prefHeight="25.0" prefWidth="62.0" text="Login" />
       <Button fx:id="RegisterButton" layoutX="484.0" layoutY="34.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" text="Register" />
       <Text fx:id="stdNameErrorText" layoutX="378.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
