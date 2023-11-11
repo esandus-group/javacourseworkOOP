@@ -152,4 +152,5 @@ public class ClubDashboardController {
         stage.setScene(scene);
         stage.show();
     }
+
 }

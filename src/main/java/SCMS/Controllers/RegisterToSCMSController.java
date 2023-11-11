@@ -3,14 +3,17 @@ package SCMS.Controllers;
 import SCMS.Utils.SCMSEnvironment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -39,35 +42,62 @@ public class RegisterToSCMSController {
     String stdId;
     String stdFName;
     String stdLName;
-    LocalDateTime stdDOB;
+    String stdDOB;
     String stdPassword;
 
     @FXML
     void onRequestToJoinButtonClick(ActionEvent event) throws Exception {
+        Statement st = connections.createStatement();
         stdId = stdIdTextField.getText();
         stdFName = stdFirstNameTextField.getText();
         stdLName = stdLastNameTextField.getText();
-        stdDOB = stdDOBDatePicker.getValue().atStartOfDay();
+        stdDOB = String.valueOf(stdDOBDatePicker.getValue());
         stdPassword = stdPasswordTextField.getText();
 
-        if(isStudentIdValid(stdId)){
+        if(isStudentIdValid(stdId) && isStudentFNameValid(stdFName) && isStudentLNameValid(stdLName) && isStudentDOBValid(stdDOB) && isStudentPasswordValid(stdPassword)){
+            String insertQuery = "INSERT INTO student (id, firstName, lastName, dateOfBirth, password) VALUES (?, ?, ?, ?, ?)";
+            System.out.println(stdId+stdFName+stdLName+stdDOB+stdPassword);
+            try (PreparedStatement preparedStatement = connections.prepareStatement(insertQuery)) {
+                preparedStatement.setString(1, stdId);
+                preparedStatement.setString(2, stdFName);
+                preparedStatement.setString(3, stdLName);
+                preparedStatement.setString(4, stdDOB);
+                preparedStatement.setString(5, stdPassword);
 
+                preparedStatement.executeUpdate();
+                System.out.println("Data inserted into Students table successfully.");
+                loadStudentDashboard(event);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                // Handle any exceptions here
+            }
         }
     }
     public boolean isStudentIdValid(String studentId) throws Exception{
-        Statement st = connections.createStatement();
-        String getstdIdQuery = "select * from student where id = '"+stdId+"'";
-        ResultSet rs = st.executeQuery(getstdIdQuery);
-        while(rs.next()){
-            allStudentId.add(rs.getString(1));
-        }
-
-        if (studentId != null){
-            return allStudentId.contains(studentId);
-        }
-
-        return false;
-
+        return studentId != null;
     }
+    public boolean isStudentFNameValid(String studentFName) throws Exception{
+        return studentFName != null;
+    }
+    public boolean isStudentLNameValid(String studentFName) throws Exception{
+        return studentFName != null;
+    }
+    public boolean isStudentDOBValid(String studentDOB) throws Exception{
+        return studentDOB != null;
+    }    public boolean isStudentPasswordValid(String studentPassword) throws Exception{
+        return studentPassword != null;
+    }
+    public void loadStudentDashboard(ActionEvent event) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/StudentDashboard.fxml"));
+        Parent root = loader.load();
+        StudentDashboardController SDC = loader.getController();
+        SDC.setWelcomeText(stdFName);
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+
 
 }
