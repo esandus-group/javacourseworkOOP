@@ -18,23 +18,20 @@ public class ClubAdvisor extends Person{
         return managingClubs;
     }
 
-    public Club createClub(String clubId,String clubName,String id){
-        Club newClub = new Club(clubId,clubName,id);
+    public void addClub(Club newClub){
         this.managingClubs.add(newClub);
-        return newClub;
     }
-    public void deleteClub(String clubId){
-        boolean found = false;
 
-        Iterator<Club> iterator = managingClubs.iterator();
-        while (iterator.hasNext()) {
-            Club club = iterator.next();
-            if (clubId == club.getClubId()) {
-                iterator.remove();
-                break;
-            }
+    public Boolean  assignNewAdvisor(ClubAdvisor advisor,Club club){
+        this.managingClubs.remove(club);
+        ArrayList clubsOfNewAdvisor = advisor.getManagingClubs();
+        if (clubsOfNewAdvisor.size() == 4){
+            return false;
         }
-
+        else {
+            clubsOfNewAdvisor.add(club);
+            return true;
+        }
     }
 
     public void removeStudent(String studentId, Club club){

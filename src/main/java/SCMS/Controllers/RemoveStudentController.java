@@ -123,24 +123,7 @@ public class RemoveStudentController {
         return null; // ClubAdvisor not found
     }
 
-    //=======================================================
-    public String getStudentFirstName(String studentId) {
-        String firstName = null;
-        String query = "SELECT firstName FROM Student WHERE id = ?";
 
-        try (PreparedStatement statement = connections.prepareStatement(query)) {
-            statement.setString(1, studentId);
-
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                firstName = resultSet.getString("FirstName");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return firstName;
-    }
     //=======================================================
     public void saveRemovedStudent(String clubId, String studentId, String studentFirstName, String reason) {
         try {
@@ -208,6 +191,7 @@ public class RemoveStudentController {
             return false;
         }
     }
+    //=====================================================
     public Club getClub(String clubId) throws SQLException {
         String clubQuery = "SELECT * FROM Club WHERE clubId = ?";
         String clubStudentQuery = "SELECT * FROM Club_Student WHERE clubId = ?";

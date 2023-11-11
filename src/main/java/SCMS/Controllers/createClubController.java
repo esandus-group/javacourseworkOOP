@@ -153,7 +153,8 @@ public class createClubController {
             } else {
 
                 clubId = getNewClubId(); //getting the new club id
-                Club newClub = currentClubAdvisor.createClub(clubId, clubNam, clubAdvisorId);
+                Club newClub = new Club(clubId, clubNam, clubAdvisorId);
+                currentClubAdvisor.addClub(newClub);
                 if (newClub != null) {
                     System.out.println("Club created successfully.");
                     addClubToDatabase(newClub);
@@ -171,7 +172,7 @@ public class createClubController {
     //=========================================================================
 
     private void addClubToDatabase(Club newClub) {
-        // Create an SQL statement to add the new club to the database
+
         String query = "INSERT INTO Club (clubId, name, idOfAdvisor) VALUES (?, ?, ?)";
 
         try (PreparedStatement statement = connections.prepareStatement(query)) {

@@ -3,6 +3,7 @@ package SCMS.Controllers;
 import SCMS.HelloApplication;
 import SCMS.Objects.Club;
 import SCMS.Objects.ClubAdvisor;
+import SCMS.Objects.Student;
 import SCMS.Utils.SCMSEnvironment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,13 +21,10 @@ import java.util.ArrayList;
 public class PressClubController {
     HelloApplication helloApplicationInstance = new HelloApplication();
     @FXML
-    private TextField clubIdToDelete;
+    private TextField newAdvisorId;
 
     public String confirmation;
-    public String clubIdDelete;
-
-    @FXML
-    private Button approveStudents;
+    public String advisorIdOfNewPerson;
 
     @FXML
     private Label deletingStatus;
@@ -42,9 +40,9 @@ public class PressClubController {
     @FXML
     private TextField confirmText;
     @FXML
-    private TextField advisorIdDeleting;
+    private TextField advisorId;
 
-    String advisorIdWhoIsDeleting;
+    String currentAdvisorId;
 
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
 
@@ -70,6 +68,8 @@ public class PressClubController {
     Stage stage;
     ClubAdvisor currentClubAdvisor = null;
 
+    ClubAdvisor newClubAdvisor = null;
+
     Club currentClub = null;
 
     public void stageLoader(ActionEvent event, String fileName) throws IOException { //STAGE LOADER METHOD
@@ -83,19 +83,19 @@ public class PressClubController {
         String fileName = "/SCMS/FxmlFiles/Club advisor.fxml";      //open the page
         stageLoader(event,fileName);
     }
-    //=======================================================
+    //=============================================================================
     public void onRemoveStudentClick(ActionEvent event) throws Exception{
         String fileName="/SCMS/FxmlFiles/DeleteStudent.fxml";      //open the page
         stageLoader(event,fileName);
 
     }
-    //=======================================================
+    //===========================================================================
     public void onViewStudentsButtonClick(ActionEvent event) throws Exception{
         String fileName="/SCMS/FxmlFiles/view Students.fxml";      //open the page
         stageLoader(event,fileName);
 
     }
-    //=======================================================
+    //=============================================================================
     public boolean checkIfAdvisorManagesClub(String clubId, String advisorId) {
         String query = "SELECT 1 FROM Club WHERE clubId = ? AND idOfAdvisor = ?";
 
@@ -117,26 +117,9 @@ public class PressClubController {
 
         return advisorManagesClub;
     }
-    public void deleteClub(String clubId) { //modify to pass the object and use getters to get infor
+    //make the method to replace the advisor id with the new advisor id in the club table
 
-        try {
-            // Delete all students from the Club_Student table
-            String deleteStudentsQuery = "DELETE FROM Club_Student WHERE clubId = ?";
-            try (PreparedStatement studentsStatement = connections.prepareStatement(deleteStudentsQuery)) {
-                studentsStatement.setString(1, clubId);
-                studentsStatement.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            System.out.println("All students associated with Club ID " + clubId + " have been removed.");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    //------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------
     public ClubAdvisor getClubAdvisor(String clubAdvisorId) throws SQLException {
         String advisorQuery = "SELECT * FROM ClubAdvisor WHERE id = ?";
         String clubsQuery = "SELECT * FROM Club WHERE idOfAdvisor = ?";
@@ -173,48 +156,142 @@ public class PressClubController {
         return null; // ClubAdvisor not found
     }
 
-    //=======================================================
-    public void onDeleteClubClick(ActionEvent event) throws Exception { //using the advisorID create the object
+    //=================================================================
+    public void onAssignNewAdvClick(ActionEvent event) throws Exception { //using the advisorID create the object
         confirmation = confirmText.getText();                          //getting the stuff from the text fields
-        clubIdDelete = clubIdToDelete.getText();
-        advisorIdWhoIsDeleting =advisorIdDeleting.getText();
-
+        advisorIdOfNewPerson = newAdvisorId.getText(); //this should be the advisors id
+        currentAdvisorId =advisorId.getText();
+        //get
         if (confirmation.equals("CONFIRM")) {
 
             // Checking if the advisor manages the club
-            if (!checkIfAdvisorManagesClub(clubIdDelete, advisorIdWhoIsDeleting)) {
-
-                currentClubAdvisor = getClubAdvisor(advisorIdWhoIsDeleting);
-                currentClubAdvisor.deleteClub(clubIdDelete);
-                    deletingStatus.setText("An advisor with That ID does not manage a Club");
-                    deletingStatus1.setText("Club not deleted");
-
-
-                    // Proceed with club deletion
-                    deleteClub(clubIdDelete);          //have to change and then the advisor cant make a new one
-
-                    //clearing the text fields
-                    confirmText.clear();
-                    clubIdToDelete.clear();
-                    advisorIdDeleting.clear();
-
-            } else {
+            if (!checkIfAdvisorManagesClub(advisorIdOfNewPerson, currentAdvisorId)) {
 
                 deletingStatus.setText("An advisor with That ID does not manage a Club");
                 deletingStatus1.setText("Club not deleted");
 
+            } else {
+                currentClubAdvisor = getClubAdvisor(currentAdvisorId);
+                newClubAdvisor = getClubAdvisor(advisorIdOfNewPerson);
+                //currentClub=getClubByName();  FIX this line , then done  also save to database
+
+
+                boolean status = currentClubAdvisor.assignNewAdvisor(newClubAdvisor,currentClub);
+                 //pass the new burgers id and the club object
+
+                if (status){
+                    updateClubAdvisor(currentClub,newClubAdvisor);
+                    //now i have to load him back to his dashboard cause the club is not his to do shit
+                    //clearing the text fields
+                    confirmText.clear();
+                    newAdvisorId.clear();
+                    advisorId.clear();
+                }
+
+
             }
         } else {
-            deletingStatus1.setText("Deletion not confirmed. Club was not deleted.");
+            deletingStatus1.setText("Action not confirmed,advisor not assigned.");
         }
     }
 
+    //=======================================================
     public void onCreateNewEvent(ActionEvent event) throws IOException {
         helloApplicationInstance.stageLoader(event, "/SCMS/FxmlFiles/Event.fxml");
     }
     //=========================================================================
 
-    public void onApproveStudentsClick(ActionEvent event) throws IOException {
-        helloApplicationInstance.stageLoader(event, "/SCMS/FxmlFiles/AcceptStudents.fxml");
+    public Student getStudent(String studentId) {
+        String query = "SELECT * FROM Student WHERE id = ?";
+        Student student = null;
+
+        try (PreparedStatement statement = connections.prepareStatement(query)) {
+            statement.setString(1, studentId);
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                // Retrieve student details from the result set
+                String id = resultSet.getString("id");
+                String firstName = resultSet.getString("firstName");
+                String lastName = resultSet.getString("lastName");
+                String dateOfBirth = resultSet.getString("dateOfBirth");
+                String password =  resultSet.getString("password");
+                // Add more fields as needed
+
+                // Create a Student object with the retrieved data
+                student = new Student(id, firstName, lastName, dateOfBirth,password);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+        return student;
     }
+    //=======================================================
+    public Club getClubByName(String clubName) throws SQLException {
+        String clubQuery = "SELECT * FROM Club WHERE name = ?";
+        String clubStudentQuery = "SELECT * FROM Club_Student WHERE clubId = ?";
+
+        Club club = null;
+
+        // Retrieve club details from the Club table using the club name
+        try (PreparedStatement clubStatement = connections.prepareStatement(clubQuery)) {
+            clubStatement.setString(1, clubName);
+            ResultSet clubResult = clubStatement.executeQuery();
+
+            if (clubResult.next()) {
+                String clubId = clubResult.getString("clubId"); // Get the ID of the club
+                String name = clubResult.getString("name");
+                String idOfAdvisor = clubResult.getString("idOfAdvisor");
+
+                // Create a list to hold students present
+                ArrayList<Student> studentsPresent = new ArrayList<>();
+
+                // Retrieve student IDs associated with the club from the Club_Student table
+                try (PreparedStatement clubStudentStatement = connections.prepareStatement(clubStudentQuery)) {
+                    clubStudentStatement.setString(1, clubId);
+                    ResultSet clubStudentResult = clubStudentStatement.executeQuery();
+
+                    while (clubStudentResult.next()) {
+                        String studentId = clubStudentResult.getString("id");
+                        // Fetch student objects using the studentId and add to the list
+                        Student student = getStudent(studentId);
+                        if (student != null) {
+                            studentsPresent.add(student);
+                        }
+                    }
+                }
+
+                // Create the Club object with the retrieved data
+                club = new Club(clubId, name, idOfAdvisor, studentsPresent);
+            }
+        }
+
+        return club;
+    }
+    public boolean updateClubAdvisor(Club currentClub, ClubAdvisor newClubAdvisor) { //i can make it so that i pass the objects and then use getters
+        String newAdvisorId = newClubAdvisor.getId();
+        String clubId = currentClub.getClubId();
+
+        String updateQuery = "UPDATE Club SET idOfAdvisor = ? WHERE clubId = ?";
+
+        try (PreparedStatement preparedStatement = connections.prepareStatement(updateQuery)) {
+            preparedStatement.setString(1, newAdvisorId);
+            preparedStatement.setString(2, clubId);
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+
+            return rowsUpdated > 0; // Checking  if any rows were updated, if so then correct
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            return false;
+        }
+    }
+
+
+
 }
+
+
