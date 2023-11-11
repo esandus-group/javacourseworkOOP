@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import java.sql.*;
 import java.util.ArrayList;
 
-
+//Join Club is fully functional
 public class RegisterToClubController {
 //Load data to the 2 array lists.
     ArrayList<String> studentNames = new ArrayList<>();
@@ -63,7 +63,6 @@ public class RegisterToClubController {
     public void setClubsComboBox() {
         try {
             Statement st = connections.createStatement();
-
             // Get the clubs that the student has not joined
             String clubsNotJoinedQuery = "SELECT * FROM club WHERE clubId NOT IN (SELECT clubId FROM club_student WHERE id = '" + stdId + "')";
             ResultSet clubsNotJoined = st.executeQuery(clubsNotJoinedQuery);
