@@ -62,29 +62,35 @@ public class RegisterToClubController {
 
     public void setClubsComboBox() {
         try {
-
             Statement st = connections.createStatement();
-            System.out.println(stdId);
-            String joinedClubsQuery = "select * from club_student where id !='"+stdId+"'";
-            ResultSet joinedClubs = st.executeQuery(joinedClubsQuery);
-            while(joinedClubs.next()){
-                clubsIdNotJoined.add(joinedClubs.getString("clubId"));
+
+            // Get the clubs that the student has not joined
+            String clubsNotJoinedQuery = "SELECT * FROM club WHERE clubId NOT IN (SELECT clubId FROM club_student WHERE id = '" + stdId + "')";
+            ResultSet clubsNotJoined = st.executeQuery(clubsNotJoinedQuery);
+
+            while (clubsNotJoined.next()) {
+                clubs.add(clubsNotJoined.getString("name"));
             }
-            for (String club_Id: clubsIdNotJoined) {
-                String getClubNameFromIdQuery = "select * from club where clubId ='" + club_Id + "'";
-                ResultSet clubNames = st.executeQuery(getClubNameFromIdQuery);
-                while (clubNames.next()) {
-                    clubs.add(clubNames.getString("name"));
-                }
+
+            // Check for clubs without members
+            String clubsWithoutMembersQuery = "SELECT * FROM club WHERE clubId NOT IN (SELECT clubId FROM club_student)";
+            ResultSet clubsWithoutMembers = st.executeQuery(clubsWithoutMembersQuery);
+
+            while (clubsWithoutMembers.next()) {
+                clubs.add(clubsWithoutMembers.getString("name"));
             }
-            for(String club: clubs){
+
+            // Display the clubs in the combo box
+            for (String club : clubs) {
                 System.out.println(club);
             }
             clubComboBox.getItems().addAll(clubs);
+
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
+
     public boolean isStudentValid(String stdId, String stdName) throws Exception{
         System.out.println(stdId+"."+stdName);
         Statement st = connections.createStatement();
