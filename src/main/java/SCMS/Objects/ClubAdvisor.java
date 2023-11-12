@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class ClubAdvisor extends Person{
-    private ArrayList<Club> managingClubs = new ArrayList<Club>(4);
+    private ArrayList managingClubs = new ArrayList<>(4);
 
     public ClubAdvisor(String id, String firstName, String lastName, String dateOfBirth,String password){
         super(id, firstName, lastName, dateOfBirth,password);
@@ -24,7 +24,7 @@ public class ClubAdvisor extends Person{
 
     public Boolean  assignNewAdvisor(ClubAdvisor advisor,Club club){
         this.managingClubs.remove(club);
-        ArrayList clubsOfNewAdvisor = advisor.getManagingClubs();
+        ArrayList<Club> clubsOfNewAdvisor = advisor.getManagingClubs();
         if (clubsOfNewAdvisor.size() == 4){
             return false;
         }
