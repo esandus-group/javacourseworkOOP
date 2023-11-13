@@ -21,7 +21,6 @@
       <ComboBox fx:id="clubComboBox" layoutX="210.0" layoutY="192.0" prefWidth="150.0" />
       <Text layoutX="108.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Name:" />
       <TextField fx:id="stdNameTextField" layoutX="210.0" layoutY="151.0" />
-      <Text fx:id="IDerrorLabel" layoutX="369.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error" />
-      <Text fx:id="nameerrorLabel" layoutX="369.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error" />
+      <Text fx:id="IDerrorLabel" layoutX="365.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
    </children>
 </AnchorPane>

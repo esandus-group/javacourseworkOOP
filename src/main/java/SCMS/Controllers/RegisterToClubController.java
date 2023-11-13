@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.sql.*;
@@ -17,10 +18,8 @@ import java.util.ArrayList;
 //Join Club is fully functional
 public class RegisterToClubController {
 //Load data to the 2 array lists.
-    ArrayList<String> studentNames = new ArrayList<>();
-
-
-    ArrayList<String> clubsIdNotJoined = new ArrayList<>();
+    @FXML
+    private Text IDerrorLabel;
     ArrayList<String> clubs = new ArrayList<>();
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
     @FXML
@@ -71,14 +70,6 @@ public class RegisterToClubController {
                 clubs.add(clubsNotJoined.getString("name"));
             }
 
-            // Check for clubs without members
-            String clubsWithoutMembersQuery = "SELECT * FROM club WHERE clubId NOT IN (SELECT clubId FROM club_student)";
-            ResultSet clubsWithoutMembers = st.executeQuery(clubsWithoutMembersQuery);
-
-            while (clubsWithoutMembers.next()) {
-                clubs.add(clubsWithoutMembers.getString("name"));
-            }
-
             // Display the clubs in the combo box
             for (String club : clubs) {
                 System.out.println(club);
@@ -91,15 +82,17 @@ public class RegisterToClubController {
     }
 
     public boolean isStudentValid(String stdId, String stdName) throws Exception{
-        System.out.println(stdId+"."+stdName);
+        IDerrorLabel.setText("");
         Statement st = connections.createStatement();
         String query = "select * from student where id = '"+stdId+"'";
         ResultSet rs = st.executeQuery(query);
         while(rs.next()){
-            System.out.println(rs.getString("firstName")+"Before");
             if(stdName.equals(rs.getString("firstName"))){
                 System.out.println("Valid");
                 return true;
+            }
+            else{
+                IDerrorLabel.setText("Incorrect student ID/student name combination");
             }
         }
         return false;

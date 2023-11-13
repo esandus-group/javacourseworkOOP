@@ -13,14 +13,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 public class MainLoginPageController {
-    public ArrayList<String> studentNames = new ArrayList<>();
-    public ArrayList<String> studentPassowrd = new ArrayList<>();
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
 
     @FXML
@@ -30,26 +27,11 @@ public class MainLoginPageController {
     private Text stdNameErrorText;
 
     @FXML
-    private Text passwordErrorText;
-
-    @FXML
-    private TextField studentNameTextField;
-    public String username = "Username";
+    private TextField studentIdTextField;
+    public String stdId = "Username";
     public String password;
     String fileName;
     Stage stage;
-
-    public void loadStudentData() throws Exception{
-        Statement st = connections.createStatement();
-        String query = "select * from student";
-        ResultSet rs = st.executeQuery(query);
-        while(rs.next()){
-            studentNames.add(rs.getString(2));
-            studentPassowrd.add(rs.getString(5));
-        }
-        st.close();
-        connections.close();
-    }
 
     public void stageLoader(ActionEvent event, String fileName) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource(fileName));
@@ -62,13 +44,25 @@ public class MainLoginPageController {
         fileName = "/SCMS/FxmlFiles/RegisterToSCMS.fxml";
         stageLoader(event, fileName);
     }
+    public String getStudentName(String stdId) throws Exception{
+        Statement st = connections.createStatement();
+        String query = "select * from student where id = '"+stdId+"'";
+        ResultSet rs = st.executeQuery(query);
+        while(rs.next()){
+            return rs.getString("firstName");
+
+        }
+        return "Student Not Found";
+    }
     public void Login(ActionEvent event) throws Exception {
-        loadStudentData();
-        if (validateUsername() && validatePassword()){
+        stdId = studentIdTextField.getText();
+        password = passwordTextField.getText();
+        String stdName = getStudentName(stdId);
+        if (isStudentValid(stdId, password)){
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/StudentDashboard.fxml"));
             Parent root = loader.load();
             StudentDashboardController SDC = loader.getController();
-            SDC.setWelcomeText(username);
+            SDC.setWelcomeText(stdName);
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -76,57 +70,20 @@ public class MainLoginPageController {
         }
 
     }
-    public boolean validateUsername(){
-        for(String student: studentNames){
-            System.out.println(student);
-        }
-        username = studentNameTextField.getText();
-        stdNameErrorText.setText(" ");
-        if(username.equals("")){
-            stdNameErrorText.setText("Please enter your name");
-            return false;
-        }
-        if (!studentNames.contains(username)) {
-            stdNameErrorText.setText("Incorrect username");
-            return false;
-        }
-        return true;
-    }
-    public boolean validatePassword() {
-        username = studentNameTextField.getText();
-        password = passwordTextField.getText();
-        stdNameErrorText.setText(" ");
-        passwordErrorText.setText(" ");
-
-        if (username.equals("")) {
-            stdNameErrorText.setText("Please enter your name");
-            return false;
-        }
-
-        if (!studentNames.contains(username)) {
-            stdNameErrorText.setText("Incorrect username");
-            return false;
-        }
-
-        int index = studentNames.indexOf(username);
-
-        if (index >= 0) {
-            if (!password.equals(studentPassowrd.get(index))) {
-                passwordErrorText.setText("Incorrect password");
-                return false;
+    public boolean isStudentValid(String stdId, String stdPassword) throws Exception{
+        Statement st = connections.createStatement();
+        String query = "select * from student where id = '"+stdId+"'";
+        ResultSet rs = st.executeQuery(query);
+        while(rs.next()){
+            if(stdPassword.equals(rs.getString("password"))){
+                return true;
             }
-        } else {
-            stdNameErrorText.setText("Username not found");
-            return false;
         }
-
-        return true;
+        stdNameErrorText.setText("Incorrect Student ID/ Password Combination");
+        return false;
     }
     public void onLoginAsClubAdvisorButtonClick(ActionEvent event) throws IOException {
         fileName = "/SCMS/FxmlFiles/Club advisor.fxml";
         stageLoader(event, fileName);
     }
-
-
-
 }

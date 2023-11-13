@@ -26,5 +26,10 @@
       <Text layoutX="165.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" />
       <TextField fx:id="stdIdTextField" layoutX="188.0" layoutY="90.0" promptText="Student ID" />
       <DatePicker fx:id="stdDOBDatePicker" layoutX="188.0" layoutY="198.0" />
+      <Text fx:id="idErrorText" layoutX="373.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text fx:id="pwErrorText" layoutX="373.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text fx:id="dOBErrorText" layoutX="373.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text fx:id="lNameErrorText" layoutX="373.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text fx:id="fNameErrorText" layoutX="373.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
    </children>
 </AnchorPane>
