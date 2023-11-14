@@ -41,6 +41,7 @@ public class clubAdvisorController {
     public void onClub1PressClick(ActionEvent event) throws Exception{
         fileName="/SCMS/FxmlFiles/PressClub.fxml";      //open the page
         stageLoader(event,fileName);
+
     }
 
     public void onClub2PressClick(ActionEvent event) throws Exception{

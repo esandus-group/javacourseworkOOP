@@ -3,8 +3,11 @@ package SCMS.Controllers;
 import SCMS.HelloApplication;
 import SCMS.Objects.Club;
 import SCMS.Objects.ClubAdvisor;
+import SCMS.Objects.Event;
 import SCMS.Objects.Student;
 import SCMS.Utils.SCMSEnvironment;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,17 +15,20 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class PressClubController {
     HelloApplication helloApplicationInstance = new HelloApplication();
     @FXML
     private TextField newAdvisorId;
-
+    @FXML
+    private TableView<Event> onComingEvents;
     public String confirmation;
     public String advisorIdOfNewPerson;
 
@@ -47,24 +53,31 @@ public class PressClubController {
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
 
     @FXML
-    private TableColumn<?, ?> colAttendance;
+    private TableColumn<Event, String> colAttendance;
 
     @FXML
-    private TableColumn<?, ?> colDate;
+    private TableColumn<Event, String> colDate;
 
     @FXML
-    private TableColumn<?, ?> colFunction;
+    private TableColumn<Event, String> colFunction;
+    @FXML
+    private TableColumn<Event, String> colType;
+
+    @FXML
+    private TableColumn<Event, String> colVenue;
 
     @FXML
     private Button removeStudent;
 
-
     @FXML
-    private TableView<?> toUsers;
+    private Button fillTable;
+
     @FXML
     private Button createNewEvent;
     @FXML
     private Button backButtonCDD;
+
+    public ArrayList<Event> allEvents = new ArrayList();
     Stage stage;
     ClubAdvisor currentClubAdvisor = null;
 
@@ -72,6 +85,55 @@ public class PressClubController {
 
     Club currentClub = null;
 
+    String clubidddd= "C1";
+//=======================================================
+
+    public void loadingEvents() {
+        colDate.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
+        colFunction.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        colVenue.setCellValueFactory(new PropertyValueFactory<>("venue"));
+        colAttendance.setCellValueFactory(new PropertyValueFactory<>("button"));
+
+        ObservableList<Event> data = FXCollections.observableArrayList();
+        data.addAll(allEvents);
+        onComingEvents.setItems(data);
+    }
+
+    public ArrayList<Event> getEventsForClub(String clubId) {
+        ArrayList<Event> clubEvents = new ArrayList<>();
+        String query = "SELECT * FROM Event WHERE clubId = ?"; // Make sure the table name is correct
+
+        try (PreparedStatement preparedStatement = connections.prepareStatement(query)) {
+            preparedStatement.setString(1, clubId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String eventId = resultSet.getString("eventId");
+                String title = resultSet.getString("title");
+                LocalDateTime dateTime = resultSet.getTimestamp("dateTime").toLocalDateTime();
+                String venue = resultSet.getString("venue");
+                String typeOfClubFunction = resultSet.getString("typeOfClubFunction");
+                String description = resultSet.getString("description");
+                String retrievedClubId = resultSet.getString("clubId");
+
+                Event event = new Event(title, dateTime, venue, typeOfClubFunction, description, retrievedClubId);
+                clubEvents.add(event);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+        return clubEvents;
+    }
+
+    public void onFillTableClick(ActionEvent event) throws Exception{
+        allEvents = getEventsForClub(clubidddd);
+
+        loadingEvents();
+        fillTable.setDisable(true);
+    }
     public void stageLoader(ActionEvent event, String fileName) throws IOException { //STAGE LOADER METHOD
         Parent root = FXMLLoader.load(getClass().getResource(fileName));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -288,6 +350,8 @@ public class PressClubController {
 
             return false;
         }
+
+
     }
 
 

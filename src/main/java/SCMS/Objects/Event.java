@@ -1,6 +1,7 @@
 package SCMS.Objects;
 
 import SCMS.Utils.SCMSEnvironment;
+import javafx.scene.control.Button;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ public class Event {
     private String description;
     private String clubId;
 
-
+    private Button button;
     public Event(String title, LocalDateTime dateTime, String venue, String type, String description, String clubId) {
 
         this.eventId = "E" + String.valueOf(getNoOfEventsFromSqlDB()+1);
@@ -26,9 +27,17 @@ public class Event {
         this.description = description;
         this.clubId = clubId;
         System.out.println(title+ venue+description+ clubId+type);
-
-
+        this.button = new Button("mark attendance");
     }
+
+    public Button getButton() {
+        return button;
+    }
+
+    public void setButton(Button button) {
+        this.button = button;
+    }
+
     public Event(String funcType, String title, LocalDateTime dateTime, String venue){
         this.type = funcType;
         this.title = title;
@@ -128,11 +137,11 @@ public class Event {
             statement.setString(6, this.description);
             statement.setString(7, this.clubId);
 
-            // Execute the INSERT query
+
             statement.executeUpdate();
             statement.close();
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle or log the exception appropriately
+            e.printStackTrace();
         }
 
 
