@@ -15,7 +15,7 @@ public class Event {
     private String type;
     private String description;
     private String clubId;
-
+    //i made a change here check
     private Button button;
     public Event(String title, LocalDateTime dateTime, String venue, String type, String description, String clubId) {
 
