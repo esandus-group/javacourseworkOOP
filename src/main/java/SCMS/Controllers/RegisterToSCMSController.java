@@ -1,5 +1,6 @@
 package SCMS.Controllers;
 
+import SCMS.Objects.Student;
 import SCMS.Utils.SCMSEnvironment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -56,6 +58,7 @@ public class RegisterToSCMSController {
     String stdLName;
     String stdDOB;
     String stdPassword;
+    Stage stage;
 
     @FXML
     void onRequestToJoinButtonClick(ActionEvent event) throws Exception {
@@ -75,10 +78,18 @@ public class RegisterToSCMSController {
                 preparedStatement.setString(3, stdLName);
                 preparedStatement.setString(4, stdDOB);
                 preparedStatement.setString(5, stdPassword);
-
                 preparedStatement.executeUpdate();
-                System.out.println("Data inserted into Students table successfully.");
-                loadStudentDashboard(event);
+                Student student= new Student(stdId, stdFName, stdLName, stdDOB, stdPassword);
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/StudentDashboard.fxml"));
+                Parent root = loader.load();
+                StudentDashboardController SDC = loader.getController();
+                SDC.InitializeStudent(student);
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+
             } catch (SQLException e) {
                 e.printStackTrace();
                 // Handle any exceptions here
@@ -145,16 +156,6 @@ public class RegisterToSCMSController {
         }
         pwErrorText.setText("Password cannot be null");
         return false;
-    }
-    public void loadStudentDashboard(ActionEvent event) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/StudentDashboard.fxml"));
-        Parent root = loader.load();
-        StudentDashboardController SDC = loader.getController();
-        SDC.setWelcomeText(stdFName);
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
     }
 
 

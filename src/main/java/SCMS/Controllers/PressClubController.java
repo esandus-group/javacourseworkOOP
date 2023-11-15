@@ -76,6 +76,8 @@ public class PressClubController {
     private Button createNewEvent;
     @FXML
     private Button backButtonCDD;
+    @FXML
+    private Button generateReportsButton;
 
     public ArrayList<Event> allEvents = new ArrayList();
     Stage stage;

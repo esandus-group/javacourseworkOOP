@@ -1,4 +1,6 @@
 package SCMS.Controllers;
+import SCMS.Objects.Club;
+import SCMS.Objects.Student;
 import SCMS.Utils.SCMSEnvironment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,17 +13,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 public class StudentDashboardController {
     ArrayList<String> clubs = new ArrayList<>();
     public String studentId;
     @FXML
     private Text welcomeText;
-    public String studentName;
     String club1name = null;
     String club2name = null;
     String club3name = null;
@@ -34,18 +32,17 @@ public class StudentDashboardController {
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
     @FXML
     private Button club3Button;
-
+    private Student student;
     String buttonText;
 
     Stage stage;
 
     public void getRegisteredClubs() throws Exception {
-
-
+        welcomeText.setText(student.getFirstName());
         try (
              Statement st = connections.createStatement()) {
 
-            String studentIdQuery = "SELECT id FROM student WHERE firstName = '" + studentName + "'";
+            String studentIdQuery = "SELECT id FROM student WHERE firstName = '" + student.getFirstName() + "'";
             ResultSet studentIdResult = st.executeQuery(studentIdQuery);
             if (studentIdResult.next()) {
                 studentId = studentIdResult.getString("id");
@@ -83,22 +80,19 @@ public class StudentDashboardController {
             }
         }
     }
-
-
-    public void setWelcomeText(String name) throws Exception {
-        this.studentName = name;
+    public void InitializeStudent(Student std) throws Exception {
+        this.student = std;
         getRegisteredClubs();
-        welcomeText.setText(name);
+        student.displayInfo();
     }
 
 
 
-    public void onRegisterClubButtonClick(ActionEvent event) throws IOException {
+    public void onRegisterClubButtonClick(ActionEvent event) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/RegisterToClubs.fxml"));
         Parent root = loader.load();
         RegisterToClubController RTC = loader.getController();
-        System.out.println(studentName+" "+ studentId);
-        RTC.setStudentName(studentName, studentId);
+        RTC.InitializeStudent(student);
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -109,7 +103,7 @@ public class StudentDashboardController {
         Parent root = loader.load();
         buttonText = club1Button.getText();
         ClubDashboardController CDC = loader.getController();
-        CDC.setClubNameText(buttonText, studentName);
+        CDC.InitializeStudent(buttonText, student);
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -120,7 +114,7 @@ public class StudentDashboardController {
         Parent root = loader.load();
         buttonText = club2Button.getText();
         ClubDashboardController CDC = loader.getController();
-        CDC.setClubNameText(buttonText, studentName);
+        CDC.InitializeStudent(buttonText, student);
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -131,10 +125,12 @@ public class StudentDashboardController {
         Parent root = loader.load();
         buttonText = club3Button.getText();
         ClubDashboardController CDC = loader.getController();
-        CDC.setClubNameText(buttonText, studentName);
+        CDC.InitializeStudent(buttonText, student);
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
+
+
 }

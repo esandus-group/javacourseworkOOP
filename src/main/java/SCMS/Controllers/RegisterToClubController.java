@@ -1,5 +1,7 @@
 package SCMS.Controllers;
 
+import SCMS.Objects.Club;
+import SCMS.Objects.Student;
 import SCMS.Utils.SCMSEnvironment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,34 +33,106 @@ public class RegisterToClubController {
 
     String studentFName;
     String stdId;
-    String selectedClubId;
+    private Student student;
+    public void InitializeStudent(Student std) throws Exception {
+        this.student = std;
+        this.studentFName = student.getFirstName();
+        this.stdId = student.getId();
+        setClubsComboBox();
+
+    }
+
+    public String getClubIdByName(String name) throws SQLException {
+        Statement st = connections.createStatement();
+        String getClubId = "SELECT * FROM club WHERE name='"+name+"'";
+        ResultSet selectedClubIdrs = st.executeQuery(getClubId);
+        if(selectedClubIdrs.next()){
+            return selectedClubIdrs.getString("clubId");
+        }
+        return null;
+    }
 
     public void onRegisterToClubButtonClick(ActionEvent event) throws Exception{
         String studentId = stdIdTextField.getText();
         String studentName = stdNameTextField.getText();
         String selectedClub = clubComboBox.getValue().toString();
-        Statement st = connections.createStatement();
-        String getClubId = "SELECT * FROM club WHERE name='"+selectedClub+"'";
-        ResultSet selectedClubIdrs = st.executeQuery(getClubId);
-        if(selectedClubIdrs.next()){
-            selectedClubId = selectedClubIdrs.getString("clubId");
-        }
+
 
         if (isStudentValid(studentId, studentName)) {
-            if (!isStudentRemoved(studentId, selectedClubId)){
-                System.out.println("Nigga");
-                registerStudentToClub(event, studentId, selectedClubId);
+            if (!isStudentRemoved(studentId, getClubIdByName(selectedClub))){
+                student.joinClub(getClubByName(selectedClub));
+                registerStudentToClub(event, studentId, getClubIdByName(selectedClub));
             }
-
         }
     }
-    public void setStudentName(String name, String stdId){
-        this.studentFName = name;
-        this.stdId = stdId;
-        setClubsComboBox();
+    public Student getStudent(String studentId) {
+        String query = "SELECT * FROM Student WHERE id = ?";
+        Student student = null;
+
+        try (PreparedStatement statement = connections.prepareStatement(query)) {
+            statement.setString(1, studentId);
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                // Retrieve student details from the result set
+                String id = resultSet.getString("id");
+                String firstName = resultSet.getString("firstName");
+                String lastName = resultSet.getString("lastName");
+                String dateOfBirth = resultSet.getString("dateOfBirth");
+                String password =  resultSet.getString("password");
+                // Add more fields as needed
+
+                // Create a Student object with the retrieved data
+                student = new Student(id, firstName, lastName, dateOfBirth,password);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+        return student;
     }
+    public Club getClubByName(String clubName) throws SQLException {
+        String clubQuery = "SELECT * FROM Club WHERE name = ?";
+        String clubStudentQuery = "SELECT * FROM Club_Student WHERE clubId = ?";
 
+        Club club = null;
 
+        // Retrieve club details from the Club table using the club name
+        try (PreparedStatement clubStatement = connections.prepareStatement(clubQuery)) {
+            clubStatement.setString(1, clubName);
+            ResultSet clubResult = clubStatement.executeQuery();
+
+            if (clubResult.next()) {
+                String clubId = clubResult.getString("clubId"); // Get the ID of the club
+                String name = clubResult.getString("name");
+                String idOfAdvisor = clubResult.getString("idOfAdvisor");
+
+                // Create a list to hold students present
+                ArrayList<Student> studentsPresent = new ArrayList<>();
+
+                // Retrieve student IDs associated with the club from the Club_Student table
+                try (PreparedStatement clubStudentStatement = connections.prepareStatement(clubStudentQuery)) {
+                    clubStudentStatement.setString(1, clubId);
+                    ResultSet clubStudentResult = clubStudentStatement.executeQuery();
+
+                    while (clubStudentResult.next()) {
+                        String studentId = clubStudentResult.getString("id");
+                        // Fetch student objects using the studentId and add to the list
+                        Student student = getStudent(studentId);
+                        if (student != null) {
+                            studentsPresent.add(student);
+                        }
+                    }
+                }
+
+                // Create the Club object with the retrieved data
+                club = new Club(clubId, name, idOfAdvisor, studentsPresent);
+            }
+        }
+
+        return club;
+    }
     public void setClubsComboBox() {
         try {
             Statement st = connections.createStatement();
@@ -68,11 +142,6 @@ public class RegisterToClubController {
 
             while (clubsNotJoined.next()) {
                 clubs.add(clubsNotJoined.getString("name"));
-            }
-
-            // Display the clubs in the combo box
-            for (String club : clubs) {
-                System.out.println(club);
             }
             clubComboBox.getItems().addAll(clubs);
 
@@ -118,13 +187,11 @@ public class RegisterToClubController {
 
     public void registerStudentToClub( ActionEvent event, String studentId, String clubId) throws  Exception{
     String insertQuery = "INSERT INTO club_student (clubId, id) VALUES (?, ?)";
-
         try (PreparedStatement preparedStatement = connections.prepareStatement(insertQuery)) {
             preparedStatement.setString(1, clubId);
             preparedStatement.setString(2, studentId);
 
             preparedStatement.executeUpdate();
-            System.out.println("Data inserted into ApproveStudents table successfully.");
             loadStudentDashboard(event);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -135,7 +202,7 @@ public class RegisterToClubController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/StudentDashboard.fxml"));
         Parent root = loader.load();
         StudentDashboardController SDC = loader.getController();
-        SDC.setWelcomeText(studentFName);
+        SDC.InitializeStudent(student);
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);

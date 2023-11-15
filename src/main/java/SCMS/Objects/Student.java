@@ -12,6 +12,11 @@ public class Student extends Person{
         super(id, firstName, lastName, dateOfBirth,password);
 
     }
+    public Student(String id, String firstName, String lastName, String dateOfBirth,String password, ArrayList<Club> clubsJoined) {
+        super(id, firstName, lastName, dateOfBirth,password);
+        this.clubsJoined = clubsJoined;
+
+    }
 
     public void joinClub(Club club) {
         clubsJoined.add(club);

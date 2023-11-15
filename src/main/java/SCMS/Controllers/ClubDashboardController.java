@@ -1,5 +1,7 @@
 package SCMS.Controllers;
 
+import SCMS.Objects.Club;
+import SCMS.Objects.Student;
 import SCMS.Utils.SCMSEnvironment;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,10 +17,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import SCMS.Objects.Event;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -36,20 +36,18 @@ public class ClubDashboardController {
     private TableColumn<Event, String> datenTimeCol;
     @FXML
     private TableColumn<Event, String> venueCol;
-
-
+    private Student student;
     @FXML
     private Text clubNameText;
     String clubName;
     String stdName;
     String stdId;
-
-    public void setClubNameText(String clubName, String studentName) {
+    public void InitializeStudent(String clubName, Student std){
+        this.student = std;
         this.clubName = clubName;
-        this.stdName = studentName;
+        this.stdName = student.getFirstName();
         clubNameText.setText(clubName);
         functionsPresent = loadDataToEventTable();
-
     }
     public void loadingStudents() {
         funcTypeCol.setCellValueFactory(new PropertyValueFactory<Event, String>("Type"));
@@ -66,10 +64,7 @@ public class ClubDashboardController {
     public ArrayList<Event> loadDataToEventTable() {
         ArrayList<Event> functions = new ArrayList<>();
         try {
-
-
             Statement st = connections.createStatement();
-
             // First, let's retrieve the club ID based on the club name
             String clubIdQuery = "SELECT clubId FROM club WHERE name = '" + clubName + "'";
             ResultSet clubIdResult = st.executeQuery(clubIdQuery);
@@ -117,20 +112,12 @@ public class ClubDashboardController {
             ResultSet clubIdResult = st.executeQuery(clubIdQuery);
 
             if (clubIdResult.next()) {
+                System.out.println(clubName);
                 String clubId = clubIdResult.getString("clubId");
-
-                System.out.println(clubId+"Leave club");
-                System.out.println(stdId);
                 String deleteQuery = "DELETE FROM club_student WHERE clubId = '" + clubId + "' AND id = '" + stdId + "'";
-                int deletedRows = st.executeUpdate(deleteQuery);
-
-                if (deletedRows > 0) {
-                    System.out.println("Student removed from the club.");
-                }
-                } else {
-                    // Club not found, handle this situation accordingly
-                    System.out.println("Club not found.");
-                }
+                st.executeUpdate(deleteQuery);
+                student.leaveClub(getClubByName(clubName));
+            }
             clubIdResult.close();
             st.close();
             connections.close();
@@ -141,11 +128,79 @@ public class ClubDashboardController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/StudentDashboard.fxml"));
         Parent root = loader.load();
         StudentDashboardController SDC = loader.getController();
-        SDC.setWelcomeText(stdName);
+        SDC.InitializeStudent(student);
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+    }
+    public Student getStudent(String studentId) {
+        String query = "SELECT * FROM Student WHERE id = ?";
+        Student student = null;
+
+        try (PreparedStatement statement = connections.prepareStatement(query)) {
+            statement.setString(1, studentId);
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                // Retrieve student details from the result set
+                String id = resultSet.getString("id");
+                String firstName = resultSet.getString("firstName");
+                String lastName = resultSet.getString("lastName");
+                String dateOfBirth = resultSet.getString("dateOfBirth");
+                String password =  resultSet.getString("password");
+                // Add more fields as needed
+
+                // Create a Student object with the retrieved data
+                student = new Student(id, firstName, lastName, dateOfBirth,password);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+        return student;
+    }
+    public Club getClubByName(String clubName) throws SQLException {
+        String clubQuery = "SELECT * FROM Club WHERE name = ?";
+        String clubStudentQuery = "SELECT * FROM Club_Student WHERE clubId = ?";
+
+        Club club = null;
+
+        // Retrieve club details from the Club table using the club name
+        try (PreparedStatement clubStatement = connections.prepareStatement(clubQuery)) {
+            clubStatement.setString(1, clubName);
+            ResultSet clubResult = clubStatement.executeQuery();
+
+            if (clubResult.next()) {
+                String clubId = clubResult.getString("clubId"); // Get the ID of the club
+                String name = clubResult.getString("name");
+                String idOfAdvisor = clubResult.getString("idOfAdvisor");
+
+                // Create a list to hold students present
+                ArrayList<Student> studentsPresent = new ArrayList<>();
+
+                // Retrieve student IDs associated with the club from the Club_Student table
+                try (PreparedStatement clubStudentStatement = connections.prepareStatement(clubStudentQuery)) {
+                    clubStudentStatement.setString(1, clubId);
+                    ResultSet clubStudentResult = clubStudentStatement.executeQuery();
+
+                    while (clubStudentResult.next()) {
+                        String studentId = clubStudentResult.getString("id");
+                        // Fetch student objects using the studentId and add to the list
+                        Student student = getStudent(studentId);
+                        if (student != null) {
+                            studentsPresent.add(student);
+                        }
+                    }
+                }
+
+                // Create the Club object with the retrieved data
+                club = new Club(clubId, name, idOfAdvisor, studentsPresent);
+            }
+        }
+
+        return club;
     }
 
 }
