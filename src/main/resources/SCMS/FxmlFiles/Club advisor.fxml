@@ -14,12 +14,7 @@
             <Image url="@../images/background.jpg" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" layoutX="15.0" layoutY="190.0" prefHeight="47.0" prefWidth="379.0" text="WELCOME TO CLUB ADVISORS " textFill="#9c1098">
-         <font>
-            <Font name="Tahoma Bold" size="22.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="44.0" layoutY="250.0" prefHeight="47.0" prefWidth="309.0" text="DASHBOARD" textFill="#9a1198">
+      <Label fx:id="welcome" alignment="CENTER" layoutX="15.0" layoutY="190.0" prefHeight="47.0" prefWidth="379.0" text="WELCOME TO CLUB ADVISORS " textFill="#9c1098">
          <font>
             <Font name="Tahoma Bold" size="22.0" />
          </font>

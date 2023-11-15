@@ -31,6 +31,8 @@ public class PressClubController {
     private TableView<Event> onComingEvents;
     public String confirmation;
     public String advisorIdOfNewPerson;
+    @FXML
+    private Label welcomeClub;
 
     @FXML
     private Label deletingStatus;
@@ -86,7 +88,15 @@ public class PressClubController {
     Club currentClub = null;
 
     String clubidddd= "C1";
+    String advisorID;
+
+    String name;
 //=======================================================
+    public void setWelcomeText(String clubName,String id){
+        welcomeClub.setText("Welcome to "+clubName);
+        this.name=clubName;
+        this.advisorID=id;
+    }
 
     public void loadingEvents() {
         colDate.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
@@ -124,7 +134,6 @@ public class PressClubController {
             e.printStackTrace();
 
         }
-
         return clubEvents;
     }
 
@@ -222,7 +231,7 @@ public class PressClubController {
     public void onAssignNewAdvClick(ActionEvent event) throws Exception { //using the advisorID create the object
         confirmation = confirmText.getText();                          //getting the stuff from the text fields
         advisorIdOfNewPerson = newAdvisorId.getText(); //this should be the advisors id
-        currentAdvisorId =advisorId.getText();
+
         //get
         if (confirmation.equals("CONFIRM")) {
 
@@ -233,10 +242,9 @@ public class PressClubController {
                 deletingStatus1.setText("Club not deleted");
 
             } else {
-                currentClubAdvisor = getClubAdvisor(currentAdvisorId);
+                currentClubAdvisor = getClubAdvisor(advisorID);
                 newClubAdvisor = getClubAdvisor(advisorIdOfNewPerson);
-                //currentClub=getClubByName();  FIX this line , then done  also save to database
-
+                currentClub=getClubByName(name);
 
                 boolean status = currentClubAdvisor.assignNewAdvisor(newClubAdvisor,currentClub);
                  //pass the new burgers id and the club object

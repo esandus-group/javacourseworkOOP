@@ -1,5 +1,6 @@
 package SCMS.Controllers;
 
+import SCMS.Utils.SCMSEnvironment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,9 +9,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 
 public class clubAdvisorController {
@@ -18,8 +24,88 @@ public class clubAdvisorController {
     @FXML
     private Button backButtonCDD;
     public String fileName;
+    @FXML
+    private Button addclub;
 
+    private ArrayList<String> clubs = new ArrayList<>();
+
+    @FXML
+    private Button club1;
+
+    @FXML
+    private Button club2;
+
+    @FXML
+    private Button club3;
+    String club1name = null;
+    String club2name = null;
+    String club3name = null;
+    String club4name = null;
+    @FXML
+    private Button club4;
+    private String buttonText;
     Stage stage;
+    private String advisorID;
+    @FXML
+    private Label welcome;
+    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //getting the database connection
+    public String clubName;
+
+    public void setWelcomeText(String name,String id) throws Exception{
+        welcome.setText("Welcome "+name);
+        this.advisorID=id;
+        getManagedClubs(id);
+    }
+    public void getManagedClubs(String advisorId) throws Exception {
+        try (Statement st = connections.createStatement()) {
+
+            String advisorClubQuery = "SELECT clubId FROM club WHERE idOfAdvisor = '" + advisorId + "'";
+            ResultSet advisorClubResult = st.executeQuery(advisorClubQuery);
+
+            int clubCount = 0;
+            while (advisorClubResult.next()) {
+                clubs.add(advisorClubResult.getString("clubId"));
+            }
+            for(String club: clubs){
+                System.out.println(club);
+            }
+
+            club1.setVisible(false);
+            club2.setVisible(false);
+            club3.setVisible(false);
+            club4.setVisible(false);
+
+            for (String clubId : clubs) {
+                String clubQuery = "SELECT name FROM club WHERE clubId = '" + clubId + "'";
+                ResultSet clubResult = st.executeQuery(clubQuery);
+
+                if (clubResult.next()) {
+                    String clubName = clubResult.getString("name");
+                    System.out.println(clubName);
+                    clubCount++;
+
+                    if (clubCount == 1) {
+                        club1.setVisible(true);
+                        club1name = clubName;
+                        club1.setText(club1name);
+                    } else if (clubCount == 2) {
+                        club2.setVisible(true);
+                        club2name = clubName;
+                        club2.setText(club2name);
+                    } else if (clubCount == 3) {
+                        club3.setVisible(true);
+                        club3name = clubName;
+                        club3.setText(club3name);
+                    }
+                    else if (clubCount == 4) {
+                        club4.setVisible(true);
+                        club4name = clubName;
+                        club4.setText(club4name);
+                    }
+                }
+            }
+        }
+    }
 
     //Database db1 = new Database();
     //=============================================================
@@ -37,24 +123,50 @@ public class clubAdvisorController {
         stageLoader(event,fileName);                    //call the stage loader method passing the fxml path
 
     }
+    public void onClub1PressClick(ActionEvent event) throws  IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/PressClub.fxml"));
+        Parent root = loader.load();
+        buttonText = club1.getText();
+        PressClubController pcc = loader.getController();
+        pcc.setWelcomeText(buttonText,advisorID);
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    public void onClub2PressClick(ActionEvent event) throws  IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/PressClub.fxml"));
+        Parent root = loader.load();
+        buttonText = club2.getText();
+        ClubDashboardController CDC = loader.getController();
+        CDC.setClubNameText(buttonText, advisorID);
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    public void onClub3PressClick(ActionEvent event) throws  IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/PressClub.fxml"));
+        Parent root = loader.load();
+        buttonText = club3.getText();
+        ClubDashboardController CDC = loader.getController();
+        CDC.setClubNameText(buttonText, advisorID);
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
     //---------------------------------------------------------------------
-    public void onClub1PressClick(ActionEvent event) throws Exception{
-        fileName="/SCMS/FxmlFiles/PressClub.fxml";      //open the page
-        stageLoader(event,fileName);
-
-    }
-
-    public void onClub2PressClick(ActionEvent event) throws Exception{
-        fileName="/SCMS/FxmlFiles/PressClub.fxml";      //open the page
-        stageLoader(event,fileName);
-    }
-    public void onClub3PressClick(ActionEvent event) throws Exception{
-        fileName="/SCMS/FxmlFiles/PressClub.fxml";      //open the page
-        stageLoader(event,fileName);
-    }
-    public void onClub4PressClick(ActionEvent event) throws Exception{
-        fileName="/SCMS/FxmlFiles/PressClub.fxml";      //open the page
-        stageLoader(event,fileName);
+    public void onClub4PressClick(ActionEvent event) throws  IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/PressClub.fxml"));
+        Parent root = loader.load();
+        buttonText = club4.getText();
+        ClubDashboardController CDC = loader.getController();
+        CDC.setClubNameText(buttonText, advisorID);
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
     //=========================================================
     public void  backButtonCDD  (ActionEvent event) throws Exception{

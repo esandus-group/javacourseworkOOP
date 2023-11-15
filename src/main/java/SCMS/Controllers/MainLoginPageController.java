@@ -83,7 +83,7 @@ public class MainLoginPageController {
         return false;
     }
     public void onLoginAsClubAdvisorButtonClick(ActionEvent event) throws IOException {
-        fileName = "/SCMS/FxmlFiles/Club advisor.fxml";
+        fileName = "/SCMS/FxmlFiles/ClubLoginPage.fxml";
         stageLoader(event, fileName);
     }
 }
