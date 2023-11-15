@@ -23,12 +23,12 @@ public class ClubAdvisor extends Person{
     }
 
     public Boolean  assignNewAdvisor(ClubAdvisor advisor,Club club){
-        this.managingClubs.remove(club);
         ArrayList<Club> clubsOfNewAdvisor = advisor.getManagingClubs();
         if (clubsOfNewAdvisor.size() == 4){
             return false;
         }
         else {
+            this.managingClubs.remove(club);
             clubsOfNewAdvisor.add(club);
             return true;
         }

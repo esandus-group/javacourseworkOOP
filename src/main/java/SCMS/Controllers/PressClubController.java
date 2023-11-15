@@ -50,8 +50,6 @@ public class PressClubController {
     @FXML
     private TextField advisorId;
 
-    String currentAdvisorId;
-
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
 
     @FXML
@@ -87,7 +85,7 @@ public class PressClubController {
 
     Club currentClub = null;
 
-    String clubidddd= "C1";
+
     String advisorID;
 
     String name;
@@ -136,9 +134,9 @@ public class PressClubController {
         }
         return clubEvents;
     }
-
+//=====================================================================
     public void onFillTableClick(ActionEvent event) throws Exception{
-        allEvents = getEventsForClub(clubidddd);
+        allEvents = getEventsForClub(getClubByName(name).getClubId());
 
         loadingEvents();
         fillTable.setDisable(true);
@@ -233,11 +231,12 @@ public class PressClubController {
         confirmation = confirmText.getText();                          //getting the stuff from the text fields
         advisorIdOfNewPerson = newAdvisorId.getText(); //this should be the advisors id
 
-        //get
+        //get confirmation
         if (confirmation.equals("CONFIRM")) {
             currentClubAdvisor = getClubAdvisor(advisorID);
             newClubAdvisor = getClubAdvisor(advisorIdOfNewPerson);
             currentClub=getClubByName(name);
+
             System.out.println(currentClubAdvisor.toString());
             System.out.println(newClubAdvisor.toString());
             System.out.println(currentClub.toString());
@@ -251,18 +250,21 @@ public class PressClubController {
             } else {
 
                 boolean status = currentClubAdvisor.assignNewAdvisor(newClubAdvisor,currentClub);
+                System.out.println(status);
                  //pass the new burgers id and the club object
 
                 if (status){
                     updateClubAdvisor(currentClub,newClubAdvisor);
-                    //now i have to load him back to his dashboard cause the club is not his to do shit
-                    //clearing the text fields
-                    confirmText.clear();
-                    newAdvisorId.clear();
-                    advisorId.clear();
-
                     String fileName = "/SCMS/FxmlFiles/Club advisor.fxml";      //open the page
                     stageLoader(event,fileName);
+                    //clearing the text fields
+                    confirmText.setText("");
+                    newAdvisorId.setText("");
+                    advisorId.setText("");
+                    deletingStatus1.setText("");
+                }
+                else{
+                    deletingStatus1.setText("That advisor already has 4 clubs");
                 }
             }
         } else {
