@@ -138,8 +138,8 @@ public class clubAdvisorController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/PressClub.fxml"));
         Parent root = loader.load();
         buttonText = club2.getText();
-        ClubDashboardController CDC = loader.getController();
-        CDC.setClubNameText(buttonText, advisorID);
+        PressClubController pcc = loader.getController();
+        pcc.setWelcomeText(buttonText,advisorID);
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -149,8 +149,8 @@ public class clubAdvisorController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/PressClub.fxml"));
         Parent root = loader.load();
         buttonText = club3.getText();
-        ClubDashboardController CDC = loader.getController();
-        CDC.setClubNameText(buttonText, advisorID);
+        PressClubController pcc = loader.getController();
+        pcc.setWelcomeText(buttonText,advisorID);
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -161,8 +161,8 @@ public class clubAdvisorController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/PressClub.fxml"));
         Parent root = loader.load();
         buttonText = club4.getText();
-        ClubDashboardController CDC = loader.getController();
-        CDC.setClubNameText(buttonText, advisorID);
+        PressClubController pcc = loader.getController();
+        pcc.setWelcomeText(buttonText,advisorID);
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);

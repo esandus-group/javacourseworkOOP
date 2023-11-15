@@ -154,6 +154,7 @@ public class PressClubController {
         String fileName = "/SCMS/FxmlFiles/Club advisor.fxml";      //open the page
         stageLoader(event,fileName);
     }
+
     //=============================================================================
     public void onRemoveStudentClick(ActionEvent event) throws Exception{
         String fileName="/SCMS/FxmlFiles/DeleteStudent.fxml";      //open the page
@@ -234,17 +235,20 @@ public class PressClubController {
 
         //get
         if (confirmation.equals("CONFIRM")) {
+            currentClubAdvisor = getClubAdvisor(advisorID);
+            newClubAdvisor = getClubAdvisor(advisorIdOfNewPerson);
+            currentClub=getClubByName(name);
+            System.out.println(currentClubAdvisor.toString());
+            System.out.println(newClubAdvisor.toString());
+            System.out.println(currentClub.toString());
 
             // Checking if the advisor manages the club
-            if (!checkIfAdvisorManagesClub(advisorIdOfNewPerson, currentAdvisorId)) {
+            if (!checkIfAdvisorManagesClub(currentClub.getClubId(), currentClubAdvisor.getId())) {
 
                 deletingStatus.setText("An advisor with That ID does not manage a Club");
                 deletingStatus1.setText("Club not deleted");
 
             } else {
-                currentClubAdvisor = getClubAdvisor(advisorID);
-                newClubAdvisor = getClubAdvisor(advisorIdOfNewPerson);
-                currentClub=getClubByName(name);
 
                 boolean status = currentClubAdvisor.assignNewAdvisor(newClubAdvisor,currentClub);
                  //pass the new burgers id and the club object
@@ -256,9 +260,10 @@ public class PressClubController {
                     confirmText.clear();
                     newAdvisorId.clear();
                     advisorId.clear();
+
+                    String fileName = "/SCMS/FxmlFiles/Club advisor.fxml";      //open the page
+                    stageLoader(event,fileName);
                 }
-
-
             }
         } else {
             deletingStatus1.setText("Action not confirmed,advisor not assigned.");
