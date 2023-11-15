@@ -36,7 +36,7 @@ public class MainLoginPageController {
     String fileName;
     Stage stage;
 
-    public Student getStudentById(String studentId) throws Exception {
+    public Student getStudentWithClubs(String studentId) throws Exception {
         String studentQuery = "SELECT * FROM student WHERE id = ?";
         String clubIdsQuery = "SELECT clubId FROM club_student WHERE id = ?";
 
@@ -61,10 +61,6 @@ public class MainLoginPageController {
                         Club club = getClubById(clubId);
 
                         if (club != null) {
-                            if (clubsJoined == null) {
-                                clubsJoined = new ArrayList<>();
-                            }
-
                             clubsJoined.add(club);
                         }
                     }
@@ -76,10 +72,8 @@ public class MainLoginPageController {
 
         return null;
     }
-
     public Club getClubById(String clubId) throws Exception {
         String clubQuery = "SELECT * FROM Club WHERE clubId = ?";
-        String clubStudentQuery = "SELECT * FROM Club_Student WHERE clubId = ?";
 
         try (PreparedStatement clubStatement = connections.prepareStatement(clubQuery)) {
             clubStatement.setString(1, clubId);
@@ -89,33 +83,13 @@ public class MainLoginPageController {
                 String name = clubResult.getString("name");
                 String idOfAdvisor = clubResult.getString("idOfAdvisor");
 
-                ArrayList<Student> studentsPresent = new ArrayList<>();
-
-                try (PreparedStatement clubStudentStatement = connections.prepareStatement(clubStudentQuery)) {
-                    clubStudentStatement.setString(1, clubId);
-                    ResultSet clubStudentResult = clubStudentStatement.executeQuery();
-
-                    while (clubStudentResult.next()) {
-                        String studentId = clubStudentResult.getString("id");
-                        Student student = getStudentById(studentId);
-
-                        if (student != null) {
-                            if (studentsPresent == null) {
-                                studentsPresent = new ArrayList<>();
-                            }
-
-                            studentsPresent.add(student);
-
-                        }
-                    }
-                }
-
-                return new Club(clubId, name, idOfAdvisor, studentsPresent);
+                return new Club(clubId, name, idOfAdvisor);
             }
         }
 
         return null;
     }
+
     public void stageLoader(ActionEvent event, String fileName) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource(fileName));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -127,50 +101,12 @@ public class MainLoginPageController {
         fileName = "/SCMS/FxmlFiles/RegisterToSCMS.fxml";
         stageLoader(event, fileName);
     }
-    public String getStudentName(String stdId) throws Exception{
-        Statement st = connections.createStatement();
-        String query = "select * from student where id = '"+stdId+"'";
-        ResultSet rs = st.executeQuery(query);
-        while(rs.next()){
-            return rs.getString("firstName");
-
-        }
-        return null;
-    }
-    public String getStudentPasswordById(String id) throws Exception{
-        Statement st = connections.createStatement();
-        String query = "select * from student where id = '"+stdId+"'";
-        ResultSet rs = st.executeQuery(query);
-        while(rs.next()){
-            return rs.getString("password");
-        }
-        return null;
-    }
-    public String getStudentLNameById(String id) throws Exception{
-        Statement st = connections.createStatement();
-        String query = "select * from student where id = '"+stdId+"'";
-        ResultSet rs = st.executeQuery(query);
-        while(rs.next()){
-            return rs.getString("lastName");
-        }
-        return null;
-    }
-    public String getStudentDOBById(String id) throws Exception{
-        Statement st = connections.createStatement();
-        String query = "select * from student where id = '"+stdId+"'";
-        ResultSet rs = st.executeQuery(query);
-        while(rs.next()){
-            return rs.getString("dateOfBirth");
-        }
-        return null;
-    }
-
 
     public void Login(ActionEvent event) throws Exception {
         stdId = studentIdTextField.getText();
         password = passwordTextField.getText();
         if (isStudentValid(stdId, password)){
-            Student student = getStudentById(stdId);
+            Student student = getStudentWithClubs(stdId);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/StudentDashboard.fxml"));
             Parent root = loader.load();
             StudentDashboardController SDC = loader.getController();

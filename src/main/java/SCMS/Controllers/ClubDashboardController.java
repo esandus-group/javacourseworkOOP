@@ -99,32 +99,24 @@ public class ClubDashboardController {
 
     public void onLeaveClubButtonClick(ActionEvent event) throws Exception {
         try {
+            String stdId = getStudentIdByName(stdName); // Get student ID by name
 
-            Statement st = connections.createStatement();
+            if (stdId != null) {
+                String clubId = getClubIdByName(clubName); // Get club ID by name
 
-            String stdIdQuery = "SELECT * FROM student WHERE firstName = '" + stdName + "'";
-            ResultSet stdIdResult = st.executeQuery(stdIdQuery);
-            if(stdIdResult.next()){
-                stdId = stdIdResult.getString(1);
+                if (clubId != null) {
+                    deleteClubMembership(stdId, clubId);
+
+                    // Update the student object
+                    student.leaveClub(getClubByName(clubName));
+
+                }
             }
-
-            String clubIdQuery = "SELECT clubId FROM club WHERE name = '" + clubName + "'";
-            ResultSet clubIdResult = st.executeQuery(clubIdQuery);
-
-            if (clubIdResult.next()) {
-                System.out.println(clubName);
-                String clubId = clubIdResult.getString("clubId");
-                String deleteQuery = "DELETE FROM club_student WHERE clubId = '" + clubId + "' AND id = '" + stdId + "'";
-                st.executeUpdate(deleteQuery);
-                student.leaveClub(getClubByName(clubName));
-            }
-            clubIdResult.close();
-            st.close();
-            connections.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        // Load StudentDashboard
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/StudentDashboard.fxml"));
         Parent root = loader.load();
         StudentDashboardController SDC = loader.getController();
@@ -133,6 +125,44 @@ public class ClubDashboardController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+    }
+
+    private String getStudentIdByName(String studentName) throws SQLException {
+        String stdId = null;
+
+        try (PreparedStatement stdIdStatement = connections.prepareStatement("SELECT id FROM student WHERE firstName = ?")) {
+            stdIdStatement.setString(1, studentName);
+            ResultSet stdIdResult = stdIdStatement.executeQuery();
+
+            if (stdIdResult.next()) {
+                stdId = stdIdResult.getString("id");
+            }
+        }
+
+        return stdId;
+    }
+
+    private String getClubIdByName(String clubName) throws SQLException {
+        String clubId = null;
+
+        try (PreparedStatement clubIdStatement = connections.prepareStatement("SELECT clubId FROM club WHERE name = ?")) {
+            clubIdStatement.setString(1, clubName);
+            ResultSet clubIdResult = clubIdStatement.executeQuery();
+
+            if (clubIdResult.next()) {
+                clubId = clubIdResult.getString("clubId");
+            }
+        }
+
+        return clubId;
+    }
+
+    private void deleteClubMembership(String studentId, String clubId) throws SQLException {
+        try (PreparedStatement deleteStatement = connections.prepareStatement("DELETE FROM club_student WHERE clubId = ? AND id = ?")) {
+            deleteStatement.setString(1, clubId);
+            deleteStatement.setString(2, studentId);
+            deleteStatement.executeUpdate();
+        }
     }
     public Student getStudent(String studentId) {
         String query = "SELECT * FROM Student WHERE id = ?";

@@ -40,4 +40,7 @@ public class Student extends Person{
         return clubsJoined;
     }
 
+    public void setClubsJoined(ArrayList<Club> clubsJoined) {
+        this.clubsJoined = clubsJoined;
+    }
 }

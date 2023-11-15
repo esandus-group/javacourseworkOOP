@@ -83,7 +83,7 @@ public class StudentDashboardController {
     public void InitializeStudent(Student std) throws Exception {
         this.student = std;
         getRegisteredClubs();
-        student.displayInfo();
+
     }
 
 
