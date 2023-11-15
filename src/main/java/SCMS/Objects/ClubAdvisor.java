@@ -30,6 +30,7 @@ public class ClubAdvisor extends Person{
         else {
             this.managingClubs.remove(club);
             clubsOfNewAdvisor.add(club);
+            club.setIdOfAdvisor(advisor.getId());
             return true;
         }
     }
