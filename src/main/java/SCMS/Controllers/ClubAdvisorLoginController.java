@@ -101,7 +101,6 @@ public class ClubAdvisorLoginController {
             }
     }
 
-
     public void stageLoader(ActionEvent event, String fileName) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource(fileName));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -109,7 +108,8 @@ public class ClubAdvisorLoginController {
         stage.setScene(scene);
         stage.show();
     }
+
     public void onRegisterClubAdvisorButtonClick(ActionEvent event) throws IOException{
-        stageLoader(event,"/SCMS/FxmlFiles/Club advisor.fxml");
+        stageLoader(event,"/SCMS/FxmlFiles/ClubAdvisorSignUp.fxml");
     }
 }
