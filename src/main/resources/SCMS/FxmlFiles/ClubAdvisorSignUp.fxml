@@ -26,13 +26,13 @@
       <Text layoutX="175.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" />
       <TextField fx:id="TeacherIdTextField" layoutX="198.0" layoutY="100.0" promptText="Teacher ID" />
       <DatePicker fx:id="stdDOBDatePicker" layoutX="198.0" layoutY="249.0" />
-      <Text fx:id="TidErrorText" layoutX="383.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-      <Text fx:id="pwErrorText" layoutX="383.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-      <Text fx:id="dOBErrorText" layoutX="383.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-      <Text fx:id="lNameErrorText" layoutX="383.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-      <Text fx:id="fNameErrorText" layoutX="383.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text fx:id="TidErrorText" layoutX="383.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="pwErrorText" layoutX="383.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="dOBErrorText" layoutX="383.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="lNameErrorText" layoutX="383.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="fNameErrorText" layoutX="383.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <Text layoutX="173.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" />
       <TextField fx:id="stdIdTextField" layoutX="196.0" layoutY="136.0" promptText="Advisor ID" />
-      <Text fx:id="idErrorText1" layoutX="381.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text fx:id="idErrorText" layoutX="381.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" />
    </children>
 </AnchorPane>

@@ -3,6 +3,10 @@ import SCMS.Objects.ClubAdvisor;
 import SCMS.Utils.SCMSEnvironment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -141,5 +145,17 @@ public class ClubAdvisorSignupController {
         fNameErrorText.setText("");
         idErrorText.setText("");
 
+        //loading the dashboard
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/Club advisor.fxml"));
+        Parent root = loader.load();
+
+        clubAdvisorController cac = loader.getController();
+        cac.setWelcomeText(advisor.getFirstName(), advisorId);
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 }

@@ -60,6 +60,7 @@ public class PressClubController {
 
     @FXML
     private TableColumn<Event, String> colFunction;
+
     @FXML
     private TableColumn<Event, String> colType;
 
@@ -91,12 +92,13 @@ public class PressClubController {
     String advisorID;
 
     String name;
-//=======================================================
+    //=======================================================
     public void setWelcomeText(String clubName,String id){
         welcomeClub.setText("Welcome to "+clubName);
         this.name=clubName;
         this.advisorID=id;
     }
+    //=========================================================================
 
     public void loadingEvents() {
         colDate.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
@@ -109,6 +111,7 @@ public class PressClubController {
         data.addAll(allEvents);
         onComingEvents.setItems(data);
     }
+    //=========================================================================
 
     public ArrayList<Event> getEventsForClub(String clubId) {
         ArrayList<Event> clubEvents = new ArrayList<>();
@@ -136,13 +139,18 @@ public class PressClubController {
         }
         return clubEvents;
     }
+
 //=====================================================================
+
     public void onFillTableClick(ActionEvent event) throws Exception{
         allEvents = getEventsForClub(getClubByName(name).getClubId());
 
         loadingEvents();
         fillTable.setDisable(true);
     }
+
+    //=========================================================================
+
     public void stageLoader(ActionEvent event, String fileName) throws IOException { //STAGE LOADER METHOD
         Parent root = FXMLLoader.load(getClass().getResource(fileName));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -150,9 +158,16 @@ public class PressClubController {
         stage.setScene(scene);
         stage.show();
     }
+
     public void  backButtonCDD  (ActionEvent event) throws Exception{
-        String fileName = "/SCMS/FxmlFiles/Club advisor.fxml";      //open the page
-        stageLoader(event,fileName);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/Club advisor.fxml"));
+        Parent root = loader.load();
+        clubAdvisorController cac = loader.getController();
+        cac.setWelcomeText(getClubAdvisor(advisorID).getFirstName(),advisorID);
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     //=============================================================================
@@ -189,9 +204,7 @@ public class PressClubController {
 
         return advisorManagesClub;
     }
-    //make the method to replace the advisor id with the new advisor id in the club table
-
-    //-------------------------------------------------------------------------------------
+    //================================================================================
     public ClubAdvisor getClubAdvisor(String clubAdvisorId) throws SQLException {
         String advisorQuery = "SELECT * FROM ClubAdvisor WHERE id = ?";
         String clubsQuery = "SELECT * FROM Club WHERE idOfAdvisor = ?";
@@ -349,6 +362,8 @@ public class PressClubController {
 
         return club;
     }
+    //=========================================================================
+
     public boolean updateClubAdvisor(Club currentClub, ClubAdvisor newClubAdvisor) { //i can make it so that i pass the objects and then use getters
         String newAdvisorId = newClubAdvisor.getId();
         String clubId = currentClub.getClubId();
