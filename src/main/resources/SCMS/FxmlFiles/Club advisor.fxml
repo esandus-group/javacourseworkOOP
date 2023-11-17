@@ -49,6 +49,6 @@
             <Font name="Tahoma Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="backButtonCDD" layoutX="17.0" layoutY="15.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="26.0" prefWidth="40.0" text="&lt;--" />
+      <Button fx:id="backButtonCDD" layoutX="17.0" layoutY="15.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="25.0" prefWidth="68.0" text="Exit" />
    </children>
 </AnchorPane>

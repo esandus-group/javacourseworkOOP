@@ -23,8 +23,6 @@ public class ViewStudentsController {
     @FXML
     private TableView<Student> viewStudentsTable;
     @FXML
-    private TextField clubIdStudents;
-    @FXML
     private Label idStatusLabel;
 
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection();
@@ -34,20 +32,25 @@ public class ViewStudentsController {
     private TableColumn<Student, String> StudentNameCol1;
 
 
-
+    private String buttonText;
     @FXML
     private Button fillTableButton;
 
     public String idOfClub;
 
+    private String clubName;
     @FXML
     private TableColumn<Student, String> studentIdCol;
     ArrayList<Student> studentsPresent = new ArrayList<>();
-
+    private String advisorId;
     @FXML
     private Button backButtonCDD;
 
-
+    public void gettingInformation(String clubId,String clubName,String advisorId){
+        this.idOfClub=clubId;
+        this.clubName=clubName;
+        this.advisorId =advisorId;
+    }
 
     //=======================================================
     public void stageLoader(ActionEvent event, String fileName) throws IOException { //STAGE LOADER METHOD
@@ -57,9 +60,20 @@ public class ViewStudentsController {
         stage.setScene(scene);
         stage.show();
     }
+
     public void  backButtonCDD  (ActionEvent event) throws Exception{
         String fileName = "/SCMS/FxmlFiles/PressClub.fxml";      //open the page
-        stageLoader(event,fileName);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName));
+        Parent root = loader.load();
+        buttonText = clubName;
+
+        PressClubController pcc = loader.getController();
+        pcc.setWelcomeText(buttonText,advisorId);
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     //=======================================================
@@ -139,8 +153,6 @@ public class ViewStudentsController {
     //=======================================================
 
     public void onFillTableButtonClick(ActionEvent event) throws Exception {
-        idOfClub = clubIdStudents.getText();
-
         if (!checkIfClubExists(idOfClub)){
             idStatusLabel.setText("Club not found");
         }

@@ -173,13 +173,31 @@ public class PressClubController {
     //=============================================================================
     public void onRemoveStudentClick(ActionEvent event) throws Exception{
         String fileName="/SCMS/FxmlFiles/DeleteStudent.fxml";      //open the page
-        stageLoader(event,fileName);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName));
+        Parent root = loader.load();
+
+        RemoveStudentController rsc = loader.getController();
+        rsc.gettingInformation(name,advisorID);
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
 
     }
     //===========================================================================
     public void onViewStudentsButtonClick(ActionEvent event) throws Exception{
-        String fileName="/SCMS/FxmlFiles/view Students.fxml";      //open the page
-        stageLoader(event,fileName);
+        String fileName="/SCMS/FxmlFiles/View Students.fxml";      //the fxml path
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName));
+        Parent root = loader.load();
+
+        ViewStudentsController vsc = loader.getController();
+        vsc.gettingInformation(getClubByName(name).getClubId(),name,advisorID);
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
 
     }
     //=============================================================================

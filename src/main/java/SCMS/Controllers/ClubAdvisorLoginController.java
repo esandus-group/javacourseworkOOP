@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.w3c.dom.Text;
@@ -22,7 +23,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ClubAdvisorLoginController {
+    @FXML
+    private Label idStatus;
 
+    @FXML
+    private Label passwordStatus;
     @FXML
     private TextField AdvisorIdTextField;
 
@@ -80,13 +85,36 @@ public class ClubAdvisorLoginController {
 
         return null; // ClubAdvisor not found
     }
+
+    public boolean isInputEmpty(String input){
+        if ( input== null || input.equals("")){
+            return false;
+        }
+        return true;
+    }
+
     public void Login(ActionEvent event) throws Exception {
             adId = AdvisorIdTextField.getText();
             password = passwordTextField.getText();
             ClubAdvisor advisor = getClubAdvisor(adId);
+
+        if (!isInputEmpty(adId)){
+            idStatus.setText("pls enter the Teacher Id");
+            return;
+        }
+        if (!isInputEmpty(password)){
+            passwordStatus.setText("pls enter the password");
+            return;
+        }
             if (advisor==null){
-                //validation
+                passwordStatus.setText("Invalid Id entered");
+                return;
             }
+            if (!advisor.getPassword().equals(password)){
+                passwordStatus.setText("Password is incorrect");
+                return;
+            }
+
             else {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/Club advisor.fxml"));
                 Parent root = loader.load();
