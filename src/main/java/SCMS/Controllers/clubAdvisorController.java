@@ -120,8 +120,17 @@ public class clubAdvisorController {
     //---------------------------------------------------------------------
     public void onAddClubClick(ActionEvent event) throws Exception{ // add club
         fileName="/SCMS/FxmlFiles/CreateClub.fxml";      //the fxml path
-        stageLoader(event,fileName);                    //call the stage loader method passing the fxml path
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName));
+        Parent root = loader.load();
+        buttonText = club1.getText();
 
+        createClubController pcc = loader.getController();
+        pcc.gettingIdOfAdvisor(advisorID);
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
     public void onClub1PressClick(ActionEvent event) throws  IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/PressClub.fxml"));
@@ -170,7 +179,7 @@ public class clubAdvisorController {
     }
     //=========================================================
     public void  backButtonCDD  (ActionEvent event) throws Exception{
-        fileName="/SCMS/FxmlFiles/PressClub.fxml";      //open the page
+        fileName="/SCMS/FxmlFiles/ClubLoginPage.fxml";      //open the page
         stageLoader(event,fileName);
     }
 

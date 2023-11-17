@@ -36,9 +36,13 @@ public class createClubController {
 
     public String clubId;
     public String clubNam;
-
+    public String idOfAdvisor;
     @FXML
     private Button backButtonCDD;
+
+    public void gettingIdOfAdvisor(String id){
+        this.idOfAdvisor=id;
+    }
 
     public void stageLoader(ActionEvent event, String fileName) throws IOException { //STAGE LOADER METHOD
         Parent root = FXMLLoader.load(getClass().getResource(fileName));
@@ -48,8 +52,18 @@ public class createClubController {
         stage.show();
     }
     public void  backButtonCDD  (ActionEvent event) throws Exception{
-        String fileName = "/SCMS/FxmlFiles/Club advisor.fxml";      //open the page
-        stageLoader(event,fileName);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/Club advisor.fxml"));
+        Parent root = loader.load();
+
+        //passing the advisorID to the next controller and also setting the name
+        clubAdvisorController cac = loader.getController();
+        cac.setWelcomeText(getClubAdvisor(idOfAdvisor).getFirstName(), idOfAdvisor);
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+
     }
     //=========================================================================
     public String getNewClubId() { //we count how many rows are there and add 1 to get the new id

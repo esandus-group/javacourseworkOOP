@@ -4,21 +4,18 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="427.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.ViewStudentsController">
+<AnchorPane prefHeight="427.0" prefWidth="568.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.ViewStudentsController">
    <children>
-      <TableView fx:id="viewStudentsTable" layoutX="188.0" layoutY="14.0" prefHeight="389.0" prefWidth="406.0">
+      <TableView fx:id="viewStudentsTable" layoutX="150.0" layoutY="19.0" prefHeight="389.0" prefWidth="406.0">
         <columns>
           <TableColumn fx:id="studentIdCol" prefWidth="106.0" text="Student Id" />
           <TableColumn fx:id="StudentNameCol" prefWidth="153.0" text="First  Name " />
             <TableColumn fx:id="StudentNameCol1" prefWidth="146.0" text="Last Name " />
         </columns>
       </TableView>
-      <Button fx:id="fillTableButton" layoutX="42.0" layoutY="237.0" mnemonicParsing="false" onAction="#onFillTableButtonClick" prefHeight="34.0" prefWidth="82.0" text="Fill Table" />
-      <TextField fx:id="clubIdStudents" layoutX="16.0" layoutY="196.0" />
-      <Label layoutX="22.0" layoutY="167.0" prefHeight="17.0" prefWidth="148.0" text="Enter Club Id" />
+      <Button fx:id="fillTableButton" layoutX="31.0" layoutY="159.0" mnemonicParsing="false" onAction="#onFillTableButtonClick" prefHeight="34.0" prefWidth="82.0" text="Fill Table" />
       <Label fx:id="idStatusLabel" layoutX="446.0" layoutY="167.0" prefHeight="17.0" prefWidth="148.0" />
       <Button fx:id="backButtonCDD" layoutX="22.0" layoutY="22.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="26.0" prefWidth="40.0" text="&lt;--" />
    </children>

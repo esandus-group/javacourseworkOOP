@@ -46,6 +46,14 @@ public class RemoveStudentController {
 
     @FXML
     private Label statusShowLabel;
+    private String clubName;
+    private String adId;
+
+    public void gettingInformation(String clubName, String adId){
+        this.clubName=clubName;
+        this.adId=adId;
+    }
+
     //=====================================
     public void stageLoader(ActionEvent event, String fileName) throws IOException { //STAGE LOADER METHOD
         Parent root = FXMLLoader.load(getClass().getResource(fileName));
@@ -57,7 +65,17 @@ public class RemoveStudentController {
 
     public void  backButtonCDD  (ActionEvent event) throws Exception{
         String fileName = "/SCMS/FxmlFiles/PressClub.fxml";      //open the page
-        stageLoader(event,fileName);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName));
+        Parent root = loader.load();
+        String buttonText = clubName;
+
+        PressClubController pcc = loader.getController();
+        pcc.setWelcomeText(buttonText,adId);
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
     //====================================
     public Student getStudent(String studentId) {

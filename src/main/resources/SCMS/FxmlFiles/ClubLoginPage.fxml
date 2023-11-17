@@ -21,5 +21,7 @@
       <Button fx:id="signUpAdvisor" layoutX="312.0" layoutY="284.0" mnemonicParsing="false" onAction="#onRegisterClubAdvisorButtonClick" text="SIGN UP" />
       <Button fx:id="advisorLoginButton" layoutX="238.0" layoutY="239.0" mnemonicParsing="false" onAction="#Login" prefHeight="25.0" prefWidth="62.0" text="Login" />
       <Label layoutX="131.0" layoutY="284.0" prefHeight="26.0" prefWidth="169.0" text="If you are not already registed" />
+      <Label fx:id="idStatus" layoutX="393.0" layoutY="143.0" prefHeight="26.0" prefWidth="157.0" />
+      <Label fx:id="passwordStatus" layoutX="399.0" layoutY="183.0" prefHeight="26.0" prefWidth="176.0" />
    </children>
 </AnchorPane>

@@ -149,7 +149,7 @@ public class ClubAdvisorSignupController {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/Club advisor.fxml"));
         Parent root = loader.load();
-
+        //passing the advisorID to the next controller and also setting the name
         clubAdvisorController cac = loader.getController();
         cac.setWelcomeText(advisor.getFirstName(), advisorId);
 
@@ -157,5 +157,6 @@ public class ClubAdvisorSignupController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+
     }
 }
