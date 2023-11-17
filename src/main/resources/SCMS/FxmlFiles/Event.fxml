@@ -11,14 +11,9 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.EventContorller">
     <children>
-        <Text layoutX="202.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Club Name">
+        <Text layoutX="253.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Club Name">
             <font>
                 <Font size="20.0" />
-            </font>
-        </Text>
-        <Text fx:id="clubNameText" layoutX="154.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create new event">
-            <font>
-                <Font size="40.0" />
             </font>
         </Text>
         <Button fx:id="leaveClubButton" layoutX="487.0" layoutY="354.0" mnemonicParsing="false" onAction="#onCreateNewEvent" text="Create" />
@@ -27,22 +22,22 @@
             <Font size="10.0" />
          </font>
       </Text>
-      <Text layoutX="88.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Title" />
-      <TextField fx:id="eventTitle" layoutX="250.0" layoutY="126.0" />
-      <Text layoutX="88.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
-      <Text layoutX="89.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Venue" />
-      <TextField fx:id="eventVenue" layoutX="251.0" layoutY="212.0" />
-      <Text layoutX="89.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" />
-      <Text layoutX="89.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
-      <TextField fx:id="eventDescription" layoutX="251.0" layoutY="296.0" />
-      <DatePicker fx:id="eventDate" layoutX="251.0" layoutY="169.0" />
-      <Text layoutX="449.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="time" />
-      <ChoiceBox fx:id="eventTypeChoiceBox" layoutX="255.0" layoutY="253.0" prefWidth="150.0" />
-      <TextField fx:id="clubIdTextBoxData" layoutX="405.0" layoutY="79.0" />
-      <Text layoutX="329.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Club ID" />
-      <TextField fx:id="timeHourTextBoxData" layoutX="449.0" layoutY="199.0" prefHeight="26.0" prefWidth="94.0" promptText="Hour" />
-      <TextField fx:id="timeMinuteTextBoxData" layoutX="449.0" layoutY="234.0" prefHeight="26.0" prefWidth="94.0" promptText="Minute" />
-      <Label fx:id="errorMessageLabel" layoutX="40.0" layoutY="88.0" />
+      <Text layoutX="91.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Title" />
+      <TextField fx:id="eventTitle" layoutX="253.0" layoutY="158.0" />
+      <Text layoutX="91.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
+      <Text layoutX="92.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Venue" />
+      <TextField fx:id="eventVenue" layoutX="254.0" layoutY="244.0" />
+      <Text layoutX="92.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" />
+      <Text layoutX="92.0" layoutY="346.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+      <TextField fx:id="eventDescription" layoutX="254.0" layoutY="328.0" />
+      <DatePicker fx:id="eventDate" layoutX="254.0" layoutY="201.0" prefHeight="26.0" prefWidth="160.0" />
+      <Text layoutX="452.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="time" />
+      <ChoiceBox fx:id="eventTypeChoiceBox" layoutX="253.0" layoutY="286.0" prefHeight="26.0" prefWidth="160.0" />
+      <TextField fx:id="clubIdTextBoxData" layoutX="254.0" layoutY="116.0" />
+      <Text layoutX="89.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Club ID" />
+      <TextField fx:id="timeHourTextBoxData" layoutX="452.0" layoutY="231.0" prefHeight="26.0" prefWidth="94.0" promptText="Hour" />
+      <TextField fx:id="timeMinuteTextBoxData" layoutX="452.0" layoutY="266.0" prefHeight="26.0" prefWidth="94.0" promptText="Minute" />
+      <Label fx:id="errorMessageLabel" layoutX="92.0" layoutY="53.0" prefHeight="45.0" prefWidth="322.0" wrapText="true" />
       <Button fx:id="backButtonCDD" layoutX="20.0" layoutY="17.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="26.0" prefWidth="40.0" text="&lt;--" />
     </children>
 </AnchorPane>
