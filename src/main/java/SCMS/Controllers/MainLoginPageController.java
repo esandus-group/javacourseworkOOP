@@ -132,7 +132,13 @@ public class MainLoginPageController {
     }
     public void onLoginAsClubAdvisorButtonClick(ActionEvent event) throws IOException {
         fileName = "/SCMS/FxmlFiles/ClubLoginPage.fxml";
-        stageLoader(event, fileName);
+
+        Parent root = FXMLLoader.load(getClass().getResource(fileName));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+//        scene.getStylesheets().add(getClass().getResource("/SCMS/StylingSheets/MainLoginPage.css").toExternalForm());
+        stage.setScene(scene);
+        stage.show();
     }
 
 }

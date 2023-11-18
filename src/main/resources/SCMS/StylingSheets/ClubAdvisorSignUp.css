@@ -1,0 +1,39 @@
+/* styles.css */
+
+.root {
+    -fx-background-color: #212121;
+    -fx-font-family:'JetBrains Mono'
+
+}
+
+.button {
+    -fx-background-color: #7151F0;
+    -fx-text-fill: white;
+}
+
+.text-field {
+    -fx-background-color: #181818;
+    -fx-text-fill: white;
+}
+
+.text {
+    -fx-FontWeight.BLACK;
+}
+
+#titleText {
+    -fx-fill: white;
+     -fx-font-size: 30px;
+}
+#1, #2, #3, #4, #5, #6, #TidErrorText, #pwErrorText, #dOBErrorText,#lNameErrorText,#fNameErrorText,#idErrorText {
+    -fx-fill: white;
+}
+
+.white-text {
+    -fx-fill: white; /* Set the text color to white */
+}
+
+
+
+
+
+

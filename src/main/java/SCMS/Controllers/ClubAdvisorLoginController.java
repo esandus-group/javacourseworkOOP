@@ -138,6 +138,12 @@ public class ClubAdvisorLoginController {
     }
 
     public void onRegisterClubAdvisorButtonClick(ActionEvent event) throws IOException{
-        stageLoader(event,"/SCMS/FxmlFiles/ClubAdvisorSignUp.fxml");
+
+        Parent root = FXMLLoader.load(getClass().getResource("/SCMS/FxmlFiles/ClubAdvisorSignUp.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+//        scene.getStylesheets().add(getClass().getResource("/SCMS/StylingSheets/ClubAdvisorSignUp.css").toExternalForm());
+        stage.setScene(scene);
+        stage.show();
     }
 }
