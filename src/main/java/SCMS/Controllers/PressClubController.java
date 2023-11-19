@@ -23,6 +23,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+//trial
 public class PressClubController {
     HelloApplication helloApplicationInstance = new HelloApplication();
     @FXML
