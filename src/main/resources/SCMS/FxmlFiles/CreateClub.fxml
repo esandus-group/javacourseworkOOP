@@ -1,76 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.createClubController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.createClubController">
    <children>
-      <ImageView fitHeight="600.0" fitWidth="807.0" layoutX="-5.0">
-         <image>
-            <Image url="@../images/135960.jpg" />
-         </image>
-      </ImageView>
-      <AnchorPane layoutX="179.0" layoutY="70.0" prefHeight="459.0" prefWidth="441.0" style="-fx-background-color: #000000;">
-         <children>
-            <Label alignment="CENTER" layoutX="98.0" layoutY="33.0" prefHeight="49.0" prefWidth="230.0" text="CREATING A NEW CLUB" textFill="WHITE">
-               <font>
-                  <Font name="Tahoma Bold" size="18.0" />
-               </font>
-            </Label>
-            <AnchorPane layoutX="119.0" layoutY="76.0" prefHeight="5.0" prefWidth="187.0" style="-fx-background-color: #76ff03;" />
-            <TextField fx:id="clubName" layoutX="84.0" layoutY="216.0" prefHeight="27.0" prefWidth="289.0" promptText="Name" style="-fx-border-color: #334d00;">
-               <font>
-                  <Font name="Tahoma" size="13.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="clubAdvisorID" layoutX="83.0" layoutY="304.0" prefHeight="27.0" prefWidth="289.0" promptText="Club advisor ID" style="-fx-border-color: #334d00;">
-               <font>
-                  <Font name="Tahoma" size="13.0" />
-               </font>
-            </TextField>
-            <Button fx:id="saveNewClub" layoutX="124.0" layoutY="370.0" mnemonicParsing="false" onAction="#onSaveNewClubClick" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: #009933; -fx-background-radius: 90; -fx-font-size: 20; -fx-font-weight: 7px;" text="Save" textFill="#5c3737">
-               <font>
-                  <Font name="Tahoma" size="17.0" />
-               </font>
-            </Button>
-            <ImageView fitHeight="110.0" fitWidth="102.0" layoutX="162.0" layoutY="92.0">
-               <image>
-                  <Image url="@../images/user.jpg" />
-               </image>
-            </ImageView>
-            <Label layoutX="83.0" layoutY="192.0" prefHeight="17.0" prefWidth="102.0" text="Name" textFill="#4ee125">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="85.0" layoutY="280.0" prefHeight="23.0" prefWidth="123.0" text="Club advisor ID" textFill="#4ee125">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="nameStatus" layoutX="83.0" layoutY="243.0" prefHeight="23.0" prefWidth="263.0" textFill="#e41919">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="idStatus" layoutX="83.0" layoutY="335.0" prefHeight="23.0" prefWidth="263.0" textFill="#fc1b1b">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="creationStatus" layoutX="82.0" layoutY="421.0" prefHeight="23.0" prefWidth="263.0" textFill="#fc1b1b">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
+
+         <Label fx:id="titleText" alignment="CENTER" layoutX="170.0" layoutY="47.0" prefHeight="23.0" prefWidth="230.0" text="Create a club" />
+         <TextField fx:id="clubName" layoutX="182.0" layoutY="143.0" prefHeight="27.0" prefWidth="289.0" promptText="Name" />
+         <TextField fx:id="clubAdvisorID" layoutX="182.0" layoutY="220.0" prefHeight="27.0" prefWidth="289.0" promptText="Club advisor ID" />
+         <Button fx:id="saveNewClub" layoutX="239.0" layoutY="286.0" mnemonicParsing="false" onAction="#onSaveNewClubClick" prefHeight="27.0" prefWidth="123.0" text="Create" />
+         <Label layoutX="130.0" layoutY="148.0" prefHeight="17.0" prefWidth="40.0" text="Name" />
+         <Label layoutX="78.0" layoutY="222.0" prefHeight="23.0" prefWidth="92.0" text="Club advisor ID" />
+         <Label fx:id="nameStatus" layoutX="182.0" layoutY="113.0" prefHeight="23.0" prefWidth="289.0" />
+         <Label fx:id="idStatus" layoutX="181.0" layoutY="188.0" prefHeight="23.0" prefWidth="289.0" />
+         <Label fx:id="creationStatus" layoutX="192.0" layoutY="247.0" prefHeight="23.0" prefWidth="216.0" />
+
+
       <Button fx:id="backButtonCDD" layoutX="38.0" layoutY="21.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="26.0" prefWidth="40.0" text="&lt;--" />
 
    </children>
+   <stylesheets>
+      <URL value="@../StylingSheets/rootStyles.css" />
+      <URL value="@../StylingSheets/CreateClub.css" />
+   </stylesheets>
 </AnchorPane>

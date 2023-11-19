@@ -2,6 +2,7 @@
 .button {
     -fx-background-color: #7151F0;
     -fx-text-fill: white;
+
 }
 
 .text-field {
@@ -14,13 +15,16 @@
 }
 
 #titleText {
-    -fx-fill: white;
-     -fx-font-size: 30px;
+   -fx-text-fill: white;
+    -fx-font-size: 30px;
 }
 #studentIdText, #stdNameErrorText, #passwordText, #or {
     -fx-fill: white;
 }
+.label{
+    -fx-text-fill: white;
 
+}
 
 
 

@@ -1,0 +1,33 @@
+/* styles.css */
+.button {
+    -fx-background-color: #7151F0;
+    -fx-text-fill: white;
+
+}
+
+
+
+
+#viewStudentsTable {
+    -fx-background-color: black;
+}
+
+#viewStudentsTable .column-header, #functionsTable .column-header-background {
+    -fx-background-color: black;
+    -fx-font-family: "Arial";
+    -fx-font-size: 14;
+    -fx-text-fill: white;
+}
+
+#viewStudentsTable .table-cell {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14;
+    -fx-text-fill: white;
+}
+
+
+
+
+
+
+

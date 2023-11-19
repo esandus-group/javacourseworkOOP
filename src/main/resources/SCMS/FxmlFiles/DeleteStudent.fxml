@@ -1,73 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.RemoveStudentController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.RemoveStudentController">
     <children>
-        <ImageView fitHeight="600.0" fitWidth="807.0" layoutX="-1.0">
-            <image>
-                <Image url="@../images/WhatsApp%20Image%202023-10-24%20at%206.15.33%20PM.jpeg" />
-            </image>
-        </ImageView>
-        <AnchorPane layoutX="134.0" layoutY="69.0" prefHeight="459.0" prefWidth="537.0" style="-fx-background-color: #000000;">
-            <children>
-                <Label alignment="CENTER" layoutX="154.0" layoutY="43.0" prefHeight="49.0" prefWidth="230.0" text="REMOVE A STUDENT" textFill="WHITE">
-                    <font>
-                        <Font name="Tahoma Bold" size="18.0" />
-                    </font>
-                </Label>
-                <AnchorPane layoutX="175.0" layoutY="86.0" prefHeight="5.0" prefWidth="187.0" style="-fx-background-color: #76ff03;" />
-                <TextField fx:id="deleteStudentId" layoutX="207.0" layoutY="128.0" prefHeight="27.0" prefWidth="279.0" promptText="Student ID" style="-fx-border-color: #334d00;">
-                    <font>
-                        <Font name="Tahoma" size="13.0" />
-                    </font>
-                </TextField>
-                <Button fx:id="removeStudentButton" layoutX="196.0" layoutY="350.0" mnemonicParsing="false" onAction="#onRemoveStudentButtonClick" prefHeight="49.0" prefWidth="146.0" style="-fx-background-color: #009933; -fx-background-radius: 90; -fx-font-size: 20; -fx-font-weight: 7px;" text="Remove" textFill="#5c3737">
-                    <font>
-                        <Font name="Tahoma" size="17.0" />
-                    </font>
-                </Button>
-                <Label layoutX="70.0" layoutY="133.0" text="Enter Student Id" textFill="WHITE">
-                    <font>
-                        <Font name="Tahoma" size="14.0" />
-                    </font>
-                </Label>
-                <Label layoutX="70.0" layoutY="203.0" text="Enter Club Id" textFill="WHITE">
-                    <font>
-                        <Font name="Tahoma" size="14.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="deleteStudentClub" layoutX="207.0" layoutY="198.0" prefHeight="27.0" prefWidth="279.0" promptText="Club ID" style="-fx-border-color: #334d00;">
-                    <font>
-                        <Font name="Tahoma" size="13.0" />
-                    </font>
-                </TextField>
-                <TextField fx:id="deleteStudentReason" layoutX="207.0" layoutY="270.0" prefHeight="27.0" prefWidth="279.0" promptText="Reason" style="-fx-border-color: #334d00;">
-                    <font>
-                        <Font name="Tahoma" size="13.0" />
-                    </font>
-                </TextField>
-                <Label layoutX="70.0" layoutY="275.0" text="Enter Reason" textFill="WHITE">
-                    <font>
-                        <Font name="Tahoma" size="14.0" />
-                    </font>
-                </Label>
-                <Label fx:id="statusShowLabel" alignment="CENTER" layoutX="126.0" layoutY="409.0" prefHeight="28.0" prefWidth="283.0" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="14.0" />
-                    </font>
-                </Label>
-            <Label fx:id="studentIdStatus" layoutX="207.0" layoutY="163.0" prefHeight="18.0" prefWidth="279.0" textFill="#fc0a0a" />
-            <Label fx:id="clubIdStatus" layoutX="207.0" layoutY="230.0" prefHeight="18.0" prefWidth="279.0" textFill="#f50606" />
-            <Label fx:id="reasonStatus" layoutX="207.0" layoutY="306.0" prefHeight="18.0" prefWidth="279.0" textFill="#e80f0f" />
-            </children>
-        </AnchorPane>
+
+        <Label fx:id="titleText" alignment="CENTER" layoutX="88.0" layoutY="20.0" prefHeight="49.0" prefWidth="475.0" text="Remove a Student from club" />
+
+        <TextField fx:id="deleteStudentId" layoutX="207.0" layoutY="128.0" prefHeight="27.0" prefWidth="279.0" promptText="Student ID" />
+        <Button fx:id="removeStudentButton" layoutX="231.0" layoutY="344.0" mnemonicParsing="false" onAction="#onRemoveStudentButtonClick" prefHeight="24.0" prefWidth="146.0" text="Remove" />
+        <Label layoutX="70.0" layoutY="133.0" text="Enter Student Id" textFill="WHITE" />
+        <Label layoutX="70.0" layoutY="203.0" text="Enter Club Id" textFill="WHITE" />
+        <TextField fx:id="deleteStudentClub" layoutX="207.0" layoutY="198.0" prefHeight="27.0" prefWidth="279.0" promptText="Club ID" />
+        <TextField fx:id="deleteStudentReason" layoutX="207.0" layoutY="270.0" prefHeight="27.0" prefWidth="279.0" promptText="Reason" />
+        <Label layoutX="70.0" layoutY="275.0" text="Enter Reason" textFill="WHITE" />
+        <Label fx:id="statusShowLabel" alignment="CENTER" layoutX="126.0" layoutY="409.0" prefHeight="28.0" prefWidth="283.0" />
+        <Label fx:id="studentIdStatus" layoutX="207.0" layoutY="163.0" prefHeight="18.0" prefWidth="279.0" />
+        <Label fx:id="clubIdStatus" layoutX="207.0" layoutY="230.0" prefHeight="18.0" prefWidth="279.0" />
+        <Label fx:id="reasonStatus" layoutX="207.0" layoutY="306.0" prefHeight="18.0" prefWidth="279.0" />
       <Button fx:id="backButtonCDD" layoutX="48.0" layoutY="31.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="26.0" prefWidth="40.0" text="&lt;--" />
     </children>
+   <stylesheets>
+      <URL value="@../StylingSheets/DeleteStudent.css" />
+      <URL value="@../StylingSheets/rootStyles.css" />
+   </stylesheets>
 </AnchorPane>

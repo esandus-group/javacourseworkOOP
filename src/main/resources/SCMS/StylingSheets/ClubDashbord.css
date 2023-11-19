@@ -1,0 +1,39 @@
+/* styles.css */
+
+
+.button {
+    -fx-background-color: #7151F0;
+    -fx-text-fill: white;
+}
+
+#upcomingEventsText{
+    -fx-fill: white;
+}
+#clubNameText {
+    -fx-fill: white;
+}
+
+#functionsTable {
+    -fx-background-color: black;
+}
+
+#functionsTable .column-header, #functionsTable .column-header-background {
+    -fx-background-color: black;
+    -fx-font-family: "Arial";
+    -fx-font-size: 14;
+    -fx-text-fill: white;
+}
+
+#functionsTable .table-cell {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14;
+    -fx-text-fill: white;
+}
+
+
+
+
+
+
+
+
