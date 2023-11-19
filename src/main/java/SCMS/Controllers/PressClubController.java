@@ -19,12 +19,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-//trial
 public class PressClubController {
+    //create a seperate method to see how many events are there from the database and put it there
+
     HelloApplication helloApplicationInstance = new HelloApplication();
     @FXML
     private TextField newAdvisorId;
@@ -81,7 +85,7 @@ public class PressClubController {
     @FXML
     private Button generateReportsButton;
 
-    public ArrayList<Event> allEvents = new ArrayList();
+
     Stage stage;
     ClubAdvisor currentClubAdvisor = null;
 
@@ -93,6 +97,40 @@ public class PressClubController {
     String advisorID;
 
     String name;
+    Button []button = new Button [3]; //here
+    public ArrayList<Event> allEvents = new ArrayList();
+    ObservableList<Event> allTheEvents = FXCollections.observableArrayList();
+    public void openingEventStudentList(ActionEvent event,int buttonId) throws IOException, SQLException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/M123.fxml"));
+        Parent root = loader.load();
+
+        MarkAttendanceController mac = loader.getController();
+        mac.gettingInformation(getClubByName(name), allEvents.get(buttonId).getEventId());
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    public void handleMarkAttendanceAction(ActionEvent event) throws IOException, SQLException {
+        if (event.getSource() instanceof Button) {
+            Button clickedButton = (Button) event.getSource();
+            int buttonId = (int) clickedButton.getUserData();
+            System.out.println("Button clicked: " + buttonId);
+
+            // Open another FXML file or perform any action based on the buttonId
+            if (buttonId == 0) {
+                openingEventStudentList(event,buttonId);
+
+            } else if (buttonId == 1) {
+                openingEventStudentList(event,buttonId);
+
+            } else if (buttonId == 2) {
+                openingEventStudentList(event,buttonId);
+
+            }
+        }
+    }
     //=======================================================
     public void setWelcomeText(String clubName,String id){
         welcomeClub.setText("Welcome to "+clubName);
@@ -104,11 +142,13 @@ public class PressClubController {
     public void loadingEvents() {
         colDate.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
         colFunction.setCellValueFactory(new PropertyValueFactory<>("title"));
-        colType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        colType.setCellValueFactory(new PropertyValueFactory<>("eventId"));
         colVenue.setCellValueFactory(new PropertyValueFactory<>("venue"));
         colAttendance.setCellValueFactory(new PropertyValueFactory<>("button"));
 
-        ObservableList<Event> data = FXCollections.observableArrayList();
+
+        ObservableList<Event> data ;
+        data = allTheEvents;
         data.addAll(allEvents);
         onComingEvents.setItems(data);
     }
@@ -116,14 +156,29 @@ public class PressClubController {
 
     public ArrayList<Event> getEventsForClub(String clubId) {
         ArrayList<Event> clubEvents = new ArrayList<>();
-        String query = "SELECT * FROM Event WHERE clubId = ?"; // Make sure the table name is correct
+        String query = "SELECT * FROM Event WHERE clubId = ?";
 
         try (PreparedStatement preparedStatement = connections.prepareStatement(query)) {
             preparedStatement.setString(1, clubId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
+            for (int i = 0; i < button.length; i++) {
+                button[i] = new Button();
+                button[i].setUserData(i); // Set an identifier (can be any unique value)
+                button[i].setOnAction(event -> {
+                    try {
+                        handleMarkAttendanceAction(event);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            }
+
+            int h = 0;
             while (resultSet.next()) {
-                String eventId = resultSet.getString("eventId");
+                String id = resultSet.getString("eventId");
                 String title = resultSet.getString("title");
                 LocalDateTime dateTime = resultSet.getTimestamp("dateTime").toLocalDateTime();
                 String venue = resultSet.getString("venue");
@@ -131,22 +186,25 @@ public class PressClubController {
                 String description = resultSet.getString("description");
                 String retrievedClubId = resultSet.getString("clubId");
 
-                Event event = new Event(title, dateTime, venue, typeOfClubFunction, description, retrievedClubId);
+                Event event = new Event(id,title, dateTime, venue, typeOfClubFunction, description, retrievedClubId, button[h]);
                 clubEvents.add(event);
+                h++;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-
         }
+
         return clubEvents;
     }
+
+
 
 //=====================================================================
 
     public void onFillTableClick(ActionEvent event) throws Exception{
-        allEvents = getEventsForClub(getClubByName(name).getClubId());
-
-        loadingEvents();
+        allEvents = getEventsForClub(getClubByName(name).getClubId()); //PUTTING THE STUFF TO THE TABLE
+        System.out.println(allEvents.size());    // TO SEE WHETHER ALL THE STUFF ARE LOADED
+        loadingEvents();                           // PUTTING IT TO THE TABLE
         fillTable.setDisable(true);
     }
 
@@ -271,14 +329,10 @@ public class PressClubController {
             newClubAdvisor = getClubAdvisor(advisorIdOfNewPerson);
             currentClub=getClubByName(name);
 
-            System.out.println(currentClubAdvisor.toString());
-            System.out.println(newClubAdvisor.toString());
-            System.out.println(currentClub.toString());
-
             // Checking if the advisor manages the club
-            if (!checkIfAdvisorManagesClub(currentClub.getClubId(), currentClubAdvisor.getId())) {
+            if (newClubAdvisor ==null) {
 
-                deletingStatus.setText("An advisor with That ID does not manage a Club");
+                deletingStatus.setText("An advisor with That ID does not Exist");
                 deletingStatus1.setText("Club not deleted");
 
             } else {
@@ -289,13 +343,16 @@ public class PressClubController {
 
                 if (status){
                     updateClubAdvisor(currentClub,newClubAdvisor);
-                    String fileName = "/SCMS/FxmlFiles/Club advisor.fxml";      //open the page
-                    stageLoader(event,fileName);
-                    //clearing the text fields
-                    confirmText.setText("");
-                    newAdvisorId.setText("");
-                    advisorId.setText("");
-                    deletingStatus1.setText("");
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/Club advisor.fxml"));
+                    Parent root = loader.load();
+                    clubAdvisorController cac = loader.getController();
+                    cac.setWelcomeText(getClubAdvisor(advisorID).getFirstName(),advisorID);
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+
                 }
                 else{
                     deletingStatus1.setText("That advisor already has 4 clubs");

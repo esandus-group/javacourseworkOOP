@@ -27,8 +27,35 @@ public class Event {
         this.description = description;
         this.clubId = clubId;
         System.out.println(title+ venue+description+ clubId+type);
-        this.button = new Button("mark attendance");
+        //this.button = new Button("mark attendance");
     }
+    public Event(String title, LocalDateTime dateTime, String venue, String type, String description, String clubId, Button button) {
+
+        this.eventId = "E" + String.valueOf(getNoOfEventsFromSqlDB() + 1);
+        this.title = title;
+        this.dateTime = dateTime;
+        this.venue = venue;
+        this.type = type;
+        this.description = description;
+        this.clubId = clubId;
+        System.out.println(title + venue + description + clubId + type);
+        this.button =button;
+        this.button.setText("mark stuff");
+    }
+    public Event(String eventId, String title, LocalDateTime dateTime, String venue, String type, String description, String clubId, Button button) {
+
+        this.eventId = eventId;
+        this.title = title;
+        this.dateTime = dateTime;
+        this.venue = venue;
+        this.type = type;
+        this.description = description;
+        this.clubId = clubId;
+        System.out.println(title + venue + description + clubId + type);
+        this.button =button;
+        this.button.setText("mark stuff");
+    }
+
 
     public Button getButton() {
         return button;
