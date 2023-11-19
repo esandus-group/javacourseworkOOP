@@ -1,0 +1,18 @@
+/* styles.css */
+.button {
+    -fx-background-color: #7151F0;
+    -fx-text-fill: white;
+
+}
+
+
+#welcomeText, #welcomeText2 {
+    -fx-fill: white;
+     -fx-font-size: 30px;
+}
+
+
+
+
+
+

@@ -1,0 +1,28 @@
+/* styles.css */
+.button {
+    -fx-background-color: #7151F0;
+    -fx-text-fill: white;
+}
+
+.text-field {
+    -fx-background-color: #181818;
+    -fx-text-fill: white;
+}
+
+.Text {
+    -fx-fill: white;
+}
+
+#titleText {
+    -fx-fill: white;
+     -fx-font-size: 30px;
+}
+#studentIdText, #stdNameErrorText, #passwordText, #or {
+    -fx-fill: white;
+}
+
+
+
+
+
+

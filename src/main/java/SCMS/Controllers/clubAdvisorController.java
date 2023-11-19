@@ -107,6 +107,7 @@ public class clubAdvisorController {
         }
     }
 
+
     //Database db1 = new Database();
     //=============================================================
     public void stageLoader(ActionEvent event, String fileName) throws IOException { //used to load the new stage
