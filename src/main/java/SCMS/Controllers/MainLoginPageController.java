@@ -81,9 +81,8 @@ public class MainLoginPageController {
 
             if (clubResult.next()) {
                 String name = clubResult.getString("name");
-                String idOfAdvisor = clubResult.getString("idOfAdvisor");
 
-                return new Club(clubId, name, idOfAdvisor);
+                return new Club(clubId, name);
             }
         }
 

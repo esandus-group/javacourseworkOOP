@@ -1,5 +1,6 @@
 package SCMS.Controllers;
 
+import SCMS.HelloApplication;
 import SCMS.Objects.Event;
 import SCMS.Utils.SCMSEnvironment;
 import javafx.event.ActionEvent;
@@ -26,6 +27,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class EventContorller implements Initializable {
+    HelloApplication  helloApplicationInstance = new HelloApplication();
     @FXML
     TextField eventTitle;
     @FXML
@@ -52,18 +54,9 @@ public class EventContorller implements Initializable {
     String errorMessage = "";
     @FXML
     Label errorMessageLabel;
-
-
-    public void stageLoader(ActionEvent event, String fileName) throws IOException { //STAGE LOADER METHOD
-        Parent root = FXMLLoader.load(getClass().getResource(fileName));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
     public void  backButtonCDD  (ActionEvent event) throws Exception{
         String fileName = "/SCMS/FxmlFiles/PressClub.fxml";      //open the page
-        stageLoader(event,fileName);
+        helloApplicationInstance.stageLoader(event,fileName);
     }
 
     public static HashMap<String, String> SQLReader(String yearMonth){
@@ -89,9 +82,6 @@ public class EventContorller implements Initializable {
         }
         return null;
     }
-
-
-
     public String validateTime(LocalDate date, String hour, String minute, String typ) {
 
         Integer eventHour;

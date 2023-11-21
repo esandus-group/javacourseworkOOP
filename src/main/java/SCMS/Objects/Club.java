@@ -7,17 +7,17 @@ public class Club {
     private String name;
     private ArrayList<Student> studentsPresent = new ArrayList<Student>();
 
-    private String idOfAdvisor;
+    private ArrayList<Student> clubFunctions = new ArrayList<Student>();
 
-    public Club(String clubId,String name,String idOfAdvisor){
+    public Club(String clubId,String name){
         this.clubId=clubId;
         this.name=name;
-        this.idOfAdvisor=idOfAdvisor;
+
     }
-    public Club(String clubId,String name,String idOfAdvisor,ArrayList<Student> studentsPresent){
+    public Club(String clubId,String name,ArrayList<Student> studentsPresent){
         this.clubId=clubId;
         this.name=name;
-        this.idOfAdvisor=idOfAdvisor;
+
         this.studentsPresent=studentsPresent;
     }
 
@@ -37,10 +37,6 @@ public class Club {
         this.studentsPresent = studentsPresent;
     }
 
-    public String getIdOfAdvisor() {
-        return idOfAdvisor;
-    }
-
     public void setClubId(String clubId) {
         this.clubId = clubId;
     }
@@ -49,13 +45,13 @@ public class Club {
         this.name = name;
     }
 
-    public void setIdOfAdvisor(String idOfAdvisor) {
-        this.idOfAdvisor = idOfAdvisor;
-    }
-
     @Override
-    public String toString(){
-        return "club ID: "+this.getClubId()+",Name: "+this.getName()+" ,Id of Club advisor: "+this.getIdOfAdvisor();
+    public String toString() {
+        return "Club{" +
+                "clubId='" + clubId + '\'' +
+                ", name='" + name + '\'' +
+                ", studentsPresent=" + studentsPresent +
+                ", clubFunctions=" + clubFunctions +
+                '}';
     }
-
 }

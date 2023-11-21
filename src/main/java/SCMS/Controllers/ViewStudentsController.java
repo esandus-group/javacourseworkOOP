@@ -1,5 +1,6 @@
 package SCMS.Controllers;
 
+import SCMS.Objects.Club;
 import SCMS.Objects.Student;
 import SCMS.Utils.SCMSEnvironment;
 import javafx.collections.FXCollections;
@@ -24,48 +25,33 @@ public class ViewStudentsController {
     private TableView<Student> viewStudentsTable;
     @FXML
     private Label idStatusLabel;
-
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection();
     @FXML
     private TableColumn<Student, String> StudentNameCol;
     @FXML
     private TableColumn<Student, String> StudentNameCol1;
-
-
     private String buttonText;
     @FXML
     private Button fillTableButton;
 
-    public String idOfClub;
-
-    private String clubName;
     @FXML
     private TableColumn<Student, String> studentIdCol;
     ArrayList<Student> studentsPresent = new ArrayList<>();
     private String advisorId;
+    public Club club;
     @FXML
     private Button backButtonCDD;
-
-    public void gettingInformation(String clubId,String clubName,String advisorId){
-        this.idOfClub=clubId;
-        this.clubName=clubName;
+    //=======================================================
+    public void gettingInformation(Club club,String advisorId){
+        this.club=club;
         this.advisorId =advisorId;
     }
-
     //=======================================================
-    public void stageLoader(ActionEvent event, String fileName) throws IOException { //STAGE LOADER METHOD
-        Parent root = FXMLLoader.load(getClass().getResource(fileName));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
     public void  backButtonCDD  (ActionEvent event) throws Exception{
         String fileName = "/SCMS/FxmlFiles/PressClub.fxml";      //open the page
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName));
         Parent root = loader.load();
-        buttonText = clubName;
+        buttonText = club.getName();
 
         PressClubController pcc = loader.getController();
         pcc.setWelcomeText(buttonText,advisorId);
@@ -75,9 +61,9 @@ public class ViewStudentsController {
         stage.setScene(scene);
         stage.show();
     }
-
     //=======================================================
-    public ArrayList<Student> getStudentsByClubId(String clubId) {
+    public ArrayList<Student> getStudentsByClubId(Club club) {
+        String clubId = club.getClubId();
         ArrayList<Student> studentsList = new ArrayList<>();
 
         //GETTING THE STUDENT IDS FROM THE TABLE
@@ -119,12 +105,12 @@ public class ViewStudentsController {
 
         return studentsList;
     }
-    public boolean checkIfClubExists(String clubId) {
+    public boolean checkIfClubExists(Club club) {
         String query = "SELECT 1 FROM Club WHERE clubId = ?";
         boolean clubExists = false;
 
         try (PreparedStatement statement = connections.prepareStatement(query)) {
-            statement.setString(1, clubId);
+            statement.setString(1, club.getClubId());
 
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -132,7 +118,6 @@ public class ViewStudentsController {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-
         }
 
         return clubExists;
@@ -153,12 +138,12 @@ public class ViewStudentsController {
     //=======================================================
 
     public void onFillTableButtonClick(ActionEvent event) throws Exception {
-        if (!checkIfClubExists(idOfClub)){
+        if (!checkIfClubExists(club)){
             idStatusLabel.setText("Club not found");
         }
 
         else {
-            studentsPresent = getStudentsByClubId(idOfClub);
+            studentsPresent = getStudentsByClubId(club);
             idStatusLabel.setText("");
             loadingStudents();
             fillTableButton.setDisable(true);

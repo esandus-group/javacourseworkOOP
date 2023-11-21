@@ -59,8 +59,6 @@ public class ClubDashboardController {
         data.addAll(functionsPresent);
         functionsTable.setItems(data);
     }
-
-
     public ArrayList<Event> loadDataToEventTable() {
         ArrayList<Event> functions = new ArrayList<>();
         try {
@@ -226,7 +224,7 @@ public class ClubDashboardController {
                 }
 
                 // Create the Club object with the retrieved data
-                club = new Club(clubId, name, idOfAdvisor, studentsPresent);
+                club = new Club(clubId, name, studentsPresent);
             }
         }
 

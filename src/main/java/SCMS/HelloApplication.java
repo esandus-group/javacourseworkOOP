@@ -48,10 +48,6 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
-
-
-
     private static Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection();
 }
 

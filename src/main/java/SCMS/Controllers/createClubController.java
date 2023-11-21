@@ -23,13 +23,11 @@ public class createClubController {
     private TextField clubName;
     @FXML
     private TextField clubAdvisorID;
-
     public String clubAdvisorId;
     @FXML
     private Label creationStatus;
     @FXML
     private Label idStatus;
-
     @FXML
     private Label nameStatus;
     ClubAdvisor currentClubAdvisor = null;
@@ -43,27 +41,19 @@ public class createClubController {
     public void gettingIdOfAdvisor(String id){
         this.idOfAdvisor=id;
     }
-
-    public void stageLoader(ActionEvent event, String fileName) throws IOException { //STAGE LOADER METHOD
-        Parent root = FXMLLoader.load(getClass().getResource(fileName));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
     public void  backButtonCDD  (ActionEvent event) throws Exception{
+        currentClubAdvisor = getClubAdvisor(idOfAdvisor);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/Club advisor.fxml"));
         Parent root = loader.load();
 
         //passing the advisorID to the next controller and also setting the name
         clubAdvisorController cac = loader.getController();
-        cac.setWelcomeText(getClubAdvisor(idOfAdvisor).getFirstName(), idOfAdvisor);
+        cac.setWelcomeText(currentClubAdvisor.getFirstName(), currentClubAdvisor);
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
-
     }
     //=========================================================================
     public String getNewClubId() { //we count how many rows are there and add 1 to get the new id
@@ -85,7 +75,6 @@ public class createClubController {
 
         return Integer.toString(newClubId);
     }
-
     //=========================================================================
     public ClubAdvisor getClubAdvisor(String clubAdvisorId) throws SQLException {
 
@@ -125,17 +114,11 @@ public class createClubController {
         }
     }
     public boolean isAdvisorIdValid(String id){
-        if ( id== null || id.equals("")){
-            return false;
-        }
-        return true;
+        return id != null && !id.equals("");
     }
 
     public boolean isClubNameValid(String name){
-        if ( name== null || name.equals("")){
-            return false;
-        }
-        return true;
+        return name != null && !name.equals("");
     }
     //=========================================================================
 
@@ -167,11 +150,11 @@ public class createClubController {
             } else {
 
                 clubId = getNewClubId(); //getting the new club id
-                Club newClub = new Club(clubId, clubNam, clubAdvisorId);
+                Club newClub = new Club(clubId, clubNam);
                 currentClubAdvisor.addClub(newClub);
                 if (newClub != null) {
                     System.out.println("Club created successfully.");
-                    addClubToDatabase(newClub);
+                    addClubToDatabase(newClub, idOfAdvisor);
 
                     clubName.setText(""); //clearing the text fields and the labels
                     clubAdvisorID.setText("");
@@ -185,14 +168,14 @@ public class createClubController {
     }
     //=========================================================================
 
-    private void addClubToDatabase(Club newClub) {
+    private void addClubToDatabase(Club newClub,String idOfAdvisor) {
 
         String query = "INSERT INTO Club (clubId, name, idOfAdvisor) VALUES (?, ?, ?)";
 
         try (PreparedStatement statement = connections.prepareStatement(query)) {
             statement.setString(1, newClub.getClubId());
             statement.setString(2, newClub.getName());
-            statement.setString(3, newClub.getIdOfAdvisor());
+            statement.setString(3, idOfAdvisor);
 
             int rowsInserted = statement.executeUpdate();
 

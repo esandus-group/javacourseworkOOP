@@ -24,8 +24,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class PressClubController {
-    //create a seperate method to see how many events are there from the database and put it there
-
+    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
     HelloApplication helloApplicationInstance = new HelloApplication();
     @FXML
     private TextField newAdvisorId;
@@ -43,17 +42,10 @@ public class PressClubController {
     private Label deletingStatus1;
     @FXML
     private Button deleteClub;
-
     @FXML
     private Button veiwStudentsButton;
-
     @FXML
     private TextField confirmText;
-    @FXML
-    private TextField advisorId;
-
-    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
-
     @FXML
     private TableColumn<Event, String> colAttendance;
 
@@ -82,17 +74,10 @@ public class PressClubController {
     @FXML
     private Button generateReportsButton;
 
-
-    Stage stage;
     ClubAdvisor currentClubAdvisor = null;
-
     ClubAdvisor newClubAdvisor = null;
-
     Club currentClub = null;
-
-
     String advisorID;
-
     String name;
     Button []button = new Button [3]; //here
     public ArrayList<Event> allEvents = new ArrayList();
@@ -193,9 +178,6 @@ public class PressClubController {
 
         return clubEvents;
     }
-
-
-
 //=====================================================================
 
     public void onFillTableClick(ActionEvent event) throws Exception{
@@ -206,20 +188,11 @@ public class PressClubController {
     }
 
     //=========================================================================
-
-    public void stageLoader(ActionEvent event, String fileName) throws IOException { //STAGE LOADER METHOD
-        Parent root = FXMLLoader.load(getClass().getResource(fileName));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
     public void  backButtonCDD  (ActionEvent event) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/Club advisor.fxml"));
         Parent root = loader.load();
         clubAdvisorController cac = loader.getController();
-        cac.setWelcomeText(getClubAdvisor(advisorID).getFirstName(),advisorID);
+        cac.setWelcomeText(getClubAdvisor(advisorID).getFirstName(),getClubAdvisor(advisorID));
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -233,7 +206,7 @@ public class PressClubController {
         Parent root = loader.load();
 
         RemoveStudentController rsc = loader.getController();
-        rsc.gettingInformation(name,advisorID);
+        rsc.gettingInformation(getClubByName(name),advisorID);
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -248,35 +221,13 @@ public class PressClubController {
         Parent root = loader.load();
 
         ViewStudentsController vsc = loader.getController();
-        vsc.gettingInformation(getClubByName(name).getClubId(),name,advisorID);
+        vsc.gettingInformation(getClubByName(name),advisorID);
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
 
-    }
-    //=============================================================================
-    public boolean checkIfAdvisorManagesClub(String clubId, String advisorId) {
-        String query = "SELECT 1 FROM Club WHERE clubId = ? AND idOfAdvisor = ?";
-
-        boolean advisorManagesClub = false;
-
-        try (PreparedStatement statement = connections.prepareStatement(query)) {
-            statement.setString(1, clubId);
-            statement.setString(2, advisorId);
-
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                advisorManagesClub = true;
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        }
-
-        return advisorManagesClub;
     }
     //================================================================================
     public ClubAdvisor getClubAdvisor(String clubAdvisorId) throws SQLException {
@@ -304,7 +255,7 @@ public class PressClubController {
                     String clubName = clubsResultSet.getString("name");
 
                     // Create a Club object and add it to the managingClubs list
-                    Club club = new Club(clubId,clubName,id);
+                    Club club = new Club(clubId,clubName);
                     managingClubs.add(club);
                 }
 
@@ -344,7 +295,7 @@ public class PressClubController {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/Club advisor.fxml"));
                     Parent root = loader.load();
                     clubAdvisorController cac = loader.getController();
-                    cac.setWelcomeText(getClubAdvisor(advisorID).getFirstName(),advisorID);
+                    cac.setWelcomeText(currentClubAdvisor.getFirstName(),currentClubAdvisor);
                     Scene scene = new Scene(root);
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.setScene(scene);
@@ -429,7 +380,7 @@ public class PressClubController {
                 }
 
                 // Create the Club object with the retrieved data
-                club = new Club(clubId, name, idOfAdvisor, studentsPresent);
+                club = new Club(clubId, name, studentsPresent);
             }
         }
 

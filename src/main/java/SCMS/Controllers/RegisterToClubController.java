@@ -127,7 +127,7 @@ public class RegisterToClubController {
                 }
 
                 // Create the Club object with the retrieved data
-                club = new Club(clubId, name, idOfAdvisor, studentsPresent);
+                club = new Club(clubId, name, studentsPresent);
             }
         }
 

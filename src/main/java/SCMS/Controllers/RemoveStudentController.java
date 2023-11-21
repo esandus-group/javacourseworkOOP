@@ -46,28 +46,21 @@ public class RemoveStudentController {
 
     @FXML
     private Label statusShowLabel;
-    private String clubName;
+    private Club club;
     private String adId;
 
-    public void gettingInformation(String clubName, String adId){
-        this.clubName=clubName;
+    public void gettingInformation(Club club, String adId){
+        this.club=club;
         this.adId=adId;
     }
 
     //=====================================
-    public void stageLoader(ActionEvent event, String fileName) throws IOException { //STAGE LOADER METHOD
-        Parent root = FXMLLoader.load(getClass().getResource(fileName));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
     public void  backButtonCDD  (ActionEvent event) throws Exception{
         String fileName = "/SCMS/FxmlFiles/PressClub.fxml";      //open the page
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName));
         Parent root = loader.load();
-        String buttonText = clubName;
+        String buttonText = club.getName();
 
         PressClubController pcc = loader.getController();
         pcc.setWelcomeText(buttonText,adId);
@@ -87,15 +80,16 @@ public class RemoveStudentController {
 
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                // Retrieve student details from the result set
+
+                // Retrieving student details from the result set
                 String id = resultSet.getString("id");
                 String firstName = resultSet.getString("firstName");
                 String lastName = resultSet.getString("lastName");
                 String dateOfBirth = resultSet.getString("dateOfBirth");
                 String password =  resultSet.getString("password");
-                // Add more fields as needed
 
-                // Create a Student object with the retrieved data
+
+                // Creating the student onject and returning it
                 student = new Student(id, firstName, lastName, dateOfBirth,password);
             }
         } catch (SQLException e) {
@@ -130,7 +124,7 @@ public class RemoveStudentController {
                     String clubName = clubsResultSet.getString("name");
 
                     // Create a Club object and add it to the managingClubs list
-                    Club club = new Club(clubId,clubName,id);
+                    Club club = new Club(clubId,clubName);
                     managingClubs.add(club);
                 }
 
@@ -142,7 +136,7 @@ public class RemoveStudentController {
     }
 
 
-    //=======================================================
+    //=======================================================//saving to the removed students table
     public void saveRemovedStudent(String clubId, String studentId, String studentFirstName, String reason) {
         try {
 
@@ -169,7 +163,8 @@ public class RemoveStudentController {
         }
     }
     //=======================================================
-    public void removeStudentFromClub(String clubId, String studentId) {
+    public void removeStudentFromClub(Club club, String studentId) {
+        String clubId = club.getClubId();
         try {
 
             String query = "DELETE FROM Club_Student WHERE clubid = ? AND id = ?";
@@ -210,49 +205,25 @@ public class RemoveStudentController {
         }
     }
     //=====================================================
-    public Club getClub(String clubId) throws SQLException {
-        String clubQuery = "SELECT * FROM Club WHERE clubId = ?";
-        String clubStudentQuery = "SELECT * FROM Club_Student WHERE clubId = ?";
+    public boolean checkIfClubExists(String clubId) {
+        String query = "SELECT 1 FROM Club WHERE clubId = ?";
 
-        Club club = null;
+        boolean clubExists = false;
 
-            // Retrieve club details from the Club table
-            try (PreparedStatement clubStatement = connections.prepareStatement(clubQuery)) {
-                clubStatement.setString(1, clubId);
-                ResultSet clubResult = clubStatement.executeQuery();
+        try (PreparedStatement statement = connections.prepareStatement(query)) {
+            statement.setString(1, clubId);
 
-                if (clubResult.next()) {
-                    String name = clubResult.getString("name");
-                    String idOfAdvisor = clubResult.getString("idOfAdvisor");
-
-                    // Create a list to hold students present
-                    ArrayList<Student> studentsPresent = new ArrayList<>();
-
-                    // Retrieve student IDs associated with the club from the Club_Student table
-                    try (PreparedStatement clubStudentStatement = connections.prepareStatement(clubStudentQuery)) {
-                        clubStudentStatement.setString(1, clubId);
-                        ResultSet clubStudentResult = clubStudentStatement.executeQuery();
-
-                        while (clubStudentResult.next()) {
-                            String studentId = clubStudentResult.getString("id");
-                            // Fetch student objects using the studentId and add to the list
-                            Student student = getStudent(studentId);
-                            if (student != null) {
-                                studentsPresent.add(student);
-                            }
-                        }
-                    }
-
-                    // Create the Club object with the retrieved data
-                    club = new Club(clubId, name, idOfAdvisor, studentsPresent);
-                }
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                clubExists = true;
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
 
+        }
 
-        return club;
+        return clubExists;
     }
-
-
     //checking code part
     public boolean isStudentIdValid(String studentId){
         if ( studentId== null || studentId.equals("")){
@@ -274,25 +245,7 @@ public class RemoveStudentController {
         return true;
     }
 
-    public boolean checkIfClubExists(String clubId) {
-        String query = "SELECT 1 FROM Club WHERE clubId = ?";
 
-        boolean clubExists = false;
-
-        try (PreparedStatement statement = connections.prepareStatement(query)) {
-            statement.setString(1, clubId);
-
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                clubExists = true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        }
-
-        return clubExists;
-    }
 
     //=======================================================
     public void onRemoveStudentButtonClick(ActionEvent event) throws Exception {
@@ -332,14 +285,14 @@ public class RemoveStudentController {
         }
 
         String firstNameOfStudent= getStudent(studentId).getFirstName(); //getting the first name of the student
-        currentClub = getClub(clubIdToDeleteStudent);
-        currentClubAdvisor = getClubAdvisor(currentClub.getIdOfAdvisor());
 
-        currentClubAdvisor.removeStudent(studentId,currentClub);
+        currentClubAdvisor = getClubAdvisor(adId);
+
+        currentClubAdvisor.removeStudent(studentId,club);
         // Calling the methods to save the removed student table and remove them from the club_student table
         saveRemovedStudent(clubIdToDeleteStudent, studentId,firstNameOfStudent, reason);
 
-        removeStudentFromClub(clubIdToDeleteStudent, studentId);
+        removeStudentFromClub(club, studentId);
 
         deleteStudentId.clear();
         deleteStudentClub.clear();

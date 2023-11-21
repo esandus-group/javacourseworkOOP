@@ -1,5 +1,7 @@
 package SCMS.Controllers;
 
+import SCMS.HelloApplication;
+import SCMS.Objects.ClubAdvisor;
 import SCMS.Utils.SCMSEnvironment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,15 +22,13 @@ import java.util.ArrayList;
 
 //nikoya is here
 public class clubAdvisorController {
-
+    HelloApplication helloApplication = new HelloApplication();
     @FXML
     private Button backButtonCDD;
     public String fileName;
     @FXML
     private Button addclub;
-
     private ArrayList<String> clubs = new ArrayList<>();
-
     @FXML
     private Button club1;
 
@@ -44,17 +44,15 @@ public class clubAdvisorController {
     @FXML
     private Button club4;
     private String buttonText;
-    Stage stage;
     private String advisorID;
+    public ClubAdvisor advisor;
     @FXML
     private Label welcome;
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //getting the database connection
-    public String clubName;
-
-    public void setWelcomeText(String name,String id) throws Exception{
+    public void setWelcomeText(String name,ClubAdvisor advisor) throws Exception{
         welcome.setText("Welcome "+name);
-        this.advisorID=id;
-        getManagedClubs(id);
+        this.advisor=advisor;
+        getManagedClubs(advisor.getId());
     }
     public void getManagedClubs(String advisorId) throws Exception {
         try (Statement st = connections.createStatement()) {
@@ -106,17 +104,7 @@ public class clubAdvisorController {
             }
         }
     }
-
-
-    //Database db1 = new Database();
     //=============================================================
-    public void stageLoader(ActionEvent event, String fileName) throws IOException { //used to load the new stage
-        Parent root = FXMLLoader.load(getClass().getResource(fileName));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
     //---------------------------------------------------------------------
     public void onAddClubClick(ActionEvent event) throws Exception{ // add club
@@ -133,7 +121,7 @@ public class clubAdvisorController {
         stage.setScene(scene);
         stage.show();
     }
-    public void onClub1PressClick(ActionEvent event) throws  IOException{
+    public void loadingTheClubDashBoard(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/PressClub.fxml"));
         Parent root = loader.load();
         buttonText = club1.getText();
@@ -144,45 +132,23 @@ public class clubAdvisorController {
         stage.setScene(scene);
         stage.show();
     }
+    public void onClub1PressClick(ActionEvent event) throws  IOException{
+        loadingTheClubDashBoard(event);
+    }
     public void onClub2PressClick(ActionEvent event) throws  IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/PressClub.fxml"));
-        Parent root = loader.load();
-        buttonText = club2.getText();
-        PressClubController pcc = loader.getController();
-        pcc.setWelcomeText(buttonText,advisorID);
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+        loadingTheClubDashBoard(event);
     }
     public void onClub3PressClick(ActionEvent event) throws  IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/PressClub.fxml"));
-        Parent root = loader.load();
-        buttonText = club3.getText();
-        PressClubController pcc = loader.getController();
-        pcc.setWelcomeText(buttonText,advisorID);
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+        loadingTheClubDashBoard(event);
     }
     //---------------------------------------------------------------------
     public void onClub4PressClick(ActionEvent event) throws  IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/PressClub.fxml"));
-        Parent root = loader.load();
-        buttonText = club4.getText();
-        PressClubController pcc = loader.getController();
-        pcc.setWelcomeText(buttonText,advisorID);
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+        loadingTheClubDashBoard(event);
     }
     //=========================================================
     public void  backButtonCDD  (ActionEvent event) throws Exception{
         fileName="/SCMS/FxmlFiles/ClubLoginPage.fxml";      //open the page
-        stageLoader(event,fileName);
+        helloApplication.stageLoader(event,fileName);
     }
-
 
 }

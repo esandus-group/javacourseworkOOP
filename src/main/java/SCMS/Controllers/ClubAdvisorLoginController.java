@@ -13,8 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,23 +31,17 @@ public class ClubAdvisorLoginController {
 
     @FXML
     private Button advisorLoginButton;
-
-    @FXML
-    private Text passwordErrorText;
-
     @FXML
     private TextField passwordTextField;
 
     @FXML
     private Button signUpAdvisor;
-
-    @FXML
-    private Text stdNameErrorText;
-
     public String adId;
 
     public String password;
+    //=========================================================================
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
+    //=========================================================================
     public ClubAdvisor getClubAdvisor(String clubAdvisorId) throws SQLException {
         String advisorQuery = "SELECT * FROM ClubAdvisor WHERE id = ?";
         String clubsQuery = "SELECT * FROM Club WHERE idOfAdvisor = ?";
@@ -75,7 +67,7 @@ public class ClubAdvisorLoginController {
                     String clubName = clubsResultSet.getString("name");
 
                     // Create a Club object and add it to the managingClubs list
-                    Club club = new Club(clubId,clubName,id);
+                    Club club = new Club(clubId,clubName);
                     managingClubs.add(club);
                 }
 
@@ -85,14 +77,14 @@ public class ClubAdvisorLoginController {
 
         return null; // ClubAdvisor not found
     }
-
+    //=========================================================================
     public boolean isInputEmpty(String input){
         if ( input== null || input.equals("")){
             return false;
         }
         return true;
     }
-
+    //=========================================================================
     public void Login(ActionEvent event) throws Exception {
             adId = AdvisorIdTextField.getText();
             password = passwordTextField.getText();
@@ -120,7 +112,7 @@ public class ClubAdvisorLoginController {
                 Parent root = loader.load();
 
                 clubAdvisorController cac = loader.getController();
-                cac.setWelcomeText(advisor.getFirstName(), adId);
+                cac.setWelcomeText(advisor.getFirstName(), advisor);
 
                 Scene scene = new Scene(root);
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -128,15 +120,7 @@ public class ClubAdvisorLoginController {
                 stage.show();
             }
     }
-
-    public void stageLoader(ActionEvent event, String fileName) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource(fileName));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
+    //=========================================================================
     public void onRegisterClubAdvisorButtonClick(ActionEvent event) throws IOException{
 
         Parent root = FXMLLoader.load(getClass().getResource("/SCMS/FxmlFiles/ClubAdvisorSignUp.fxml"));
