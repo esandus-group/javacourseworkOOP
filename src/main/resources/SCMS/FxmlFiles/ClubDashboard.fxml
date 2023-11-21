@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.ClubDashboardController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.ClubDashboardController">
    <children>
       <TableView fx:id="functionsTable" layoutX="28.0" layoutY="117.0" prefHeight="233.0" prefWidth="545.0">
         <columns>
@@ -21,6 +21,7 @@
       <Text fx:id="clubNameText" layoutX="205.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Club name" />
       <Button fx:id="leaveClubButton" layoutX="24.0" layoutY="357.0" mnemonicParsing="false" onAction="#onLeaveClubButtonClick" text="Leave Club" />
       <Button fx:id="loadEventsButton" layoutX="527.0" layoutY="86.0" mnemonicParsing="false" onAction="#loadingStudents" text="Load" />
+      <Button fx:id="backToStudentDashboardButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onBackToStudentDashboardClicked" text="Back To Student Dashboard" />
    </children>
    <stylesheets>
       <URL value="@../StylingSheets/ClubDashbord.css" />

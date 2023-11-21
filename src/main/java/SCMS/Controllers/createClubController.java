@@ -1,4 +1,4 @@
-package SCMS.Controllers;
+ package SCMS.Controllers;
 
 import SCMS.Objects.Club;
 import SCMS.Objects.ClubAdvisor;

@@ -208,5 +208,15 @@ public class RegisterToClubController {
         stage.setScene(scene);
         stage.show();
     }
+    public void onBackToStudentDashboardClicked(ActionEvent event) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/StudentDashboard.fxml"));
+        Parent root = loader.load();
+        StudentDashboardController SDC = loader.getController();
+        SDC.InitializeStudent(student);
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
 
 }
