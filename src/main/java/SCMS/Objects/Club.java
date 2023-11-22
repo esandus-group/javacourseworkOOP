@@ -7,7 +7,7 @@ public class Club {
     private String name;
     private ArrayList<Student> studentsPresent = new ArrayList<Student>();
 
-    private ArrayList<Student> clubFunctions = new ArrayList<Student>();
+    private ArrayList<Event> clubFunctions = new ArrayList<>();
 
     public Club(String clubId,String name){
         this.clubId=clubId;
@@ -17,8 +17,21 @@ public class Club {
     public Club(String clubId,String name,ArrayList<Student> studentsPresent){
         this.clubId=clubId;
         this.name=name;
-
         this.studentsPresent=studentsPresent;
+    }
+    public Club(String clubId,String name,ArrayList<Student> studentsPresent,ArrayList<Event> clubFunctions){
+        this.clubId=clubId;
+        this.name=name;
+        this.studentsPresent=studentsPresent;
+        this.clubFunctions=clubFunctions;
+    }
+
+    public ArrayList<Event> getClubFunctions() {
+        return clubFunctions;
+    }
+
+    public void setClubFunctions(ArrayList<Event> clubFunctions) {
+        this.clubFunctions = clubFunctions;
     }
 
     public String getClubId() {
@@ -54,4 +67,5 @@ public class Club {
                 ", clubFunctions=" + clubFunctions +
                 '}';
     }
+
 }

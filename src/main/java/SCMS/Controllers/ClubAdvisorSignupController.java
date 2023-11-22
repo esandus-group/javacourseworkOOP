@@ -150,7 +150,7 @@ public class ClubAdvisorSignupController {
         Parent root = loader.load();
         //passing the advisorID to the next controller and also setting the name
         clubAdvisorController cac = loader.getController();
-        cac.setWelcomeText(advisor.getFirstName(), advisor);
+        cac.setWelcomeText(advisor);
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);

@@ -79,9 +79,11 @@ public class PressClubController {
     Club currentClub = null;
     String advisorID;
     String name;
-    Button []button = new Button [3]; //here
+    public Button []button; //here=
+
     public ArrayList<Event> allEvents = new ArrayList();
     ObservableList<Event> allTheEvents = FXCollections.observableArrayList();
+
     public void openingEventStudentList(ActionEvent event,int buttonId) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/M123.fxml"));
         Parent root = loader.load();
@@ -114,10 +116,13 @@ public class PressClubController {
         }
     }
     //=======================================================
-    public void setWelcomeText(String clubName,String id){
+    public void setWelcomeText(String clubName,String id) throws SQLException {
         welcomeClub.setText("Welcome to "+clubName);
         this.name=clubName;
         this.advisorID=id;
+        System.out.println(advisorID);
+
+
     }
     //=========================================================================
 
@@ -135,53 +140,89 @@ public class PressClubController {
         onComingEvents.setItems(data);
     }
     //=========================================================================
+    public Club getClubByName(String clubName) throws SQLException {
+        String clubQuery = "SELECT * FROM Club WHERE name = ?";
+        String clubStudentQuery = "SELECT * FROM Club_Student WHERE clubId = ?";
+        String eventQuery = "SELECT * FROM Event WHERE clubId = ?";
 
-    public ArrayList<Event> getEventsForClub(String clubId) {
-        ArrayList<Event> clubEvents = new ArrayList<>();
-        String query = "SELECT * FROM Event WHERE clubId = ?";
+        Club club = null;
 
-        try (PreparedStatement preparedStatement = connections.prepareStatement(query)) {
-            preparedStatement.setString(1, clubId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            for (int i = 0; i < button.length; i++) {
-                button[i] = new Button();
-                button[i].setUserData(i); // Set an identifier (can be any unique value)
-                button[i].setOnAction(event -> {
-                    try {
-                        handleMarkAttendanceAction(event);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-            }
-
-            int h = 0;
-            while (resultSet.next()) {
-                String id = resultSet.getString("eventId");
-                String title = resultSet.getString("title");
-                LocalDateTime dateTime = resultSet.getTimestamp("dateTime").toLocalDateTime();
-                String venue = resultSet.getString("venue");
-                String typeOfClubFunction = resultSet.getString("typeOfClubFunction");
-                String description = resultSet.getString("description");
-                String retrievedClubId = resultSet.getString("clubId");
-
-                Event event = new Event(id,title, dateTime, venue, typeOfClubFunction, description, retrievedClubId, button[h]);
-                clubEvents.add(event);
-                h++;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        for (int i = 0; i < button.length; i++) {
+            button[i] = new Button();
+            button[i].setUserData(i); // Set an identifier (can be any unique value)
+            button[i].setOnAction(event -> {
+                try {
+                    handleMarkAttendanceAction(event);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
         }
 
-        return clubEvents;
+        // Retrieve club details from the Club table using the club name
+        try (PreparedStatement clubStatement = connections.prepareStatement(clubQuery)) {
+            clubStatement.setString(1, clubName);
+            ResultSet clubResult = clubStatement.executeQuery();
+
+            if (clubResult.next()) {
+                String clubId = clubResult.getString("clubId"); // Get the ID of the club
+                String name = clubResult.getString("name");
+
+                // Create a list to hold students present
+                ArrayList<Student> studentsPresent = new ArrayList<>();
+
+                // Retrieve student IDs associated with the club from the Club_Student table
+                try (PreparedStatement clubStudentStatement = connections.prepareStatement(clubStudentQuery)) {
+                    clubStudentStatement.setString(1, clubId);
+                    ResultSet clubStudentResult = clubStudentStatement.executeQuery();
+
+                    while (clubStudentResult.next()) {
+                        String studentId = clubStudentResult.getString("id");
+                        // Fetch student objects using the studentId and add to the list
+                        Student student = getStudent(studentId);
+                        if (student != null) {
+                            studentsPresent.add(student);
+                        }
+                    }
+                }
+
+                // Create a list to hold events associated with the club
+                ArrayList<Event> clubEvents = new ArrayList<>();
+
+                // Retrieve events associated with the club from the Event table
+                try (PreparedStatement eventStatement = connections.prepareStatement(eventQuery)) {
+                    eventStatement.setString(1, clubId);
+                    ResultSet eventResult = eventStatement.executeQuery();
+
+                    int h = 0;
+                    while (eventResult.next()) {
+                        String id = eventResult.getString("eventId");
+                        String title = eventResult.getString("title");
+                        LocalDateTime dateTime = eventResult.getTimestamp("dateTime").toLocalDateTime();
+                        String venue =eventResult.getString("venue");
+                        String typeOfClubFunction = eventResult.getString("typeOfClubFunction");
+                        String description = eventResult.getString("description");
+
+                        Event event = new Event(id,title, dateTime, venue, typeOfClubFunction, description, button[h]);
+                        clubEvents.add(event);
+                        h++;
+                    }
+                }
+
+                // Create the Club object with the retrieved data and associated events
+                club = new Club(clubId, name, studentsPresent, clubEvents);
+            }
+        }
+
+        return club;
     }
 //=====================================================================
 
     public void onFillTableClick(ActionEvent event) throws Exception{
-        allEvents = getEventsForClub(getClubByName(name).getClubId()); //PUTTING THE STUFF TO THE TABLE
+        this.button= new Button[7];
+        allEvents = getClubByName(name).getClubFunctions(); //PUTTING THE STUFF TO THE TABLE
         System.out.println(allEvents.size());    // TO SEE WHETHER ALL THE STUFF ARE LOADED
         loadingEvents();                           // PUTTING IT TO THE TABLE
         fillTable.setDisable(true);
@@ -191,8 +232,10 @@ public class PressClubController {
     public void  backButtonCDD  (ActionEvent event) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/Club advisor.fxml"));
         Parent root = loader.load();
+
         clubAdvisorController cac = loader.getController();
-        cac.setWelcomeText(getClubAdvisor(advisorID).getFirstName(),getClubAdvisor(advisorID));
+        cac.setWelcomeText(getClubAdvisor(advisorID));
+
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -294,8 +337,10 @@ public class PressClubController {
 
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/Club advisor.fxml"));
                     Parent root = loader.load();
+
                     clubAdvisorController cac = loader.getController();
-                    cac.setWelcomeText(currentClubAdvisor.getFirstName(),currentClubAdvisor);
+                    cac.setWelcomeText(currentClubAdvisor);
+
                     Scene scene = new Scene(root);
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.setScene(scene);
@@ -312,8 +357,20 @@ public class PressClubController {
     }
 
     //=======================================================
-    public void onCreateNewEvent(ActionEvent event) throws IOException {
-        helloApplicationInstance.stageLoader(event, "/SCMS/FxmlFiles/Event.fxml");
+    public void onCreateNewEvent(ActionEvent event) throws IOException, SQLException {
+
+        String fileName="/SCMS/FxmlFiles/Event.fxml";      //the fxml path
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName));
+        Parent root = loader.load();
+
+        EventContorller vsc = loader.getController();
+        vsc.gettingInformation(getClubByName(name),advisorID);
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+
     }
     //=========================================================================
 
@@ -332,9 +389,8 @@ public class PressClubController {
                 String lastName = resultSet.getString("lastName");
                 String dateOfBirth = resultSet.getString("dateOfBirth");
                 String password =  resultSet.getString("password");
-                // Add more fields as needed
 
-                // Create a Student object with the retrieved data
+
                 student = new Student(id, firstName, lastName, dateOfBirth,password);
             }
         } catch (SQLException e) {
@@ -345,7 +401,10 @@ public class PressClubController {
         return student;
     }
     //=======================================================
-    public Club getClubByName(String clubName) throws SQLException {
+
+
+
+    public Club getClubByNamePrevious(String clubName) throws SQLException {
         String clubQuery = "SELECT * FROM Club WHERE name = ?";
         String clubStudentQuery = "SELECT * FROM Club_Student WHERE clubId = ?";
 
@@ -359,7 +418,7 @@ public class PressClubController {
             if (clubResult.next()) {
                 String clubId = clubResult.getString("clubId"); // Get the ID of the club
                 String name = clubResult.getString("name");
-                String idOfAdvisor = clubResult.getString("idOfAdvisor");
+
 
                 // Create a list to hold students present
                 ArrayList<Student> studentsPresent = new ArrayList<>();

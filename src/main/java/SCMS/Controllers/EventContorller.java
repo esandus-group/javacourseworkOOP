@@ -1,6 +1,7 @@
 package SCMS.Controllers;
 
 import SCMS.HelloApplication;
+import SCMS.Objects.Club;
 import SCMS.Objects.Event;
 import SCMS.Utils.SCMSEnvironment;
 import javafx.event.ActionEvent;
@@ -13,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,7 +26,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-public class EventContorller implements Initializable {
+public class EventContorller implements Initializable { //PUT THE BACK BUTTON
     HelloApplication  helloApplicationInstance = new HelloApplication();
     @FXML
     TextField eventTitle;
@@ -54,9 +54,28 @@ public class EventContorller implements Initializable {
     String errorMessage = "";
     @FXML
     Label errorMessageLabel;
+    public String buttonText;
+    private Club club;
+    private String adId;
+
+    public void gettingInformation(Club club,String advisorId){
+        this.club=club;
+        this.adId=advisorId;
+    }
+
     public void  backButtonCDD  (ActionEvent event) throws Exception{
         String fileName = "/SCMS/FxmlFiles/PressClub.fxml";      //open the page
-        helloApplicationInstance.stageLoader(event,fileName);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName));
+        Parent root = loader.load();
+        buttonText = club.getName();
+
+        PressClubController pcc = loader.getController();
+        pcc.setWelcomeText(buttonText,adId);
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     public static HashMap<String, String> SQLReader(String yearMonth){
@@ -196,8 +215,8 @@ public class EventContorller implements Initializable {
                     errorMessageLabel.setText("");
 
 
-                    Event newEvent = new Event(title, dateTime,venue, type, description, clubId);
-                    newEvent.writeEventsToSqlDB();
+                    Event newEvent = new Event(title, dateTime,venue, type, description);
+                    newEvent.writeEventsToSqlDB(clubId);
                 }
 
         }

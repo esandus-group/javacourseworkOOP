@@ -14,10 +14,9 @@ public class Event {
     private String venue;
     private String type;
     private String description;
-    private String clubId;
     //i made a change here check
     private Button button;
-    public Event(String title, LocalDateTime dateTime, String venue, String type, String description, String clubId) {
+    public Event(String title, LocalDateTime dateTime, String venue, String type, String description) {
 
         this.eventId = "E" + String.valueOf(getNoOfEventsFromSqlDB()+1);
         this.title = title;
@@ -25,11 +24,9 @@ public class Event {
         this.venue = venue;
         this.type = type;
         this.description = description;
-        this.clubId = clubId;
-        System.out.println(title+ venue+description+ clubId+type);
         //this.button = new Button("mark attendance");
     }
-    public Event(String title, LocalDateTime dateTime, String venue, String type, String description, String clubId, Button button) {
+    public Event(String title, LocalDateTime dateTime, String venue, String type, String description, Button button) {
 
         this.eventId = "E" + String.valueOf(getNoOfEventsFromSqlDB() + 1);
         this.title = title;
@@ -37,12 +34,11 @@ public class Event {
         this.venue = venue;
         this.type = type;
         this.description = description;
-        this.clubId = clubId;
-        System.out.println(title + venue + description + clubId + type);
+
         this.button =button;
         this.button.setText("mark stuff");
     }
-    public Event(String eventId, String title, LocalDateTime dateTime, String venue, String type, String description, String clubId, Button button) {
+    public Event(String eventId, String title, LocalDateTime dateTime, String venue, String type, String description, Button button) {
 
         this.eventId = eventId;
         this.title = title;
@@ -50,8 +46,6 @@ public class Event {
         this.venue = venue;
         this.type = type;
         this.description = description;
-        this.clubId = clubId;
-        System.out.println(title + venue + description + clubId + type);
         this.button =button;
         this.button.setText("mark stuff");
     }
@@ -120,13 +114,7 @@ public class Event {
         this.description = description;
     }
 
-    public String getClubId() {
-        return clubId;
-    }
 
-    public void setClubId(String clubId) {
-        this.clubId = clubId;
-    }
 
     public Integer getNoOfEventsFromSqlDB() {
 
@@ -148,7 +136,7 @@ public class Event {
         }
     }
 
-    public void writeEventsToSqlDB(){
+    public void writeEventsToSqlDB(String clubId){
         try {
             String query = "INSERT INTO Event (eventId, title, dateTime, venue, typeOfClubFunction, description, clubId) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -162,7 +150,7 @@ public class Event {
             statement.setString(4, this.venue);
             statement.setString(5, this.type);
             statement.setString(6, this.description);
-            statement.setString(7, this.clubId);
+            statement.setString(7, clubId);
 
 
             statement.executeUpdate();

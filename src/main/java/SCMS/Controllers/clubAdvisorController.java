@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -49,10 +50,12 @@ public class clubAdvisorController {
     @FXML
     private Label welcome;
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //getting the database connection
-    public void setWelcomeText(String name,ClubAdvisor advisor) throws Exception{
+    public void setWelcomeText(ClubAdvisor advisor) throws Exception{
+        String name = advisor.getFirstName();
         welcome.setText("Welcome "+name);
         this.advisor=advisor;
         getManagedClubs(advisor.getId());
+
     }
     public void getManagedClubs(String advisorId) throws Exception {
         try (Statement st = connections.createStatement()) {
@@ -111,39 +114,43 @@ public class clubAdvisorController {
         fileName="/SCMS/FxmlFiles/CreateClub.fxml";      //the fxml path
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName));
         Parent root = loader.load();
-        buttonText = club1.getText();
-
+        System.out.println(advisor.getId());
         createClubController pcc = loader.getController();
-        pcc.gettingIdOfAdvisor(advisorID);
+        pcc.gettingIdOfAdvisor(advisor.getId());
+
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
-    public void loadingTheClubDashBoard(ActionEvent event) throws IOException {
+
+    public void loadingTheClubDashBoard(ActionEvent event,Button club) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/PressClub.fxml"));
         Parent root = loader.load();
-        buttonText = club1.getText();
+        buttonText = club.getText();
+
         PressClubController pcc = loader.getController();
-        pcc.setWelcomeText(buttonText,advisorID);
+        pcc.setWelcomeText(buttonText,advisor.getId());
+
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
-    public void onClub1PressClick(ActionEvent event) throws  IOException{
-        loadingTheClubDashBoard(event);
+
+    public void onClub1PressClick(ActionEvent event) throws IOException, SQLException {
+        loadingTheClubDashBoard(event,club1);
     }
-    public void onClub2PressClick(ActionEvent event) throws  IOException{
-        loadingTheClubDashBoard(event);
+    public void onClub2PressClick(ActionEvent event) throws  IOException, SQLException {
+        loadingTheClubDashBoard(event,club2);
     }
-    public void onClub3PressClick(ActionEvent event) throws  IOException{
-        loadingTheClubDashBoard(event);
+    public void onClub3PressClick(ActionEvent event) throws  IOException, SQLException {
+        loadingTheClubDashBoard(event,club3);
     }
     //---------------------------------------------------------------------
-    public void onClub4PressClick(ActionEvent event) throws  IOException{
-        loadingTheClubDashBoard(event);
+    public void onClub4PressClick(ActionEvent event) throws  IOException, SQLException {
+        loadingTheClubDashBoard(event,club4);
     }
     //=========================================================
     public void  backButtonCDD  (ActionEvent event) throws Exception{
