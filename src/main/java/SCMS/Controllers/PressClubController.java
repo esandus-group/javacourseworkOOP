@@ -144,7 +144,7 @@ public class PressClubController {
             preparedStatement.setString(1, clubId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            for (int i = 0; i < button.length; i++) {
+            for (int i = 0; i < button.length; i++) { //initializes buttons and attach actions to them
                 button[i] = new Button();
                 button[i].setUserData(i); // Set an identifier (can be any unique value)
                 button[i].setOnAction(event -> {
@@ -159,7 +159,8 @@ public class PressClubController {
             }
 
             int h = 0;
-            while (resultSet.next()) {
+            while (resultSet.next()) { //the loop iterates through the result set
+                // and data from the result set is retrieved for each event row and create event object
                 String id = resultSet.getString("eventId");
                 String title = resultSet.getString("title");
                 LocalDateTime dateTime = resultSet.getTimestamp("dateTime").toLocalDateTime();
@@ -169,7 +170,7 @@ public class PressClubController {
                 String retrievedClubId = resultSet.getString("clubId");
 
                 Event event = new Event(id,title, dateTime, venue, typeOfClubFunction, description, retrievedClubId, button[h]);
-                clubEvents.add(event);
+                clubEvents.add(event);//event object added to clubEvents arraylist
                 h++;
             }
         } catch (SQLException e) {
