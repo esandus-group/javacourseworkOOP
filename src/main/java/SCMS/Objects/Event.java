@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Event {
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection();
@@ -14,6 +15,7 @@ public class Event {
     private String venue;
     private String type;
     private String description;
+    private ArrayList<Student> studentsWhoJoined = new ArrayList<>();
     //i made a change here check
     private Button button;
     public Event(String title, LocalDateTime dateTime, String venue, String type, String description) {
@@ -48,8 +50,29 @@ public class Event {
         this.description = description;
         this.button =button;
         this.button.setText("mark stuff");
+
+    }
+    public Event(String eventId, String title, LocalDateTime dateTime, String venue, String type, String description, Button button,ArrayList<Student> studentsWhoJoined) {
+
+        this.eventId = eventId;
+        this.title = title;
+        this.dateTime = dateTime;
+        this.venue = venue;
+        this.type = type;
+        this.description = description;
+        this.button =button;
+        this.button.setText("mark stuff");
+        this.studentsWhoJoined=studentsWhoJoined;
+
     }
 
+    public ArrayList<Student> getStudentsWhoJoined() {
+        return studentsWhoJoined;
+    }
+
+    public void setStudentsWhoJoined(ArrayList<Student> studentsWhoJoined) {
+        this.studentsWhoJoined = studentsWhoJoined;
+    }
 
     public Button getButton() {
         return button;

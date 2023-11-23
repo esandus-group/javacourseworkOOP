@@ -165,8 +165,8 @@ public class EventContorller implements Initializable { //PUT THE BACK BUTTON
     }
 
 
-    public String validateTextFiledTimePickerChoiceBox(String title, String venue, String description, String clubId, String type){
-        if(title.isEmpty() || venue.isEmpty()  || description.isEmpty() || clubId.isEmpty() || type.isEmpty()){
+    public String validateTextFiledTimePickerChoiceBox(String title, String venue, String description, String type){
+        if(title.isEmpty() || venue.isEmpty()  || description.isEmpty()  || type.isEmpty()){
             errorMessage = "Fields cannot be empty";
 
 
@@ -186,11 +186,11 @@ public class EventContorller implements Initializable { //PUT THE BACK BUTTON
         String title = eventTitle.getText();
         String venue = eventVenue.getText();
         String description = eventDescription.getText();
-        String clubId = clubIdTextBoxData.getText();
+       // String clubId = clubIdTextBoxData.getText();
         type = eventTypeChoiceBox.getValue();
 
-        System.out.println(title+ venue+description+ clubId+type);
-        errorMessage = (validateTextFiledTimePickerChoiceBox(title, venue, description, clubId,type));
+
+        errorMessage = (validateTextFiledTimePickerChoiceBox(title, venue, description,type));
         errorMessageLabel.setText(errorMessage);
         System.out.println(errorMessage);
 
@@ -207,7 +207,7 @@ public class EventContorller implements Initializable { //PUT THE BACK BUTTON
                     eventTitle.setText("");
                     eventVenue.setText("");
                     eventDescription.setText("");
-                    clubIdTextBoxData.setText("");
+
                     timeHourTextBoxData.setText("");
                     timeMinuteTextBoxData.setText("");
                     eventDate.setValue(null);
@@ -215,8 +215,8 @@ public class EventContorller implements Initializable { //PUT THE BACK BUTTON
                     errorMessageLabel.setText("");
 
 
-                    Event newEvent = new Event(title, dateTime,venue, type, description);
-                    newEvent.writeEventsToSqlDB(clubId);
+                    Event newEvent = new Event(title, dateTime,venue, type, description,new Button());
+                    newEvent.writeEventsToSqlDB(club.getClubId());
                 }
 
         }

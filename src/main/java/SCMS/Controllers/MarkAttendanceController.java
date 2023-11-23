@@ -1,6 +1,8 @@
 package SCMS.Controllers;
 
 import SCMS.Objects.Club;
+import SCMS.Objects.ClubAdvisor;
+import SCMS.Objects.Event;
 import SCMS.Objects.Student;
 import SCMS.Utils.SCMSEnvironment;
 import javafx.collections.FXCollections;
@@ -19,6 +21,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class MarkAttendanceController {
@@ -38,6 +41,7 @@ public class MarkAttendanceController {
     @FXML
     private Button submit;
     private String eventID;
+    private ClubAdvisor advisor;
     private int numOfStudents;
     @FXML
     private TableView<Student> allStudents;
@@ -50,72 +54,73 @@ public class MarkAttendanceController {
     private TableColumn<Student, String> stdIdCol;
     @FXML
     private TableColumn<Student, String> tick;
-    private String buttonText;
 
+    private Event function;
+    private String buttonText;
+    public Event getEventById(String eventId) throws SQLException {
+        String eventQuery = "SELECT * FROM Event WHERE eventId = ?";
+        String attendanceQuery = "SELECT * FROM Attendance WHERE eventId = ?";
+        String studentQuery = "SELECT * FROM Student WHERE id = ?";
+
+        Event event = null;
+
+        try (PreparedStatement eventStatement = connections.prepareStatement(eventQuery)) {
+            eventStatement.setString(1, eventId);
+            ResultSet eventResult = eventStatement.executeQuery();
+
+            if (eventResult.next()) {
+                String title = eventResult.getString("title");
+                LocalDateTime dateTime = eventResult.getObject("dateTime", LocalDateTime.class);
+                String venue = eventResult.getString("venue");
+                String type = eventResult.getString("typeOfClubFunction");
+                String description = eventResult.getString("description");
+
+                // Create a list to hold students who joined the event
+                ArrayList<Student> studentsWhoJoined = new ArrayList<>();
+
+                // Retrieve students who joined the event from the Attendance table
+                try (PreparedStatement attendanceStatement = connections.prepareStatement(attendanceQuery)) {
+                    attendanceStatement.setString(1, eventId);
+                    ResultSet attendanceResult = attendanceStatement.executeQuery();
+
+                    while (attendanceResult.next()) {
+                        String studentId = attendanceResult.getString("id");
+
+                        // Fetch the student object using the studentId and add to the list
+                        try (PreparedStatement studentStatement = connections.prepareStatement(studentQuery)) {
+                            studentStatement.setString(1, studentId);
+                            ResultSet studentResult = studentStatement.executeQuery();
+
+                            if (studentResult.next()) {
+                                String firstName = studentResult.getString("firstName");
+                                String lastName = studentResult.getString("lastName");
+                                String dateOfBirth = studentResult.getString("dateOfBirth");
+                                String password = studentResult.getString("password");
+
+                                Student student = new Student(studentId, firstName, lastName, dateOfBirth, password);
+                                studentsWhoJoined.add(student);
+                            }
+                        }
+                    }
+                }
+
+                // Create the Event object with the retrieved data
+                event = new Event(eventId, title, dateTime, venue, type, description, new Button(), studentsWhoJoined);
+            }
+        }
+
+        return event;
+    }
     //=========================================================================
-    public void gettingInformation(Club club, String eventId){ //THE METHOD TO GET THE INFOR FROM THE PREVIOUS CONTROLLER
+    public void gettingInformation(Club club, String eventId, ClubAdvisor advisor){ //THE METHOD TO GET THE INFOR FROM THE PREVIOUS CONTROLLER
         this.club=club;
+        this.advisor=advisor;
         this.eventID=eventId;
         //updates the Label named topic with a string indicating the club's name for marking attendance.
         topic.setText("marking attendance of "+club.getName());
         this.numOfStudents=club.getStudentsPresent().size();//retrieving the size of students present in the club.
         checkBoxArray = new CheckBox[numOfStudents];//initializes the checkBoxArray to hold CheckBox
         // objects based on the number of students present.
-    }
-    //=========================================================================
-    public ArrayList<Student> getStudentsForClub(String clubId) { //WE SHOULD PASS THE EVENT ID ALSO AND CHECK WHERE THERE IS A RECORD IN ATTENDANCE TABLE WITH THAT ID AND EVENTID
-        //retrieve students associated with a specific club from the database.
-        ArrayList<Student> clubStudents = new ArrayList<>();
-        //store the retrieved students associated with the given club.
-
-        // Assuming Club_Student table has columns clubId and studentId
-        String clubStudentQuery = "SELECT id FROM Club_Student WHERE clubId = ?";
-        //retrieve student IDs from a table named Club_Student based on the provided clubId.
-        String studentQuery = "SELECT * FROM Student WHERE id = ?";
-        //retrieve detailed student information from a table named Student based on the obtained student IDs.
-
-        try (PreparedStatement clubStudentStatement = connections.prepareStatement(clubStudentQuery)) {
-            //executes a SQL statement to fetch student IDs associated with the given clubId.
-            clubStudentStatement.setString(1, clubId);
-            //The resulting set is stored in clubStudentResultSet.
-            ResultSet clubStudentResultSet = clubStudentStatement.executeQuery();
-
-            while (clubStudentResultSet.next()) { //it iterates through the result set of student IDs retrieved for the club
-                String studentId = clubStudentResultSet.getString("id");
-                //It retrieves each student ID and stores it in the studentId variable.
-
-                try (PreparedStatement studentStatement = connections.prepareStatement(studentQuery)) {
-                    // used to fetch detailed information for each student using their respective studentId.
-                    studentStatement.setString(1, studentId);
-                    //sets the studentId parameter and retrieves a result set containing student details.
-                    ResultSet studentResultSet = studentStatement.executeQuery();
-
-                    if (studentResultSet.next()) {
-                        //// Retrieving various attributes of the student from the result set
-                        String id = studentResultSet.getString("id");
-                        String firstName = studentResultSet.getString("firstName");
-                        String lastName = studentResultSet.getString("lastName");
-                        String dateOfBirth = studentResultSet.getString("dateOfBirth");
-                        String password = studentResultSet.getString("password");
-
-                        // Assuming you have checkBoxArray already declared and initialized
-                        // Create a CheckBox for the student and set a unique identifier (studentId)
-                        CheckBox checkBox = new CheckBox();
-                        checkBox.setUserData(studentId); // Set an identifier (can be any unique value)
-
-                        // Create a Student object with retrieved information and the CheckBox
-                        Student student = new Student(id, firstName, lastName, dateOfBirth, password, checkBox);
-                        // Add the student to the list of clubStudents
-                        clubStudents.add(student);
-
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return clubStudents;
     }
     //=========================================================================
     //populating a TableView with student data.
@@ -138,10 +143,12 @@ public class MarkAttendanceController {
         allStudents.setItems(data); // sets the items of the TableView named allStudents
         // with the data from the data ObservableList.
     }
+
     //=========================================================================
     //this is the method when the fill table button is clicked
     public void onFillTableClick(ActionEvent event) throws Exception{
-        allStudentsPresent = getStudentsForClub(club.getClubId());
+        //allStudentsPresent = getStudentsForClub(club.getClubId());
+        allStudentsPresent = club.getStudentsPresent();
         //method to retrieve students associated with the current club ID (club.getClubId()).
         //ArrayList with the retrieved students.
         loadingStudents();
@@ -179,6 +186,7 @@ public class MarkAttendanceController {
 
         PressClubController pcc = loader.getController();
         pcc.setWelcomeText(buttonText,club.getClubId());
+        pcc.gettingAdvisorFromMarkAttendanceCon(advisor);
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -188,9 +196,11 @@ public class MarkAttendanceController {
     //=========================================================================
     //this is the method when the submit button is clicked
     public void submit(ActionEvent event) throws Exception {
-        ArrayList<Student> studentsWhoCame = selectedRows(allTheStudents); //getting the students who are present to a arraylist
 
-        saveAttendance(studentsWhoCame, eventID);//saving data for the students who are present
+        function = getEventById(eventID);
+        function.setStudentsWhoJoined(selectedRows(allTheStudents)); //getting the students who are present to a arraylist
+
+        saveAttendance(function);//saving data for the students who are present
         System.out.println("Attendance saved successfully!");
 
         //AFTER SUBMITTING IT SHOULD GO BACK TO THE PREVIOUS PAGE, THIS IS THAT CODE
@@ -210,7 +220,11 @@ public class MarkAttendanceController {
     }
     //=========================================================================
     //save attendance records for students related to a particular event.
-    public void saveAttendance(ArrayList<Student> students, String eventId) {
+    public void saveAttendance(Event function) {
+
+        ArrayList<Student> students = function.getStudentsWhoJoined();
+        String eventId = function.getEventId();
+
         //selectQuery is a SQL query that counts the number of attendance records for a
         // specific eventId and id in the Attendance table.
         String selectQuery = "SELECT COUNT(*) FROM Attendance WHERE eventId = ? AND id = ?";

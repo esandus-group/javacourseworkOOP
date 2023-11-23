@@ -10,24 +10,22 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.EventContorller">
     <children>
-        <Button fx:id="leaveClubButton" layoutX="487.0" layoutY="354.0" mnemonicParsing="false" onAction="#onCreateNewEvent" text="Create" />
-      <TextField fx:id="eventTitle" layoutX="253.0" layoutY="158.0" />
-      <TextField fx:id="eventVenue" layoutX="254.0" layoutY="244.0" />
-      <TextField fx:id="eventDescription" layoutX="254.0" layoutY="328.0" />
-      <DatePicker fx:id="eventDate" layoutX="254.0" layoutY="201.0" prefHeight="26.0" prefWidth="160.0" />
-      <ChoiceBox fx:id="eventTypeChoiceBox" layoutX="253.0" layoutY="286.0" prefHeight="26.0" prefWidth="160.0" />
-      <TextField fx:id="clubIdTextBoxData" layoutX="254.0" layoutY="116.0" />
-      <TextField fx:id="timeHourTextBoxData" layoutX="452.0" layoutY="231.0" prefHeight="26.0" prefWidth="94.0" promptText="Hour" />
-      <TextField fx:id="timeMinuteTextBoxData" layoutX="452.0" layoutY="266.0" prefHeight="26.0" prefWidth="94.0" promptText="Minute" />
-      <Label fx:id="errorMessageLabel" layoutX="92.0" layoutY="53.0" prefHeight="45.0" prefWidth="322.0" wrapText="true"></Label>
+        <Button fx:id="leaveClubButton" layoutX="482.0" layoutY="327.0" mnemonicParsing="false" onAction="#onCreateNewEvent" text="Create" />
+      <TextField fx:id="eventTitle" layoutX="248.0" layoutY="131.0" />
+      <TextField fx:id="eventVenue" layoutX="249.0" layoutY="217.0" />
+      <TextField fx:id="eventDescription" layoutX="249.0" layoutY="301.0" />
+      <DatePicker fx:id="eventDate" layoutX="249.0" layoutY="174.0" prefHeight="26.0" prefWidth="160.0" />
+      <ChoiceBox fx:id="eventTypeChoiceBox" layoutX="248.0" layoutY="259.0" prefHeight="26.0" prefWidth="160.0" />
+      <TextField fx:id="timeHourTextBoxData" layoutX="447.0" layoutY="204.0" prefHeight="26.0" prefWidth="94.0" promptText="Hour" />
+      <TextField fx:id="timeMinuteTextBoxData" layoutX="447.0" layoutY="239.0" prefHeight="26.0" prefWidth="94.0" promptText="Minute" />
+      <Label fx:id="errorMessageLabel" layoutX="92.0" layoutY="53.0" prefHeight="45.0" prefWidth="322.0" wrapText="true" />
       <Button fx:id="backButtonCDD" layoutX="20.0" layoutY="17.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="26.0" prefWidth="40.0" text="&lt;--" />
-      <Label layoutX="103.0" layoutY="249.0" text="Venue" />
-      <Label layoutX="103.0" layoutY="121.0" text="Club ID" />
-      <Label layoutX="103.0" layoutY="163.0" text="Event Titile" />
-      <Label layoutX="103.0" layoutY="206.0" text="Date" />
-      <Label layoutX="103.0" layoutY="291.0" text="Type" />
-      <Label layoutX="103.0" layoutY="332.0" text="Description" />
-      <Label layoutX="454.0" layoutY="198.0" text="Time" />
+      <Label layoutX="98.0" layoutY="222.0" text="Venue" />
+      <Label layoutX="98.0" layoutY="136.0" text="Event Titile" />
+      <Label layoutX="98.0" layoutY="179.0" text="Date" />
+      <Label layoutX="98.0" layoutY="264.0" text="Type" />
+      <Label layoutX="98.0" layoutY="305.0" text="Description" />
+      <Label layoutX="449.0" layoutY="171.0" text="Time" />
       <Label fx:id="titleText" layoutX="190.0" layoutY="35.0" text="Create an event" />
     </children>
    <stylesheets>

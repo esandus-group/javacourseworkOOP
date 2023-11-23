@@ -79,17 +79,21 @@ public class PressClubController {
     Club currentClub = null;
     String advisorID;
     String name;
-    public Button []button; //here=
+    public Button []button=  new Button[7];
 
     public ArrayList<Event> allEvents = new ArrayList();
     ObservableList<Event> allTheEvents = FXCollections.observableArrayList();
+
+    public void gettingAdvisorFromMarkAttendanceCon(ClubAdvisor advisor){
+        this.currentClubAdvisor=advisor;
+    }
 
     public void openingEventStudentList(ActionEvent event,int buttonId) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/M123.fxml"));
         Parent root = loader.load();
 
         MarkAttendanceController mac = loader.getController();
-        mac.gettingInformation(getClubByName(name), allEvents.get(buttonId).getEventId());
+        mac.gettingInformation(getClubByName(name), allEvents.get(buttonId).getEventId(),getClubAdvisor(advisorID));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -111,8 +115,20 @@ public class PressClubController {
 
             } else if (buttonId == 2) {
                 openingEventStudentList(event,buttonId);
+            } else if (buttonId == 3) {
+                openingEventStudentList(event,buttonId);
+            } else if (buttonId == 4) {
+                openingEventStudentList(event,buttonId);
+            } else if (buttonId == 5) {
+                openingEventStudentList(event,buttonId);
+            } else if (buttonId == 6) {
+                openingEventStudentList(event,buttonId);
 
-            }
+            } else if (buttonId == 7) {
+            openingEventStudentList(event,buttonId);
+
+        }
+
         }
     }
     //=======================================================
@@ -120,6 +136,7 @@ public class PressClubController {
         welcomeClub.setText("Welcome to "+clubName);
         this.name=clubName;
         this.advisorID=id;
+
         System.out.println(advisorID);
 
 
@@ -221,7 +238,7 @@ public class PressClubController {
 //=====================================================================
 
     public void onFillTableClick(ActionEvent event) throws Exception{
-        this.button= new Button[7];
+
         allEvents = getClubByName(name).getClubFunctions(); //PUTTING THE STUFF TO THE TABLE
         System.out.println(allEvents.size());    // TO SEE WHETHER ALL THE STUFF ARE LOADED
         loadingEvents();                           // PUTTING IT TO THE TABLE
@@ -234,7 +251,7 @@ public class PressClubController {
         Parent root = loader.load();
 
         clubAdvisorController cac = loader.getController();
-        cac.setWelcomeText(getClubAdvisor(advisorID));
+        cac.setWelcomeText(currentClubAdvisor);
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -391,7 +408,7 @@ public class PressClubController {
                 String password =  resultSet.getString("password");
 
 
-                student = new Student(id, firstName, lastName, dateOfBirth,password);
+                student = new Student(id, firstName, lastName, dateOfBirth,password,new CheckBox());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -404,47 +421,7 @@ public class PressClubController {
 
 
 
-    public Club getClubByNamePrevious(String clubName) throws SQLException {
-        String clubQuery = "SELECT * FROM Club WHERE name = ?";
-        String clubStudentQuery = "SELECT * FROM Club_Student WHERE clubId = ?";
 
-        Club club = null;
-
-        // Retrieve club details from the Club table using the club name
-        try (PreparedStatement clubStatement = connections.prepareStatement(clubQuery)) {
-            clubStatement.setString(1, clubName);
-            ResultSet clubResult = clubStatement.executeQuery();
-
-            if (clubResult.next()) {
-                String clubId = clubResult.getString("clubId"); // Get the ID of the club
-                String name = clubResult.getString("name");
-
-
-                // Create a list to hold students present
-                ArrayList<Student> studentsPresent = new ArrayList<>();
-
-                // Retrieve student IDs associated with the club from the Club_Student table
-                try (PreparedStatement clubStudentStatement = connections.prepareStatement(clubStudentQuery)) {
-                    clubStudentStatement.setString(1, clubId);
-                    ResultSet clubStudentResult = clubStudentStatement.executeQuery();
-
-                    while (clubStudentResult.next()) {
-                        String studentId = clubStudentResult.getString("id");
-                        // Fetch student objects using the studentId and add to the list
-                        Student student = getStudent(studentId);
-                        if (student != null) {
-                            studentsPresent.add(student);
-                        }
-                    }
-                }
-
-                // Create the Club object with the retrieved data
-                club = new Club(clubId, name, studentsPresent);
-            }
-        }
-
-        return club;
-    }
     //=========================================================================
 
     public boolean updateClubAdvisor(Club currentClub, ClubAdvisor newClubAdvisor) { //i can make it so that i pass the objects and then use getters

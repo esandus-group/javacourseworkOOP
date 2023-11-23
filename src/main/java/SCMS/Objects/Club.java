@@ -12,8 +12,8 @@ public class Club {
     public Club(String clubId,String name){
         this.clubId=clubId;
         this.name=name;
-
     }
+
     public Club(String clubId,String name,ArrayList<Student> studentsPresent){
         this.clubId=clubId;
         this.name=name;
