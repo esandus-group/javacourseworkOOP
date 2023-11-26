@@ -76,7 +76,42 @@ public class ClubAdvisorSignupController {
             }
         }
     }
-
+    public boolean advisorInputValidator() throws Exception {
+        if (!isInputEmpty(teacherID)){
+            TidErrorText.setText("pls enter the Teacher Id");
+            return false;
+        }
+        if (!isInputEmpty(advisorId)){
+            idErrorText.setText("pls enter the advisor Id");
+            return false;
+        }
+        if (!isInputEmpty(advisorFName)){
+            fNameErrorText.setText("pls enter the First name");
+            return false;
+        }
+        if (!isInputEmpty(advisorLName)){
+            lNameErrorText.setText("pls enter the Last name");
+            return false;
+        }
+        if (!isInputEmpty(stdDOB)){
+            dOBErrorText.setText("pls enter the date of Birth");
+            return false;
+        }
+        if (!isInputEmpty(stdPassword)){
+            TidErrorText.setText("pls enter the Password");
+            return false;
+        }
+        if (stdPassword.length() < 6) {
+            pwErrorText.setText("Password must be at least 6 characters long");
+            return false;
+        }
+        //checking whether the teacher id is correct
+        if (!isTeacherIdValid(teacherID)){
+            TidErrorText.setText("Invalid id entered, pls re try");
+            return false ;
+        }
+        return true;
+    }
     public void savingClubAdvisor(ClubAdvisor newAdvisor) throws SQLException {
         String insertAdvisorQuery = "INSERT INTO ClubAdvisor (id, firstName, lastName, dateOfBirth, password) VALUES (?, ?, ?, ?, ?)";
 
@@ -100,61 +135,31 @@ public class ClubAdvisorSignupController {
         stdPassword = stdPasswordTextField.getText();
 
         //validation done
-        if (!isInputEmpty(teacherID)){
-            TidErrorText.setText("pls enter the Teacher Id");
-            return;
-        }
-        if (!isInputEmpty(advisorId)){
-            idErrorText.setText("pls enter the advisor Id");
-            return;
-        }
-        if (!isInputEmpty(advisorFName)){
-            fNameErrorText.setText("pls enter the First name");
-            return;
-        }
-        if (!isInputEmpty(advisorLName)){
-            lNameErrorText.setText("pls enter the Last name");
-            return;
-        }
-        if (!isInputEmpty(stdDOB)){
-            dOBErrorText.setText("pls enter the date of Birth");
-            return;
-        }
-        if (!isInputEmpty(stdPassword)){
-            TidErrorText.setText("pls enter the Password");
-            return;
-        }
-        if (stdPassword.length() < 6) {
-            pwErrorText.setText("Password must be at least 6 characters long");
-            return;
-        }
-        //checking whether the teacher id is correct
-        if (!isTeacherIdValid(teacherID)){
-            TidErrorText.setText("Invalid id entered, pls re try");
-            return ;
-        }
-        //finally creating the object
-        ClubAdvisor advisor = new ClubAdvisor(advisorId,advisorFName,advisorLName,stdDOB,stdPassword);
-        advisor.displayInfo();
-        savingClubAdvisor(advisor);
-        System.out.println("done");
-        TidErrorText.setText("");
-        pwErrorText.setText("");
-        dOBErrorText.setText("");
-        lNameErrorText.setText("");
-        fNameErrorText.setText("");
-        idErrorText.setText("");
+        if (advisorInputValidator()){
+            //finally creating the object
+            ClubAdvisor advisor = new ClubAdvisor(advisorId,advisorFName,advisorLName,stdDOB,stdPassword);
+            advisor.displayInfo();
+            savingClubAdvisor(advisor);
+            System.out.println("done");
+            TidErrorText.setText("");
+            pwErrorText.setText("");
+            dOBErrorText.setText("");
+            lNameErrorText.setText("");
+            fNameErrorText.setText("");
+            idErrorText.setText("");
 
-        //loading the dashboard
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/Club advisor.fxml"));
-        Parent root = loader.load();
-        //passing the advisorID to the next controller and also setting the name
-        clubAdvisorController cac = loader.getController();
-        cac.setWelcomeText(advisor);
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+            //loading the dashboard
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/Club advisor.fxml"));
+            Parent root = loader.load();
+            //passing the advisorID to the next controller and also setting the name
+            clubAdvisorController cac = loader.getController();
+            cac.setWelcomeText(advisor);
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }
+
 
     }
 }

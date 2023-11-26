@@ -239,7 +239,6 @@ public class PressClubController {
 //=====================================================================
 
     public void onFillTableClick(ActionEvent event) throws Exception{
-
         allEvents = getClubByName(name).getClubFunctions(); //PUTTING THE STUFF TO THE TABLE
         System.out.println(allEvents.size());    // TO SEE WHETHER ALL THE STUFF ARE LOADED
         loadingEvents();                           // PUTTING IT TO THE TABLE
@@ -373,7 +372,6 @@ public class PressClubController {
             deletingStatus1.setText("Action not confirmed,advisor not assigned.");
         }
     }
-
     //=======================================================
     public void onCreateNewEvent(ActionEvent event) throws IOException, SQLException {
 
@@ -388,8 +386,8 @@ public class PressClubController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
-
     }
+
     //=========================================================================
 
     public Student getStudent(String studentId) {
@@ -443,8 +441,6 @@ public class PressClubController {
 
             return false;
         }
-
-
     }
     public void onGenerateReportButtonClicked(ActionEvent event) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/Generate Reports.fxml"));

@@ -152,17 +152,21 @@ public class createClubController {
 
                 clubId = getNewClubId(); //getting the new club id
                 Club newClub = new Club(clubId, clubNam);
-                currentClubAdvisor.addClub(newClub);
-                if (newClub != null) {
-                    System.out.println("Club created successfully.");
-                    addClubToDatabase(newClub, idOfAdvisor);
+                if (currentClubAdvisor.addClub(newClub)){
+                    nameStatus.setText("already manages 4 clubs, unable to create.");
+                }
+                else {
+                    if (newClub != null) {
+                        System.out.println("Club created successfully.");
+                        addClubToDatabase(newClub, idOfAdvisor);
 
-                    clubName.setText(""); //clearing the text fields and the labels
-                    clubAdvisorID.setText("");
-                    nameStatus.setText("");
-                    idStatus.setText("");
-                } else {
-                    System.out.println("Failed to create the club.");
+                        clubName.setText(""); //clearing the text fields and the labels
+                        clubAdvisorID.setText("");
+                        nameStatus.setText("");
+                        idStatus.setText("");
+                    } else {
+                        System.out.println("Failed to create the club.");
+                    }
                 }
             }
         }

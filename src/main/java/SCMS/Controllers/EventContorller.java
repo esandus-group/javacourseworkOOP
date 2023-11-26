@@ -101,7 +101,8 @@ public class EventContorller implements Initializable { //PUT THE BACK BUTTON
         }
         return null;
     }
-    public String validateTime(LocalDate date, String hour, String minute, String typ) {
+
+    public String validateTimeAndTypeOfEvent(LocalDate date, String hour, String minute, String typ) {
 
         Integer eventHour;
         Integer eventMinute;
@@ -197,7 +198,7 @@ public class EventContorller implements Initializable { //PUT THE BACK BUTTON
                 LocalDate date = eventDate.getValue();
                 String strHour = timeHourTextBoxData.getText();
                 String strMinute = timeMinuteTextBoxData.getText();
-                errorMessage = validateTime(date,strHour,strMinute,type);
+                errorMessage = validateTimeAndTypeOfEvent(date,strHour,strMinute,type);
                 errorMessageLabel.setText(errorMessage);
                 System.out.println(errorMessage);
 
