@@ -41,7 +41,6 @@ public class RegisterToClubController {
         setClubsComboBox();
 
     }
-
     public String getClubIdByName(String name) throws SQLException {
         Statement st = connections.createStatement();
         String getClubId = "SELECT * FROM club WHERE name='"+name+"'";
@@ -57,11 +56,13 @@ public class RegisterToClubController {
         String studentName = stdNameTextField.getText();
         String selectedClub = clubComboBox.getValue().toString();
 
+        String clubId = getClubIdByName(selectedClub);
+        Club club = getClubByName(selectedClub);
 
         if (isStudentValid(studentId, studentName)) {
-            if (!isStudentRemoved(studentId, getClubIdByName(selectedClub))){
-                student.joinClub(getClubByName(selectedClub));
-                registerStudentToClub(event, studentId, getClubIdByName(selectedClub));
+            if (!isStudentRemoved(studentId, clubId)){
+                student.joinClub(club);
+                registerStudentToClub(event, studentId, clubId);
             }
         }
     }
@@ -106,7 +107,7 @@ public class RegisterToClubController {
             if (clubResult.next()) {
                 String clubId = clubResult.getString("clubId"); // Get the ID of the club
                 String name = clubResult.getString("name");
-                String idOfAdvisor = clubResult.getString("idOfAdvisor");
+
 
                 // Create a list to hold students present
                 ArrayList<Student> studentsPresent = new ArrayList<>();
