@@ -1,5 +1,4 @@
 package SCMS.Controllers;
-import SCMS.Objects.Club;
 import SCMS.Objects.Student;
 import SCMS.Utils.SCMSEnvironment;
 import javafx.event.ActionEvent;
@@ -37,7 +36,7 @@ public class StudentDashboardController {
 
     Stage stage;
 
-    public void getRegisteredClubs() throws Exception {
+    public void settingTheClubButtons() throws Exception {
         welcomeText.setText(student.getFirstName());
         try (
              Statement st = connections.createStatement()) {
@@ -52,6 +51,7 @@ public class StudentDashboardController {
                 while(studentClubResult.next()){
                     clubs.add(studentClubResult.getString("clubId"));
                 }
+
                 club1Button.setVisible(false);
                 club2Button.setVisible(false);
                 club3Button.setVisible(false);
@@ -82,11 +82,9 @@ public class StudentDashboardController {
     }
     public void InitializeStudent(Student std) throws Exception {
         this.student = std;
-        getRegisteredClubs();
+        settingTheClubButtons();
 
     }
-
-
 
     public void onRegisterClubButtonClick(ActionEvent event) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/RegisterToClubs.fxml"));

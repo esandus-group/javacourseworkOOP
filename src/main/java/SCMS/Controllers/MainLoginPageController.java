@@ -104,6 +104,7 @@ public class MainLoginPageController {
     public void Login(ActionEvent event) throws Exception {
         stdId = studentIdTextField.getText();
         password = passwordTextField.getText();
+
         if (isStudentValid(stdId, password)){
             Student student = getStudentWithClubs(stdId);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/StudentDashboard.fxml"));
@@ -115,8 +116,8 @@ public class MainLoginPageController {
             stage.setScene(scene);
             stage.show();
         }
-
     }
+
     public boolean isStudentValid(String stdId, String stdPassword) throws Exception{
         Statement st = connections.createStatement();
         String query = "select * from student where id = '"+stdId+"'";

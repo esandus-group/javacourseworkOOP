@@ -129,14 +129,13 @@ public class createClubController {
         clubAdvisorId = clubAdvisorID.getText();                       //from the text fields
 
         //========================================(validation)======
-
-        if (!isClubNameValid(clubNam)){ // checking whether tha name is empty
-            nameStatus.setText("pls enter the name of the club");
-        }
-
         if (!isAdvisorIdValid(clubAdvisorId)){ //checking whether the ID is empty
             idStatus.setText("pls enter the id of the advisor");
             return;
+        }
+
+        if (!isClubNameValid(clubNam)){ // checking whether tha name is empty
+            nameStatus.setText("pls enter the name of the club");
         }
 
         //checking whether the id exists

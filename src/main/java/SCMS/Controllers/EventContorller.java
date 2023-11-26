@@ -165,7 +165,7 @@ public class EventContorller implements Initializable { //PUT THE BACK BUTTON
     }
 
 
-    public String validateTextFiledTimePickerChoiceBox(String title, String venue, String description, String type){
+    public String validateTextFileds(String title, String venue, String description, String type){
         if(title.isEmpty() || venue.isEmpty()  || description.isEmpty()  || type.isEmpty()){
             errorMessage = "Fields cannot be empty";
 
@@ -185,12 +185,11 @@ public class EventContorller implements Initializable { //PUT THE BACK BUTTON
         errorMessage = "";
         String title = eventTitle.getText();
         String venue = eventVenue.getText();
-        String description = eventDescription.getText();
-       // String clubId = clubIdTextBoxData.getText();
+        String description = eventDescription.getText();;
         type = eventTypeChoiceBox.getValue();
 
 
-        errorMessage = (validateTextFiledTimePickerChoiceBox(title, venue, description,type));
+        errorMessage = (validateTextFileds(title, venue, description,type));
         errorMessageLabel.setText(errorMessage);
         System.out.println(errorMessage);
 
