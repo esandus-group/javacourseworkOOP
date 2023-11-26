@@ -23,6 +23,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+
 public class PressClubController {
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
     HelloApplication helloApplicationInstance = new HelloApplication();

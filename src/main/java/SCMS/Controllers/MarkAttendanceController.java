@@ -36,6 +36,7 @@ public class MarkAttendanceController {
     @FXML
     private Button fillTable;
     private Club club;
+
     @FXML
     private Button backButtonMark;
     @FXML
@@ -43,9 +44,9 @@ public class MarkAttendanceController {
     private String eventID;
     private ClubAdvisor advisor;
     private int numOfStudents;
+
     @FXML
     private TableView<Student> allStudents;
-
     @FXML
     private TableColumn<Student, String> stdFnameCol;
     @FXML
