@@ -1,8 +1,9 @@
 /* styles.css */
-.button {
-    -fx-background-color: #7151F0;
-    -fx-text-fill: white;
 
+.button {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-color: #4B30B5;
 }
 
 .text-field {
@@ -10,18 +11,17 @@
     -fx-text-fill: white;
 }
 
-.Text {
-    -fx-fill: white;
-}
 
 #welcomeClub {
-    -fx-fill: white;
-     -fx-font-size: 30px;
-}
-#text1, #text2, #text3, #IDerrorLabel {
-    -fx-fill: white;
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
 }
 
+#text1, #text2, #text3, #IDerrorLabel {
+    -fx-fill: white;
+    -fx-font-weight: bold;
+}
 
 #clubComboBox {
     -fx-background-color: #181818;
@@ -30,14 +30,22 @@
     -fx-font-size: 14;
 }
 
-
 #clubComboBox .arrow, #clubComboBox .label {
     -fx-text-fill: white;
 }
 
+#content {
+    -fx-background-color: #282828;
+}
 
+#ellipseOne {
+    -fx-fill: #34D889; /* Use the appropriate syntax for JavaFX */
+    -fx-stroke: #34D889;
+    -fx-stroke-type: inside;
+}
 
-
-
-
-
+#ellipseTwo {
+    -fx-fill: #18AC74; /* Use the appropriate syntax for JavaFX */
+    -fx-stroke: #18AC74;
+    -fx-stroke-type: inside;
+}

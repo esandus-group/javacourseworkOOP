@@ -35,17 +35,17 @@
             <Button fx:id="backButtonCDD" layoutX="195.0" layoutY="310.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="26.0" prefWidth="40.0" text="&lt;--" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="contentTwo" layoutX="345.0" layoutY="42.0" prefHeight="693.0" prefWidth="577.0">
+      <AnchorPane fx:id="contentTwo" layoutX="345.0" layoutY="42.0" prefHeight="697.0" prefWidth="611.0">
          <children>
             <AnchorPane layoutX="4.0" layoutY="225.0" prefHeight="317.0" prefWidth="515.0" style="-fx-border-color: #334db3; -fx-border-width: 2;">
                <children>
-                  <TableView fx:id="onComingEvents" layoutX="39.0" layoutY="8.0" prefHeight="460.0" prefWidth="497.0">
+                  <TableView fx:id="onComingEvents" layoutX="18.0" layoutY="8.0" prefHeight="460.0" prefWidth="586.0">
                      <columns>
-                        <TableColumn fx:id="colDate" prefWidth="100.5" text="Date" />
-                        <TableColumn fx:id="colFunction" prefWidth="83.5" text="Function" />
-                        <TableColumn fx:id="colType" prefWidth="82.5" text="EventID" />
-                        <TableColumn fx:id="colVenue" prefWidth="98.5" text="Venue" />
-                        <TableColumn fx:id="colAttendance" prefWidth="136.0" text="Mark Attendance" />
+                        <TableColumn fx:id="colDate" prefWidth="124.64456176757812" text="Date" />
+                        <TableColumn fx:id="colFunction" prefWidth="106.35540771484375" text="Function" />
+                        <TableColumn fx:id="colType" prefWidth="69.2666015625" text="EventID" />
+                        <TableColumn fx:id="colVenue" prefWidth="148.6497802734375" text="Venue" />
+                        <TableColumn fx:id="colAttendance" prefWidth="150.35028076171875" text="Mark Attendance" />
                      </columns>
                   </TableView>
                </children>

@@ -3,7 +3,6 @@
     -fx-background-color: #7151F0;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-
 }
 
 .text-field {
@@ -12,55 +11,38 @@
     -fx-font-weight: bold;
 }
 
-
-
 #titleText {
-   -fx-text-fill: white;
+    -fx-text-fill: white;
     -fx-font-size: 30px;
     -fx-font-weight: bold;
 }
-#studentIdText, #stdNameErrorText, #passwordText, #or {
-    -fx-fill: white;
-}
-.label{
-    -fx-text-fill: white;
 
+.label {
+    -fx-text-fill: white;
 }
 
 #eventTypeChoiceBox {
     -fx-background-color: #181818;
-    -fx-text-fill: white;
     -fx-font-family: "Arial";
     -fx-font-size: 14;
 }
 
-#eventTypeChoiceBox .date-picker-popup {
-    -fx-background-color: black;
+#eventTypeChoiceBox .combo-box-popup .list-view .list-cell {
+    -fx-text-fill: black;
 }
-
-#eventTypeChoiceBox .arrow, #eventTypeChoiceBox .label {
-    -fx-text-fill: white;
-}
-
 
 #content {
--fx-background-color: #282828;
-   }
+    -fx-background-color: #282828;
+}
 
 #ellipseOne {
-    -fx-fill: #34D889; /* Use the appropriate syntax for JavaFX */
+    -fx-fill: #34D889;
     -fx-stroke: #34D889;
     -fx-stroke-type: inside;
 }
 
 #ellipseTwo {
-    -fx-fill: #18AC74; /* Use the appropriate syntax for JavaFX */
+    -fx-fill: #18AC74;
     -fx-stroke: #18AC74;
     -fx-stroke-type: inside;
 }
-
-
-
-
-
-

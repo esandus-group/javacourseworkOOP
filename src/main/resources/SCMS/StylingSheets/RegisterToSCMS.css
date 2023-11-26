@@ -1,13 +1,14 @@
 /* styles.css */
 .button {
-    -fx-background-color: #7151F0;
     -fx-text-fill: white;
-
+    -fx-font-weight: bold;
+    -fx-background-color: #4B30B5;
 }
 
 .text-field {
     -fx-background-color: #181818;
     -fx-text-fill: white;
+    -fx-font-weight: bold;
 }
 
 .Text {
@@ -17,12 +18,15 @@
 #titleText {
    -fx-fill: white;
     -fx-font-size: 30px;
+    -fx-font-weight: bold;
 }
 #text1, #text2, #text3, #text4, #text5, #idErrorText, #pwErrorText, #dOBErrorText,  #lNameErrorText, #fNameErrorText{
     -fx-fill: white;
+    -fx-font-weight: bold;
 }
 .label{
     -fx-text-fill: white;
+    -fx-font-weight: bold;
 
 }
 
@@ -39,6 +43,19 @@
 
 
 
+#content {
+-fx-background-color: #282828;
+   }
 
 
+#ellipseOne {
+    -fx-fill: #34D889; /* Use the appropriate syntax for JavaFX */
+    -fx-stroke: #34D889;
+    -fx-stroke-type: inside;
+}
 
+#ellipseTwo {
+    -fx-fill: #18AC74; /* Use the appropriate syntax for JavaFX */
+    -fx-stroke: #18AC74;
+    -fx-stroke-type: inside;
+}

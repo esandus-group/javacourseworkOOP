@@ -4,20 +4,58 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.RegisterToClubController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.RegisterToClubController">
    <children>
-      <Text fx:id="text1" layoutX="162.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Club:" />
-      <Text fx:id="welcomeClub" layoutX="136.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register to new club" />
-      <TextField fx:id="stdIdTextField" layoutX="205.0" layoutY="130.0" />
-      <Text fx:id="text2" layoutX="127.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student ID:" />
-      <Button layoutX="216.0" layoutY="268.0" mnemonicParsing="false" onAction="#onRegisterToClubButtonClick" prefHeight="31.0" prefWidth="143.0" text="Request to join" />
-      <ComboBox fx:id="clubComboBox" layoutX="206.0" layoutY="213.0" prefHeight="25.0" prefWidth="163.0" />
-      <Text fx:id="text3" layoutX="104.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Name:" />
-      <TextField fx:id="stdNameTextField" layoutX="206.0" layoutY="172.0" />
-      <Text fx:id="IDerrorLabel" layoutX="361.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
+      <Ellipse fx:id="ellipseOne" layoutX="260.0" layoutY="788.0" radiusX="323.0" radiusY="130.0" stroke="BLACK" strokeType="INSIDE" />
+      <Ellipse fx:id="ellipseTwo" layoutX="886.0" layoutY="1011.0" radiusX="540.0" radiusY="424.0" stroke="BLACK" strokeType="INSIDE" />
+      <AnchorPane layoutX="62.0" layoutY="143.0">
+         <children>
+            <ImageView fitHeight="187.0" fitWidth="190.0" layoutX="124.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/1.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="152.0" fitWidth="159.0" layoutX="236.0" layoutY="246.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/4.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="223.0" fitWidth="211.0" layoutX="214.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/5.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="223.0" fitWidth="176.0" layoutY="191.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/7.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="3.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/8.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="content" layoutX="494.0" layoutY="178.0" prefHeight="335.0" prefWidth="425.0">
+         <children>
+            <Text fx:id="text1" layoutX="109.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Club:" />
+            <Text fx:id="welcomeClub" fill="WHITE" layoutX="67.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register to new club" />
+            <TextField fx:id="stdIdTextField" layoutX="152.0" layoutY="105.0" />
+            <Text fx:id="text2" layoutX="74.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student ID:" />
+            <Button layoutX="163.0" layoutY="243.0" mnemonicParsing="false" onAction="#onRegisterToClubButtonClick" prefHeight="31.0" prefWidth="143.0" text="Request to join" />
+            <ComboBox fx:id="clubComboBox" layoutX="153.0" layoutY="188.0" prefHeight="25.0" prefWidth="163.0" />
+            <Text fx:id="text3" layoutX="51.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Name:" />
+            <TextField fx:id="stdNameTextField" layoutX="153.0" layoutY="147.0" />
+            <Text fx:id="IDerrorLabel" layoutX="308.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
+         </children>
+      </AnchorPane>
       <Button fx:id="backToStudentDashboardButton" layoutX="24.0" layoutY="24.0" mnemonicParsing="false" onAction="#onBackToStudentDashboardClicked" text="Back To Student Dashboard" />
    </children>
    <stylesheets>
