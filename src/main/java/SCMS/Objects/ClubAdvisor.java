@@ -18,8 +18,12 @@ public class ClubAdvisor extends Person{
         return managingClubs;
     }
 
-    public void addClub(Club newClub){
-        this.managingClubs.add(newClub);
+    public boolean addClub(Club newClub){
+        if (this.managingClubs.size()<4) {
+            this.managingClubs.add(newClub);
+            return true;
+        }
+        return false;
     }
 
     public Boolean  assignNewAdvisor(ClubAdvisor advisor,Club club){

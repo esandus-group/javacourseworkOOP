@@ -42,6 +42,7 @@ public class GenerateReportsController {
         this.club = selectedClub;
         Functions = club.getClubFunctions();
     }
+
     public void loadingEvents() {
         eventTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("dateTime"));

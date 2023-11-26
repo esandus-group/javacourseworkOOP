@@ -162,7 +162,7 @@ public class MarkAttendanceController {
     }
     //=========================================================================
     //aims to retrieve selected rows (students) from the TableView's data.
-    public ArrayList selectedRows(ObservableList<Student> data){
+    public ArrayList getSelectedRows(ObservableList<Student> data){
         //Initializes an ArrayList named studentsClicked to store selected students.
         ArrayList<Student> studentsClicked = new ArrayList<>();
         //Iterates through each Student object in the provided data list, students in the table view
@@ -199,7 +199,7 @@ public class MarkAttendanceController {
     public void submit(ActionEvent event) throws Exception {
 
         function = getEventById(eventID);
-        function.setStudentsWhoJoined(selectedRows(allTheStudents)); //getting the students who are present to a arraylist
+        function.setStudentsWhoJoined(getSelectedRows(allTheStudents)); //getting the students who are present to a arraylist
 
         saveAttendance(function);//saving data for the students who are present
         System.out.println("Attendance saved successfully!");
