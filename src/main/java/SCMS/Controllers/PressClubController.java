@@ -445,6 +445,17 @@ public class PressClubController {
 
 
     }
+    public void onGenerateReportButtonClicked(ActionEvent event) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/Generate Reports.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Club club = getClubByName(name);
+        GenerateReportsController GRC = loader.getController();
+        GRC.Start(club);
+        stage.setScene(scene);
+        stage.show();
+    }
 
 
 

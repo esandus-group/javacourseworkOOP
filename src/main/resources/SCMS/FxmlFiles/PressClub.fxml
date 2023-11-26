@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.PressClubController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.PressClubController">
    <center>
       <AnchorPane prefHeight="710.0" prefWidth="885.0" BorderPane.alignment="CENTER">
          <children>
@@ -47,7 +47,7 @@
                      </font>
                   </Label>
                   <Button fx:id="fillTable" layoutX="227.0" layoutY="25.0" mnemonicParsing="false" onAction="#onFillTableClick" text="Fill Table" />
-                  <Button fx:id="generateReportsButton" layoutX="93.0" layoutY="258.0" mnemonicParsing="false" text="Generate Reports" />
+                  <Button fx:id="generateReportsButton" layoutX="93.0" layoutY="258.0" mnemonicParsing="false" onAction="#onGenerateReportButtonClicked" text="Generate Reports" />
                </children></AnchorPane>
             <AnchorPane layoutX="323.0" layoutY="66.0" prefHeight="623.0" prefWidth="509.0" style="-fx-border-color: #334db3; -fx-border-width: 2;">
                <children>
