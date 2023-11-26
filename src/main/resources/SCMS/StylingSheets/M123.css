@@ -1,0 +1,50 @@
+.button {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-color: #4B30B5;
+}
+
+#fillTable{
+-fx-background-color: transparent;
+       -fx-text-fill: #AA97F6;
+       -fx-font-weight: bold;
+       -fx-underline: true;}
+#topic {
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+
+#allStudents {
+    -fx-background-color: black;
+}
+
+#allStudents .column-header,
+#allStudents .column-header-background {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-font-weight: bold; /* Optional: Make column headings bold */
+}
+
+#allStudents .table-cell {
+    -fx-text-fill: white;
+}
+
+#allStudents .table-row-cell:odd {
+    -fx-background-color: #333333; /* Optional: Alternate row color */
+}
+
+#ellipseOne {
+    -fx-fill: #34D889; /* Use the appropriate syntax for JavaFX */
+    -fx-stroke: #34D889;
+    -fx-stroke-type: inside;
+}
+
+#ellipseTwo {
+    -fx-fill: #18AC74; /* Use the appropriate syntax for JavaFX */
+    -fx-stroke: #18AC74;
+    -fx-stroke-type: inside;
+}
+#content {
+-fx-background-color: #282828;
+   }

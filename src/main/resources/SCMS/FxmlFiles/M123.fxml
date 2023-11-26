@@ -1,24 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Ellipse?>
 
-<AnchorPane prefHeight="447.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.MarkAttendanceController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.MarkAttendanceController">
    <children>
-      <Label fx:id="topic" layoutX="196.0" layoutY="2.0" prefHeight="63.0" prefWidth="191.0" text="Mark Attendance of Students" />
-      <TableView fx:id="allStudents" layoutX="57.0" layoutY="56.0" prefHeight="314.0" prefWidth="518.0">
-        <columns>
-          <TableColumn fx:id="stdIdCol" prefWidth="109.0" text="StudentId" />
-          <TableColumn fx:id="stdFnameCol" prefWidth="124.0" text="StudentFirstName" />
-            <TableColumn fx:id="stdLnameCol" prefWidth="172.0" text="StudentLastName" />
-            <TableColumn fx:id="tick" prefWidth="112.0" text="Tick if Present" />
-        </columns>
-      </TableView>
-      <Button fx:id="fillTable" layoutX="445.0" layoutY="21.0" mnemonicParsing="false" onAction="#onFillTableClick" prefHeight="26.0" prefWidth="73.0" text="FILL" />
-      <Button fx:id="submit" layoutX="247.0" layoutY="385.0" mnemonicParsing="false" onAction="#submit" prefHeight="37.0" prefWidth="148.0" text="Submit Attendance" />
-      <Button fx:id="backButtonMark" layoutX="30.0" layoutY="21.0" mnemonicParsing="false" onAction="#backButtonMark" text="&lt;--" />
+       <Ellipse fx:id="ellipseOne" layoutX="260.0" layoutY="788.0" radiusX="323.0" radiusY="130.0" stroke="BLACK" strokeType="INSIDE" />
+       <Ellipse fx:id="ellipseTwo" layoutX="886.0" layoutY="1011.0" radiusX="540.0" radiusY="424.0" stroke="BLACK" strokeType="INSIDE" />
+       <ImageView fitHeight="169.0" fitWidth="169.0" layoutX="81.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+           <image>
+               <Image url="@../images/1.png" />
+           </image>
+       </ImageView>
+       <ImageView fitHeight="201.0" fitWidth="172.0" layoutX="100.0" layoutY="384.0" pickOnBounds="true" preserveRatio="true">
+           <image>
+               <Image url="@../images/6.png" />
+           </image>
+       </ImageView>
+      <AnchorPane fx:id="content" layoutX="291.0" layoutY="62.0" prefHeight="505.0" prefWidth="641.0">
+         <children>
+            <Label fx:id="topic" layoutX="119.0" layoutY="7.0" prefHeight="63.0" prefWidth="486.0" text="Mark Attendance of Students" textAlignment="CENTER" />
+            <TableView fx:id="allStudents" layoutX="64.0" layoutY="99.0" prefHeight="314.0" prefWidth="518.0">
+              <columns>
+                <TableColumn fx:id="stdIdCol" prefWidth="109.0" text="StudentId" />
+                <TableColumn fx:id="stdFnameCol" prefWidth="124.0" text="StudentFirstName" />
+                  <TableColumn fx:id="stdLnameCol" prefWidth="172.0" text="StudentLastName" />
+                  <TableColumn fx:id="tick" prefWidth="112.0" text="Tick if Present" />
+              </columns>
+            </TableView>
+            <Button fx:id="fillTable" layoutX="519.0" layoutY="63.0" mnemonicParsing="false" onAction="#onFillTableClick" prefHeight="26.0" prefWidth="73.0" text="Fil table" />
+            <Button fx:id="submit" layoutX="262.0" layoutY="443.0" mnemonicParsing="false" onAction="#submit" prefHeight="37.0" prefWidth="148.0" text="Submit Attendance" />
+            <Button fx:id="backButtonMark" layoutX="15.0" layoutY="26.0" mnemonicParsing="false" onAction="#backButtonMark" text="&lt;--" />
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="182.0" fitWidth="187.0" layoutX="8.0" layoutY="237.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/5.png" />
+         </image>
+      </ImageView>
    </children>
+   <stylesheets>
+      <URL value="@../StylingSheets/M123.css" />
+      <URL value="@../StylingSheets/rootStyles.css" />
+   </stylesheets>
 </AnchorPane>

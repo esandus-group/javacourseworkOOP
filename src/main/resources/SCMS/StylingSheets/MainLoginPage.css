@@ -1,28 +1,65 @@
-/* styles.css */
-.button {
+#studentLoginButton {
     -fx-background-color: #7151F0;
     -fx-text-fill: white;
+
+}
+
+#RegisterButton {
+    -fx-background-color: transparent;
+    -fx-text-fill: #AA97F6;
+    -fx-font-weight: bold;  /* Make text bold */
+    -fx-underline: true;  /* Remove underline */
+}
+
+#loginAsClubAdvisorButton{
+
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+     -fx-background-color: #4B30B5;
+
 }
 
 .text-field {
     -fx-background-color: #181818;
     -fx-text-fill: white;
+
 }
 
 .Text {
     -fx-fill: white;
+    -fx-font-weight: bold;  /* Make text bold */
 }
 
 #titleText {
     -fx-fill: white;
-     -fx-font-size: 30px;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;  /* Make text bold */
 }
+
 #studentIdText, #stdNameErrorText, #passwordText, #or {
     -fx-fill: white;
+    -fx-font-weight: bold;  /* Make text bold */
+}
+
+.label {
+    -fx-text-fill: white;
+
 }
 
 
+#loginPane {
+-fx-background-color: #282828;
+   }
 
 
+#ellipseOne {
+    -fx-fill: #34D889; /* Use the appropriate syntax for JavaFX */
+    -fx-stroke: #34D889;
+    -fx-stroke-type: inside;
+}
 
-
+#ellipseTwo {
+    -fx-fill: #18AC74; /* Use the appropriate syntax for JavaFX */
+    -fx-stroke: #18AC74;
+    -fx-stroke-type: inside;
+}

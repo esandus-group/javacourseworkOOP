@@ -4,24 +4,42 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.ClubDashboardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.ClubDashboardController">
    <children>
-      <TableView fx:id="functionsTable" layoutX="28.0" layoutY="117.0" prefHeight="233.0" prefWidth="545.0">
-        <columns>
-          <TableColumn fx:id="funcTypeCol" prefWidth="83.33334350585938" text="Type" />
-            <TableColumn fx:id="titleCol" minWidth="0.0" prefWidth="250.00003051757812" text="Title" />
-          <TableColumn fx:id="datenTimeCol" minWidth="0.0" prefWidth="108.6666259765625" text="DateTime" />
-            <TableColumn fx:id="venueCol" minWidth="0.0" prefWidth="128.6666259765625" text="Venue" />
-        </columns>
-      </TableView>
-       <Text fx:id="upcomingEventsText" layoutX="284.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click here to view upcomming Events -&gt;" />
-      <Text fx:id="clubNameText" layoutX="205.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Club name" />
-      <Button fx:id="leaveClubButton" layoutX="24.0" layoutY="357.0" mnemonicParsing="false" onAction="#onLeaveClubButtonClick" text="Leave Club" />
-      <Button fx:id="loadEventsButton" layoutX="527.0" layoutY="86.0" mnemonicParsing="false" onAction="#loadingStudents" text="Load" />
-      <Button fx:id="backToStudentDashboardButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onBackToStudentDashboardClicked" text="Back To Student Dashboard" />
+       <Ellipse fx:id="ellipseOne" layoutX="260.0" layoutY="788.0" radiusX="323.0" radiusY="130.0" stroke="BLACK" strokeType="INSIDE" />
+       <Ellipse fx:id="ellipseTwo" layoutX="886.0" layoutY="1011.0" radiusX="540.0" radiusY="424.0" stroke="BLACK" strokeType="INSIDE" />
+      <AnchorPane fx:id="content" layoutX="242.0" layoutY="76.0" prefHeight="476.0" prefWidth="686.0">
+         <children>
+            <TableView fx:id="functionsTable" layoutX="55.0" layoutY="157.0" prefHeight="233.0" prefWidth="572.0">
+              <columns>
+                <TableColumn fx:id="funcTypeCol" prefWidth="83.33334350585938" text="Type" />
+                  <TableColumn fx:id="titleCol" minWidth="0.0" prefWidth="250.00003051757812" text="Title" />
+                <TableColumn fx:id="datenTimeCol" minWidth="0.0" prefWidth="108.6666259765625" text="DateTime" />
+                  <TableColumn fx:id="venueCol" minWidth="0.0" prefWidth="128.6666259765625" text="Venue" />
+              </columns>
+            </TableView>
+            <Text fx:id="clubNameText" layoutX="249.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Club name" />
+            <Button fx:id="leaveClubButton" layoutX="59.0" layoutY="404.0" mnemonicParsing="false" onAction="#onLeaveClubButtonClick" text="Leave Club" />
+            <Button fx:id="loadEventsButton" layoutX="380.0" layoutY="121.0" mnemonicParsing="false" onAction="#loadingStudents" text="Click here to load upcomming Events " />
+            <Button fx:id="backToStudentDashboardButton" layoutX="21.0" layoutY="15.0" mnemonicParsing="false" onAction="#onBackToStudentDashboardClicked" text="&lt;-- Back To Student Dashboard" />
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="159.0" fitWidth="179.0" layoutX="47.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="201.0" fitWidth="172.0" layoutX="31.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/6.png" />
+         </image>
+      </ImageView>
    </children>
    <stylesheets>
       <URL value="@../StylingSheets/ClubDashbord.css" />

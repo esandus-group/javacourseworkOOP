@@ -21,7 +21,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-//nikoya is here
+
 public class clubAdvisorController {
     HelloApplication helloApplication = new HelloApplication();
     @FXML

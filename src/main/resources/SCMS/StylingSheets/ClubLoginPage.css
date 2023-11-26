@@ -1,19 +1,22 @@
 /* styles.css */
 
-.root {
-    -fx-background-color: #212121;
-    -fx-font-family:'JetBrains Mono'
-
+.button {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-color: #4B30B5;
 }
 
-.button {
-    -fx-background-color: #7151F0;
-    -fx-text-fill: white;
+#signUpAdvisor {
+    -fx-background-color: transparent;
+    -fx-text-fill: #AA97F6;
+    -fx-font-weight: bold;  /* Make text bold */
+    -fx-underline: true;  /* Remove underline */
 }
 
 .text-field {
     -fx-background-color: #181818;
-    -fx-text-fill: white;
+        -fx-text-fill: white;
+        -fx-font-weight: bold;
 }
 
 .Text {
@@ -22,18 +25,32 @@
 
 #titleText {
     -fx-fill: white;
-     -fx-font-size: 30px;
+        -fx-font-size: 30px;
+        -fx-font-weight: bold;
 }
+
 #advisorIdText, #passwordText {
     -fx-fill: white;
+    -fx-font-weight: bold;
 }
 
 .label {
     -fx-text-fill: white;
+    -fx-font-weight: bold;
 }
 
+#content {
+    -fx-background-color: #282828;
+}
 
+#ellipseOne {
+    -fx-fill: #34D889;
+    -fx-stroke: #34D889;
+    -fx-stroke-type: inside;
+}
 
-
-
-
+#ellipseTwo {
+    -fx-fill: #18AC74;
+    -fx-stroke: #18AC74;
+    -fx-stroke-type: inside;
+}

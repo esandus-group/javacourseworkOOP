@@ -1,9 +1,16 @@
 /* styles.css */
 
+#loadEventsButton{
+   -fx-background-color: transparent;
+       -fx-text-fill: #AA97F6;
+       -fx-font-weight: bold;  /* Make text bold */
+       -fx-underline: true;
 
+}
 .button {
-    -fx-background-color: #7151F0;
     -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-color: #4B30B5;
 }
 
 #upcomingEventsText{
@@ -11,6 +18,8 @@
 }
 #clubNameText {
     -fx-fill: white;
+        -fx-font-size: 30px;
+        -fx-font-weight: bold;
 }
 
 #functionsTable {
@@ -31,7 +40,20 @@
 }
 
 
+#ellipseOne {
+    -fx-fill: #34D889; /* Use the appropriate syntax for JavaFX */
+    -fx-stroke: #34D889;
+    -fx-stroke-type: inside;
+}
 
+#ellipseTwo {
+    -fx-fill: #18AC74; /* Use the appropriate syntax for JavaFX */
+    -fx-stroke: #18AC74;
+    -fx-stroke-type: inside;
+}
+#content {
+-fx-background-color: #282828;
+   }
 
 
 

@@ -3,18 +3,36 @@
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Ellipse?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.clubAdvisorController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.clubAdvisorController">
    <children>
-
-      <Label fx:id="welcome" alignment="CENTER" layoutX="113.0" layoutY="63.0" prefHeight="47.0" prefWidth="379.0" text="Welcome" />
-      <Button fx:id="club1" layoutX="132.0" layoutY="122.0" mnemonicParsing="false" onAction="#onClub1PressClick" prefHeight="33.0" prefWidth="339.0" text="Club 1" />
-      <Button fx:id="club2" layoutX="132.0" layoutY="167.0" mnemonicParsing="false" onAction="#onClub2PressClick" prefHeight="33.0" prefWidth="339.0" text="Club 2" />
-      <Button fx:id="club3" layoutX="132.0" layoutY="212.0" mnemonicParsing="false" onAction="#onClub3PressClick" prefHeight="33.0" prefWidth="339.0" text="Club 3" />
-      <Button fx:id="club4" layoutX="133.0" layoutY="256.0" mnemonicParsing="false" onAction="#onClub4PressClick" prefHeight="33.0" prefWidth="339.0" text="Club 4" />
-      <Button fx:id="addclub" layoutX="433.0" layoutY="337.0" mnemonicParsing="false" onAction="#onAddClubClick" prefHeight="28.0" prefWidth="147.0" text="Make a Club -&gt;" />
-      <Button fx:id="backButtonCDD" layoutX="17.0" layoutY="15.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="25.0" prefWidth="68.0" text="Exit" />
+      <AnchorPane fx:id="content" layoutX="423.0" layoutY="145.0" prefHeight="355.0" prefWidth="450.0">
+         <children>
+            <Label fx:id="welcome" alignment="CENTER" layoutX="38.0" layoutY="23.0" prefHeight="47.0" prefWidth="379.0" text="Welcome" wrapText="true" />
+            <Button fx:id="club1" layoutX="58.0" layoutY="98.0" mnemonicParsing="false" onAction="#onClub1PressClick" prefHeight="33.0" prefWidth="339.0" text="Club 1" wrapText="true" />
+            <Button fx:id="club2" layoutX="58.0" layoutY="143.0" mnemonicParsing="false" onAction="#onClub2PressClick" prefHeight="33.0" prefWidth="339.0" text="Club 2" wrapText="true" />
+            <Button fx:id="club3" layoutX="58.0" layoutY="188.0" mnemonicParsing="false" onAction="#onClub3PressClick" prefHeight="33.0" prefWidth="339.0" text="Club 3" wrapText="true" />
+            <Button fx:id="club4" layoutX="59.0" layoutY="232.0" mnemonicParsing="false" onAction="#onClub4PressClick" prefHeight="33.0" prefWidth="339.0" text="Club 4" wrapText="true" />
+            <Button fx:id="addclub" layoutX="155.0" layoutY="290.0" mnemonicParsing="false" onAction="#onAddClubClick" prefHeight="28.0" prefWidth="147.0" text="Create A New Club" />
+         </children>
+      </AnchorPane>
+      <Button fx:id="backButtonCDD" layoutX="23.0" layoutY="24.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="25.0" prefWidth="68.0" text="Exit" />
+      <Ellipse fx:id="ellipseOne" layoutX="260.0" layoutY="788.0" radiusX="323.0" radiusY="130.0" stroke="BLACK" strokeType="INSIDE" />
+      <Ellipse fx:id="ellipseTwo" layoutX="886.0" layoutY="1011.0" radiusX="540.0" radiusY="424.0" stroke="BLACK" strokeType="INSIDE" />
+      <ImageView fitHeight="250.0" fitWidth="240.0" layoutX="166.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/6.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="234.0" fitWidth="215.0" layoutX="43.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/8.png" />
+         </image>
+      </ImageView>
    </children>
    <stylesheets>
       <URL value="@../StylingSheets/rootStyles.css" />
