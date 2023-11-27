@@ -118,17 +118,15 @@ public class RegisterToSCMSController {
         idErrorText.setText("");
         if (studentId != null) {
             // Check if the student ID follows the format "S" followed by numbers
-            if (studentId.matches("S\\d+")) {
+
                 // Check if the student ID already exists in the database
                 String query = "SELECT * FROM student WHERE id = ?";
                 try (PreparedStatement preparedStatement = connections.prepareStatement(query)) {
                     preparedStatement.setString(1, studentId);
                     ResultSet resultSet = preparedStatement.executeQuery();
+                    idErrorText.setText("That Id already exists");
                     return !resultSet.next(); // Returns true if the result set is empty, indicating that the student ID is not in use
                 }
-            }
-            idErrorText.setText("Invalid format");
-            return false;
         }
         idErrorText.setText("Id cannot be null");
         return false;

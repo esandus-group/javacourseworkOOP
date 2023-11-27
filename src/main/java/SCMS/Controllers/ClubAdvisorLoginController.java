@@ -121,6 +121,7 @@ public class ClubAdvisorLoginController {
                 stage.show();
             }
     }
+
     //=========================================================================
     public void onRegisterClubAdvisorButtonClick(ActionEvent event) throws IOException{
 
