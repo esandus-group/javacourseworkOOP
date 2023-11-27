@@ -23,18 +23,12 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/SCMS/FxmlFiles/MainLoginPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-//        scene.getStylesheets().add(getClass().getResource("/SCMS/StylingSheets/MainLoginPage.css").toExternalForm());
+
         stage.setScene(scene);
         stage.show();
     }
 
     public static void main(String[] args) {
-
-//        SQLReader("2023-11");
-        PressClubController controller3 = new PressClubController();
-        RemoveStudentController controller2 = new RemoveStudentController();
-        createClubController controller = new createClubController();
-        ViewStudentsController controller1 =new ViewStudentsController();
         SCMSEnvironment.getInstance();
 
         launch();

@@ -2,6 +2,7 @@ package SCMS.Controllers;
 
 import SCMS.HelloApplication;
 import SCMS.Objects.Club;
+import SCMS.Objects.ClubAdvisor;
 import SCMS.Objects.Event;
 import SCMS.Utils.SCMSEnvironment;
 import javafx.event.ActionEvent;
@@ -23,6 +24,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -64,6 +66,41 @@ public class EventContorller implements Initializable {
     public void gettingInformation(Club club, String advisorId) {       //1. getting the information from previ controller
         this.club = club;
         this.adId = advisorId;
+    }
+    public ClubAdvisor getClubAdvisor(String clubAdvisorId) throws SQLException {
+        String advisorQuery = "SELECT * FROM ClubAdvisor WHERE id = ?";
+        String clubsQuery = "SELECT * FROM Club WHERE idOfAdvisor = ?";
+
+        try (PreparedStatement advisorStatement = this.connections.prepareStatement(advisorQuery);
+             PreparedStatement clubsStatement = this.connections.prepareStatement(clubsQuery)) {
+            advisorStatement.setString(1, clubAdvisorId);
+            clubsStatement.setString(1, clubAdvisorId);
+
+            ResultSet advisorResultSet = advisorStatement.executeQuery();
+            ResultSet clubsResultSet = clubsStatement.executeQuery();
+
+            if (advisorResultSet.next()) {
+                String id = advisorResultSet.getString("id");
+                String firstName = advisorResultSet.getString("firstName");
+                String lastName = advisorResultSet.getString("lastName");
+                String dateOfBirth = advisorResultSet.getString("dateOfBirth");
+                String password = advisorResultSet.getString("password");
+
+                ArrayList<Club> managingClubs = new ArrayList<>();
+                while (clubsResultSet.next()) {
+                    String clubId = clubsResultSet.getString("clubId");
+                    String clubName = clubsResultSet.getString("name");
+
+                    // Create a Club object and add it to the managingClubs list
+                    Club club = new Club(clubId,clubName);        //8. call ClubAdvisor constructor
+                    managingClubs.add(club);
+                }
+
+                return new ClubAdvisor(id, firstName, lastName, dateOfBirth, password, managingClubs);   //4. call ClubAdvisor constructor
+            }
+        }
+
+        return null; // ClubAdvisor not found
     }
 
     // Back button action
@@ -174,11 +211,17 @@ public class EventContorller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         eventTypeChoiceBox.getItems().addAll(typeList);
-        eventTypeChoiceBox.setOnAction(this::onCreateNewEvent);
+        eventTypeChoiceBox.setOnAction(event -> {
+            try {
+                onCreateNewEvent(event);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     // Getting all data and creating the new event object if inputs are valid
-    public void onCreateNewEvent(ActionEvent event) {        //2.1 calling the method to create the event
+    public void onCreateNewEvent(ActionEvent event) throws SQLException {        //2.1 calling the method to create the event
         errorMessage = "";
         String title = eventTitle.getText();
         String venue = eventVenue.getText();
@@ -209,7 +252,10 @@ public class EventContorller implements Initializable {
 
                 Event newEvent = new Event(title, dateTime, venue, type, description, new Button());   //3. Calling event Constructor
 
-                newEvent.writeEventsToSqlDB(club.getClubId());              //4.1. calling the method to add to the database
+                ClubAdvisor advisorOfTheClub = getClubAdvisor(adId);
+
+                newEvent.writeEventsToSqlDB(club.getClubId());              //4.2. calling the method to add to the database
+                advisorOfTheClub.scheduleNewEvent(club,newEvent);       //5. calling the method to add to the database
             }
         }
     }

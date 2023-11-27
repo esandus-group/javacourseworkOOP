@@ -22,7 +22,6 @@ public class RegisterToSCMSController {
 
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
 
-
     @FXML
     private DatePicker stdDOBDatePicker;
 
@@ -113,14 +112,13 @@ public class RegisterToSCMSController {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
+
         }
     }
     //=====================================================================
     public boolean isStudentIdValid(String studentId) throws Exception {
         idErrorText.setText("");
         if (studentId != null) {
-            // Check if the student ID follows the format "S" followed by numbers
-
                 // Check if the student ID already exists in the database
                 String query = "SELECT * FROM student WHERE id = ?";
                 try (PreparedStatement preparedStatement = connections.prepareStatement(query)) {
