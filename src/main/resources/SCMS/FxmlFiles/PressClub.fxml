@@ -39,7 +39,7 @@
          <children>
             <AnchorPane layoutX="4.0" layoutY="225.0" prefHeight="317.0" prefWidth="515.0" style="-fx-border-color: #334db3; -fx-border-width: 2;">
                <children>
-                  <TableView fx:id="onComingEvents" layoutX="18.0" layoutY="8.0" prefHeight="460.0" prefWidth="586.0">
+                  <TableView fx:id="onComingEvents" layoutX="9.0" layoutY="8.0" prefHeight="460.0" prefWidth="586.0">
                      <columns>
                         <TableColumn fx:id="colDate" prefWidth="124.64456176757812" text="Date" />
                         <TableColumn fx:id="colFunction" prefWidth="106.35540771484375" text="Function" />
