@@ -47,8 +47,8 @@
             <Button fx:id="club1Button" layoutX="60.0" layoutY="113.0" mnemonicParsing="false" onAction="#onClub1ButtonClick" prefHeight="39.0" prefWidth="222.0" text="Club 1" />
             <Button fx:id="club2Button" layoutX="60.0" layoutY="168.0" mnemonicParsing="false" onAction="#onClub2ButtonClick" prefHeight="39.0" prefWidth="222.0" text="Club 2" />
             <Button fx:id="RegisterToClubsButton" layoutX="81.0" layoutY="273.0" mnemonicParsing="false" onAction="#onRegisterClubButtonClick" prefHeight="29.0" prefWidth="186.0" text="Register To More Clubs" />
-            <Text fx:id="welcomeText" layoutX="246.0" layoutY="-4.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-            <Text fx:id="welcomeText2" layoutX="105.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome " />
+            <Text fx:id="welcomeText" layoutX="176.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="36.0" />
+            <Text fx:id="welcomeText2" layoutX="36.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome " />
          </children>
       </AnchorPane>
       <Button fx:id="backButton" layoutX="130.0" layoutY="92.0" mnemonicParsing="false" onAction="#backToLoginPage" prefHeight="25.0" prefWidth="43.0" text="&lt;==" />
