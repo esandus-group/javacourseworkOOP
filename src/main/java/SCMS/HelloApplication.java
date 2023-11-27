@@ -1,9 +1,4 @@
 package SCMS;
-
-import SCMS.Controllers.PressClubController;
-import SCMS.Controllers.RemoveStudentController;
-import SCMS.Controllers.ViewStudentsController;
-import SCMS.Controllers.createClubController;
 import SCMS.Utils.SCMSEnvironment;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
