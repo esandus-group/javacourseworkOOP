@@ -34,8 +34,6 @@ public class RegisterToClubController {
     String studentFName;
     String stdId;
     private Student student;
-
-    //=====================================================================
     public void InitializeStudent(Student std) throws Exception {
         this.student = std;
         this.studentFName = student.getFirstName();
@@ -43,7 +41,6 @@ public class RegisterToClubController {
         setClubsComboBox();
 
     }
-    //=====================================================================
     public String getClubIdByName(String name) throws SQLException {
         Statement st = connections.createStatement();
         String getClubId = "SELECT * FROM club WHERE name='"+name+"'";
@@ -53,7 +50,7 @@ public class RegisterToClubController {
         }
         return null;
     }
-    //=====================================================================
+
     public void onRegisterToClubButtonClick(ActionEvent event) throws Exception{
         String studentId = stdIdTextField.getText();
         String studentName = stdNameTextField.getText();
@@ -69,7 +66,6 @@ public class RegisterToClubController {
             }
         }
     }
-    //=====================================================================
     public Student getStudent(String studentId) {
         String query = "SELECT * FROM Student WHERE id = ?";
         Student student = null;
@@ -97,7 +93,6 @@ public class RegisterToClubController {
 
         return student;
     }
-    //=====================================================================
     public Club getClubByName(String clubName) throws SQLException {
         String clubQuery = "SELECT * FROM Club WHERE name = ?";
         String clubStudentQuery = "SELECT * FROM Club_Student WHERE clubId = ?";
@@ -139,7 +134,6 @@ public class RegisterToClubController {
 
         return club;
     }
-    //=====================================================================
     public void setClubsComboBox() {
         try {
             Statement st = connections.createStatement();
@@ -156,7 +150,7 @@ public class RegisterToClubController {
             e.printStackTrace();
         }
     }
-    //=====================================================================
+
     public boolean isStudentValid(String stdId, String stdName) throws Exception{
         IDerrorLabel.setText("");
         Statement st = connections.createStatement();
@@ -173,8 +167,9 @@ public class RegisterToClubController {
         }
         return false;
     }
-    //=====================================================================
+
     public boolean isStudentRemoved(String studentId, String clubId) {
+//      Check if student was removed by the club advisor
         System.out.println("Checking if student is removed");
         String selectQuery = "SELECT * FROM removedstudents WHERE studentId = ? AND clubId = ?";
 
@@ -188,25 +183,23 @@ public class RegisterToClubController {
             e.printStackTrace();
 
         }
-        IDerrorLabel.setText("Unable to join, as previously removed");
         return false;
     }
 
-    //=====================================================================
+
     public void registerStudentToClub( ActionEvent event, String studentId, String clubId) throws  Exception{
-    String insertQuery = "INSERT INTO club_student (clubId, id) VALUES (?, ?)";
+//      Add student to the club
+        String insertQuery = "INSERT INTO club_student (clubId, id) VALUES (?, ?)";
         try (PreparedStatement preparedStatement = connections.prepareStatement(insertQuery)) {
             preparedStatement.setString(1, clubId);
             preparedStatement.setString(2, studentId);
 
             preparedStatement.executeUpdate();
             loadStudentDashboard(event);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-
         }
     }
-    //=====================================================================
     public void loadStudentDashboard(ActionEvent event) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/StudentDashboard.fxml"));
         Parent root = loader.load();
@@ -217,16 +210,6 @@ public class RegisterToClubController {
         stage.setScene(scene);
         stage.show();
     }
-    //=====================================================================
-    public void onBackToStudentDashboardClicked(ActionEvent event) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/StudentDashboard.fxml"));
-        Parent root = loader.load();
-        StudentDashboardController SDC = loader.getController();
-        SDC.InitializeStudent(student);
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
-    }
+
 
 }

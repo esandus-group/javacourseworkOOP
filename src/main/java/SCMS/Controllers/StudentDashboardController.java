@@ -39,6 +39,7 @@ public class StudentDashboardController {
     Stage stage;
     //=====================================================================
     public void settingTheClubButtons() throws Exception {
+//      Loads the data from the database and displays the details in the UI.
         welcomeText.setText(student.getFirstName());
         try (
              Statement st = connections.createStatement()) {
@@ -84,6 +85,7 @@ public class StudentDashboardController {
     }
     //=====================================================================
     public void InitializeStudent(Student std) throws Exception {
+//      Called when the student dashboard is loaded from another controller.
         this.student = std;
         settingTheClubButtons();
 
@@ -105,7 +107,8 @@ public class StudentDashboardController {
         stage.show();
     }
     //=====================================================================
-    public void loadingTheClubDashBoard(ActionEvent event,Button club) throws IOException, SQLException {
+    public void loadingTheClubDashBoard(ActionEvent event,Button club) throws Exception{
+//      loading student club dashboard
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/ClubDashboard.fxml"));
         Parent root = loader.load();
         buttonText = club.getText();
@@ -117,15 +120,15 @@ public class StudentDashboardController {
         stage.show();
     }
     //=====================================================================
-    public void onClub1ButtonClick(ActionEvent event) throws IOException, SQLException {
+    public void onClub1ButtonClick(ActionEvent event) throws Exception {
         loadingTheClubDashBoard(event,club1Button);
     }
     //=====================================================================
-    public void onClub2ButtonClick(ActionEvent event) throws IOException, SQLException {
+    public void onClub2ButtonClick(ActionEvent event) throws Exception {
         loadingTheClubDashBoard(event,club2Button);
     }
     //=====================================================================
-    public void onClub3ButtonClick(ActionEvent event) throws IOException, SQLException {
+    public void onClub3ButtonClick(ActionEvent event) throws Exception {
         loadingTheClubDashBoard(event,club3Button);
     }
     //=====================================================================
