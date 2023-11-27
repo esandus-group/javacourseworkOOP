@@ -59,6 +59,7 @@ public class RegisterToSCMSController {
     String stdPassword;
     //=====================================================================
     public boolean studentInputValidator() throws Exception {
+//      Validating the student details.
         if(isStudentIdValid(stdId) && isStudentFNameValid(stdFName) && isStudentLNameValid(stdLName) && isStudentDOBValid(stdDOB) && isStudentPasswordValid(stdPassword)){
             return true;
         }
@@ -66,6 +67,7 @@ public class RegisterToSCMSController {
     }
     //=====================================================================
     public void saveNewStudentToDatabase(){
+//      Adding student to the database
         String insertQuery = "INSERT INTO student (id, firstName, lastName, dateOfBirth, password) VALUES (?, ?, ?, ?, ?)";
         System.out.println(stdId+stdFName+stdLName+stdDOB+stdPassword);
         try (PreparedStatement preparedStatement = connections.prepareStatement(insertQuery)) {

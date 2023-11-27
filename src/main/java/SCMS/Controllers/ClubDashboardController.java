@@ -43,6 +43,7 @@ public class ClubDashboardController {
     String stdName;
     String stdId;
     public void InitializeStudent(String clubName, Student std){
+//      Called when the club dashboard is loaded from another controller
         this.student = std;
         this.clubName = clubName;
         this.stdName = student.getFirstName();
@@ -63,19 +64,19 @@ public class ClubDashboardController {
         ArrayList<Event> functions = new ArrayList<>();
         try {
             Statement st = connections.createStatement();
-            // First, let's retrieve the club ID based on the club name
+            // Retrieving the club ID based on the club name
             String clubIdQuery = "SELECT clubId FROM club WHERE name = '" + clubName + "'";
             ResultSet clubIdResult = st.executeQuery(clubIdQuery);
 
             if (clubIdResult.next()) {
                 String clubId = clubIdResult.getString("clubId");
 
-                // Now, use the club ID to retrieve the event details
+                // Using the club ID to retrieve the event details
                 String query = "SELECT typeOfClubFunction, title, dateTime, venue FROM event WHERE clubId = '" + clubId + "'";
                 ResultSet rs = st.executeQuery(query);
 
                 while (rs.next()) {
-                    // Create EventData objects and add them to the list
+                    // Creating EventData objects and add them to the list
                     String functionType = rs.getString("typeOfClubFunction");
                     String title = rs.getString("title");
                     String dateTimeString = rs.getString("dateTime");
