@@ -27,14 +27,18 @@
       <AnchorPane fx:id="content" layoutX="291.0" layoutY="62.0" prefHeight="505.0" prefWidth="641.0">
          <children>
             <Label fx:id="topic" layoutX="119.0" layoutY="7.0" prefHeight="63.0" prefWidth="486.0" text="Mark Attendance of Students" textAlignment="CENTER" />
-            <TableView fx:id="allStudents" layoutX="64.0" layoutY="99.0" prefHeight="314.0" prefWidth="518.0">
-              <columns>
-                <TableColumn fx:id="stdIdCol" prefWidth="109.0" text="StudentId" />
-                <TableColumn fx:id="stdFnameCol" prefWidth="124.0" text="StudentFirstName" />
-                  <TableColumn fx:id="stdLnameCol" prefWidth="172.0" text="StudentLastName" />
-                  <TableColumn fx:id="tick" prefWidth="112.0" text="Tick if Present" />
-              </columns>
-            </TableView>
+            <AnchorPane layoutX="64.0" layoutY="99.0">
+               <children>
+                  <TableView fx:id="allStudents" prefHeight="314.0" prefWidth="518.0">
+                    <columns>
+                      <TableColumn fx:id="stdIdCol" prefWidth="109.0" text="StudentId" />
+                      <TableColumn fx:id="stdFnameCol" prefWidth="124.0" text="StudentFirstName" />
+                        <TableColumn fx:id="stdLnameCol" prefWidth="172.0" text="StudentLastName" />
+                        <TableColumn fx:id="tick" prefWidth="112.0" text="Tick if Present" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
             <Button fx:id="fillTable" layoutX="519.0" layoutY="63.0" mnemonicParsing="false" onAction="#onFillTableClick" prefHeight="26.0" prefWidth="73.0" text="Fil table" />
             <Button fx:id="submit" layoutX="262.0" layoutY="443.0" mnemonicParsing="false" onAction="#submit" prefHeight="37.0" prefWidth="148.0" text="Submit Attendance" />
             <Button fx:id="backButtonMark" layoutX="15.0" layoutY="26.0" mnemonicParsing="false" onAction="#backButtonMark" text="&lt;--" />

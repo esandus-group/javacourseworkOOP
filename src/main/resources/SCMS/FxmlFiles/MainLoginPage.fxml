@@ -52,8 +52,8 @@
             <Button fx:id="studentLoginButton" layoutX="132.0" layoutY="271.0" mnemonicParsing="false" onAction="#Login" prefHeight="25.0" prefWidth="62.0" text="Login" />
             <Text fx:id="stdNameErrorText" layoutX="53.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" " wrappingWidth="227.0" />
             <Text fx:id="passwordErrorText" layoutX="53.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" " wrappingWidth="227.0" />
-            <Button fx:id="RegisterButton" layoutX="64.0" layoutY="319.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#onRegisterButtonClick" prefHeight="25.0" prefWidth="205.0" text="Don't have and account?" />
-            <Label layoutX="53.0" layoutY="88.0" text="Please enter your deatils to login " />
+            <Button fx:id="RegisterButton" layoutX="64.0" layoutY="319.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#onRegisterButtonClick" prefHeight="25.0" prefWidth="205.0" text="Don't have an account?" />
+            <Label layoutX="53.0" layoutY="88.0" text="Please enter your details to login " />
          </children>
       </AnchorPane>
       <Button fx:id="loginAsClubAdvisorButton" layoutX="792.0" layoutY="48.0" mnemonicParsing="false" onAction="#onLoginAsClubAdvisorButtonClick" prefHeight="25.0" prefWidth="170.0" text="Club Advisor login" />

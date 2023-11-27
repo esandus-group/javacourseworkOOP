@@ -15,24 +15,8 @@
     -fx-font-weight: bold;
 }
 
-#allStudents {
-    -fx-background-color: black;
-}
 
-#allStudents .column-header,
-#allStudents .column-header-background {
-    -fx-background-color: black;
-    -fx-text-fill: white;
-    -fx-font-weight: bold; /* Optional: Make column headings bold */
-}
 
-#allStudents .table-cell {
-    -fx-text-fill: white;
-}
-
-#allStudents .table-row-cell:odd {
-    -fx-background-color: #333333; /* Optional: Alternate row color */
-}
 
 #ellipseOne {
     -fx-fill: #34D889; /* Use the appropriate syntax for JavaFX */
