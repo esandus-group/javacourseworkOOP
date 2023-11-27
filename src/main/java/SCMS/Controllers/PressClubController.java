@@ -80,15 +80,18 @@ public class PressClubController {
     Club currentClub = null;
     String advisorID;
     String name;
+    //=====================================================================
     public Button []button=  new Button[7];
 
     public ArrayList<Event> allEvents = new ArrayList();
     ObservableList<Event> allTheEvents = FXCollections.observableArrayList();
+    //=====================================================================
 
     public void gettingAdvisorFromMarkAttendanceCon(ClubAdvisor advisor){
         this.currentClubAdvisor=advisor;
+        this.advisorID=currentClubAdvisor.getId();
     }
-
+    //=====================================================================
     public void openingEventStudentList(ActionEvent event,int buttonId) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/M123.fxml"));
         Parent root = loader.load();
@@ -101,6 +104,7 @@ public class PressClubController {
         stage.setScene(scene);
         stage.show();
     }
+    //=====================================================================
     public void handleMarkAttendanceAction(ActionEvent event) throws IOException, SQLException {
         if (event.getSource() instanceof Button) {
             Button clickedButton = (Button) event.getSource();
@@ -251,7 +255,7 @@ public class PressClubController {
         Parent root = loader.load();
 
         clubAdvisorController cac = loader.getController();
-        cac.setWelcomeText(currentClubAdvisor);
+        cac.setWelcomeText(getClubAdvisor(advisorID));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -442,6 +446,7 @@ public class PressClubController {
             return false;
         }
     }
+    //=====================================================================
     public void onGenerateReportButtonClicked(ActionEvent event) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/Generate Reports.fxml"));
         Parent root = loader.load();
@@ -453,9 +458,6 @@ public class PressClubController {
         stage.setScene(scene);
         stage.show();
     }
-
-
-
 }
 
 

@@ -1,4 +1,5 @@
 package SCMS.Controllers;
+import SCMS.HelloApplication;
 import SCMS.Objects.Student;
 import SCMS.Utils.SCMSEnvironment;
 import javafx.event.ActionEvent;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 public class StudentDashboardController {
+    HelloApplication h1 = new HelloApplication();
     ArrayList<String> clubs = new ArrayList<>();
     public String studentId;
     @FXML
@@ -35,7 +37,7 @@ public class StudentDashboardController {
     String buttonText;
 
     Stage stage;
-
+    //=====================================================================
     public void settingTheClubButtons() throws Exception {
         welcomeText.setText(student.getFirstName());
         try (
@@ -80,12 +82,18 @@ public class StudentDashboardController {
             }
         }
     }
+    //=====================================================================
     public void InitializeStudent(Student std) throws Exception {
         this.student = std;
         settingTheClubButtons();
 
     }
-
+    //=====================================================================
+    public void backToLoginPage(ActionEvent event) throws IOException {
+        String fileName = "/SCMS/FxmlFiles/MainLoginPage.fxml";
+        h1.stageLoader(event,fileName);
+    }
+    //=====================================================================
     public void onRegisterClubButtonClick(ActionEvent event) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/RegisterToClubs.fxml"));
         Parent root = loader.load();
@@ -96,10 +104,11 @@ public class StudentDashboardController {
         stage.setScene(scene);
         stage.show();
     }
-    public void onClub1ButtonClick(ActionEvent event) throws  IOException{
+    //=====================================================================
+    public void loadingTheClubDashBoard(ActionEvent event,Button club) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/ClubDashboard.fxml"));
         Parent root = loader.load();
-        buttonText = club1Button.getText();
+        buttonText = club.getText();
         ClubDashboardController CDC = loader.getController();
         CDC.InitializeStudent(buttonText, student);
         Scene scene = new Scene(root);
@@ -107,28 +116,18 @@ public class StudentDashboardController {
         stage.setScene(scene);
         stage.show();
     }
-    public void onClub2ButtonClick(ActionEvent event) throws  IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/ClubDashboard.fxml"));
-        Parent root = loader.load();
-        buttonText = club2Button.getText();
-        ClubDashboardController CDC = loader.getController();
-        CDC.InitializeStudent(buttonText, student);
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+    //=====================================================================
+    public void onClub1ButtonClick(ActionEvent event) throws IOException, SQLException {
+        loadingTheClubDashBoard(event,club1Button);
     }
-    public void onClub3ButtonClick(ActionEvent event) throws  IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/ClubDashboard.fxml"));
-        Parent root = loader.load();
-        buttonText = club3Button.getText();
-        ClubDashboardController CDC = loader.getController();
-        CDC.InitializeStudent(buttonText, student);
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+    //=====================================================================
+    public void onClub2ButtonClick(ActionEvent event) throws IOException, SQLException {
+        loadingTheClubDashBoard(event,club2Button);
     }
-
+    //=====================================================================
+    public void onClub3ButtonClick(ActionEvent event) throws IOException, SQLException {
+        loadingTheClubDashBoard(event,club3Button);
+    }
+    //=====================================================================
 
 }

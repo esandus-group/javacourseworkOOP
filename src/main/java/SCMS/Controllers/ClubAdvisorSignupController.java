@@ -1,4 +1,5 @@
 package SCMS.Controllers;
+import SCMS.HelloApplication;
 import SCMS.Objects.ClubAdvisor;
 import SCMS.Utils.SCMSEnvironment;
 import javafx.event.ActionEvent;
@@ -7,17 +8,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.*;
 
 public class ClubAdvisorSignupController {
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
 
-
+    HelloApplication h1 = new HelloApplication();
     @FXML
     private DatePicker stdDOBDatePicker;
 
@@ -48,6 +51,8 @@ public class ClubAdvisorSignupController {
 
     @FXML
     private Text lNameErrorText;
+    @FXML
+    private Button backButton;
 
     @FXML
     private Text pwErrorText;
@@ -76,6 +81,12 @@ public class ClubAdvisorSignupController {
             }
         }
     }
+    @FXML
+    public void backToLoginPage(ActionEvent event) throws IOException {
+        String fileName = "/SCMS/FxmlFiles/ClubLoginPage.fxml";
+        h1.stageLoader(event,fileName);
+    }
+
     public boolean advisorInputValidator() throws Exception {
         if (!isInputEmpty(teacherID)){
             TidErrorText.setText("pls enter the Teacher Id");

@@ -38,7 +38,6 @@ public class HelloApplication extends Application {
         SCMSEnvironment.getInstance();
 
         launch();
-
     }
 
     public void stageLoader(ActionEvent event, String fileName) throws IOException {

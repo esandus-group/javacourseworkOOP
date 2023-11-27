@@ -65,6 +65,7 @@
             <Text fx:id="fNameErrorText" layoutX="303.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
          </children>
       </AnchorPane>
+      <Button fx:id="backButton" layoutX="121.0" layoutY="109.0" mnemonicParsing="false" onAction="#backToLoginPage" prefHeight="25.0" prefWidth="43.0" text="&lt;==" />
    </children>
    <stylesheets>
       <URL value="@../StylingSheets/rootStyles.css" />

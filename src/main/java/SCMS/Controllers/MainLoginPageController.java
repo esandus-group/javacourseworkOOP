@@ -127,7 +127,7 @@ public class MainLoginPageController {
                 return true;
             }
         }
-        stdNameErrorText.setText("Incorrect Student ID/ Password Combination");
+        stdNameErrorText.setText("Incorrect Student ID/ Password");
         return false;
     }
     public void onLoginAsClubAdvisorButtonClick(ActionEvent event) throws IOException {

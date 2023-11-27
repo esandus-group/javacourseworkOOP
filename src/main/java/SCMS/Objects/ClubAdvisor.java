@@ -19,11 +19,11 @@ public class ClubAdvisor extends Person{
     }
 
     public boolean addClub(Club newClub){
-        if (this.managingClubs.size()<4) {
-            this.managingClubs.add(newClub);
-            return true;
+        if (this.managingClubs.size()<5) {
+            return false;
         }
-        return false;
+        this.managingClubs.add(newClub);
+        return true;
     }
 
     public Boolean  assignNewAdvisor(ClubAdvisor advisor,Club club){

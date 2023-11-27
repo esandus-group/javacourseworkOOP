@@ -1,5 +1,6 @@
 package SCMS.Controllers;
 
+import SCMS.HelloApplication;
 import SCMS.Objects.Student;
 import SCMS.Utils.SCMSEnvironment;
 import javafx.event.ActionEvent;
@@ -48,7 +49,7 @@ public class RegisterToSCMSController {
 
     @FXML
     private Text lNameErrorText;
-
+    HelloApplication h1 = new HelloApplication();
     @FXML
     private Text pwErrorText;
     String stdId;
@@ -56,14 +57,14 @@ public class RegisterToSCMSController {
     String stdLName;
     String stdDOB;
     String stdPassword;
-    Stage stage;
+    //=====================================================================
     public boolean studentInputValidator() throws Exception {
         if(isStudentIdValid(stdId) && isStudentFNameValid(stdFName) && isStudentLNameValid(stdLName) && isStudentDOBValid(stdDOB) && isStudentPasswordValid(stdPassword)){
             return true;
         }
         return false;
     }
-
+    //=====================================================================
     public void saveNewStudentToDatabase(){
         String insertQuery = "INSERT INTO student (id, firstName, lastName, dateOfBirth, password) VALUES (?, ?, ?, ?, ?)";
         System.out.println(stdId+stdFName+stdLName+stdDOB+stdPassword);
@@ -81,7 +82,12 @@ public class RegisterToSCMSController {
             throw new RuntimeException(e);
         }
     }
-
+    //=====================================================================
+    public void backToLoginPage(ActionEvent event) throws IOException {
+        String fileName = "/SCMS/FxmlFiles/MainLoginPage.fxml";
+        h1.stageLoader(event,fileName);
+    }
+    //=====================================================================
     @FXML
     void onRequestToJoinButtonClick(ActionEvent event) throws Exception {
         Statement st = connections.createStatement();
@@ -107,6 +113,7 @@ public class RegisterToSCMSController {
             stage.show();
         }
     }
+    //=====================================================================
     public boolean isStudentIdValid(String studentId) throws Exception {
         idErrorText.setText("");
         if (studentId != null) {
@@ -126,7 +133,7 @@ public class RegisterToSCMSController {
         idErrorText.setText("Id cannot be null");
         return false;
     }
-
+    //=====================================================================
     public boolean isStudentFNameValid(String studentFName) throws Exception{
         fNameErrorText.setText("");
         if(!studentFName.equals("")){
@@ -136,6 +143,7 @@ public class RegisterToSCMSController {
         fNameErrorText.setText("First name cannot be null");
         return false;
     }
+    //=====================================================================
     public boolean isStudentLNameValid(String studentLName) throws Exception{
         lNameErrorText.setText("");
         if(!studentLName.equals("")){
@@ -144,6 +152,7 @@ public class RegisterToSCMSController {
         lNameErrorText.setText("Last name cannot be null");
         return false;
     }
+    //=====================================================================
     public boolean isStudentDOBValid(String studentDOB) throws Exception {
         dOBErrorText.setText("");
         System.out.println(studentDOB);
@@ -160,6 +169,7 @@ public class RegisterToSCMSController {
         dOBErrorText.setText("Date of birth cannot be null");
         return false;
     }
+    //=====================================================================
     public boolean isStudentPasswordValid(String studentPassword) throws Exception{
         pwErrorText.setText("");
         if(!studentPassword.equals("")){
@@ -168,6 +178,7 @@ public class RegisterToSCMSController {
         pwErrorText.setText("Password cannot be null");
         return false;
     }
+    //=====================================================================
 
 
 

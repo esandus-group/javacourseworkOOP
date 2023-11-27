@@ -15,10 +15,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 
@@ -49,7 +46,16 @@ public class clubAdvisorController {
     public ClubAdvisor advisor;
     @FXML
     private Label welcome;
+    public ClubAdvisor currentAdvisor;
+    //=====================================================================
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //getting the database connection
+    //=====================================================================
+    public void gettingAdvisorFromPressClubCon(ClubAdvisor advisor){
+        this.currentAdvisor=advisor;
+        System.out.println(currentAdvisor.getId());
+        this.advisor=currentAdvisor;
+    }
+    //=====================================================================
     public void setWelcomeText(ClubAdvisor advisor) throws Exception{
         String name = advisor.getFirstName();
         welcome.setText("Welcome "+name);
@@ -57,6 +63,7 @@ public class clubAdvisorController {
         getManagedClubs(advisor.getId());
 
     }
+    //=====================================================================
     public void getManagedClubs(String advisorId) throws Exception {
         try (Statement st = connections.createStatement()) {
 
@@ -109,7 +116,6 @@ public class clubAdvisorController {
     }
     //=============================================================
 
-    //---------------------------------------------------------------------
     public void onAddClubClick(ActionEvent event) throws Exception{ // add club
         fileName="/SCMS/FxmlFiles/CreateClub.fxml";      //the fxml path
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName));
@@ -124,7 +130,7 @@ public class clubAdvisorController {
         stage.setScene(scene);
         stage.show();
     }
-
+    //=====================================================================
     public void loadingTheClubDashBoard(ActionEvent event,Button club) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/PressClub.fxml"));
         Parent root = loader.load();
@@ -138,7 +144,7 @@ public class clubAdvisorController {
         stage.setScene(scene);
         stage.show();
     }
-
+    //=====================================================================
     public void onClub1PressClick(ActionEvent event) throws IOException, SQLException {
         loadingTheClubDashBoard(event,club1);
     }

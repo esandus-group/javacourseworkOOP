@@ -152,7 +152,7 @@ public class createClubController {
 
                 clubId = getNewClubId(); //getting the new club id
                 Club newClub = new Club(clubId, clubNam);
-                if (currentClubAdvisor.addClub(newClub)){
+                if (!currentClubAdvisor.addClub(newClub)){
                     nameStatus.setText("already manages 4 clubs, unable to create.");
                 }
                 else {

@@ -113,6 +113,7 @@ public class ClubAdvisorLoginController {
 
                 clubAdvisorController cac = loader.getController();
                 cac.setWelcomeText(advisor);
+                cac.gettingAdvisorFromPressClubCon(advisor);
 
                 Scene scene = new Scene(root);
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
