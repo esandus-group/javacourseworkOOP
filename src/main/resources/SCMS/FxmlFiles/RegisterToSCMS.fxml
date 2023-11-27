@@ -58,11 +58,11 @@
             <Text fx:id="text5" layoutX="86.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" />
             <TextField fx:id="stdIdTextField" layoutX="118.0" layoutY="97.0" promptText="Student ID" />
             <DatePicker fx:id="stdDOBDatePicker" layoutX="118.0" layoutY="195.0" prefHeight="25.0" prefWidth="163.0" />
-            <Text fx:id="idErrorText" layoutX="303.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-            <Text fx:id="pwErrorText" layoutX="303.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-            <Text fx:id="dOBErrorText" layoutX="303.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-            <Text fx:id="lNameErrorText" layoutX="303.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-            <Text fx:id="fNameErrorText" layoutX="303.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+            <Text fx:id="idErrorText" layoutX="303.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0"  />
+            <Text fx:id="pwErrorText" layoutX="303.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0"  />
+            <Text fx:id="dOBErrorText" layoutX="303.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0"  />
+            <Text fx:id="lNameErrorText" layoutX="303.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0"  />
+            <Text fx:id="fNameErrorText" layoutX="303.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" />
          </children>
       </AnchorPane>
       <Button fx:id="backButton" layoutX="121.0" layoutY="109.0" mnemonicParsing="false" onAction="#backToLoginPage" prefHeight="25.0" prefWidth="43.0" text="&lt;==" />
