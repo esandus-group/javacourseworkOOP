@@ -1,25 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.shape.Ellipse?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.GenerateReportsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.GenerateReportsController">
    <children>
-      <TableView fx:id="reportTable" layoutX="20.0" layoutY="174.0" prefHeight="203.0" prefWidth="563.0">
-        <columns>
-            <TableColumn fx:id="dateCol" prefWidth="108.6666259765625" text="Date" />
-          <TableColumn fx:id="eventNameCol" prefWidth="121.33331298828125" text="Event Name" />
-          <TableColumn fx:id="eventTypeCol" prefWidth="152.66665649414062" text="Event Type" />
-            <TableColumn fx:id="eventVenueCol" prefWidth="102.0" text="Venue" />
-            <TableColumn fx:id="attendanceCol" prefWidth="78.66668701171875" text="Attendance " />
-        </columns>
-      </TableView>
-      <Button layoutX="466.0" layoutY="141.0" mnemonicParsing="false" onAction="#loadingEvents" text="Generate Reports" />
-      <DatePicker fx:id="datePickerFilter" layoutX="34.0" layoutY="141.0" />
-      <Text layoutX="281.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+       <Ellipse fx:id="ellipseOne" layoutX="260.0" layoutY="788.0" radiusX="323.0" radiusY="130.0" stroke="BLACK" strokeType="INSIDE" />
+       <Ellipse fx:id="ellipseTwo" layoutX="886.0" layoutY="1011.0" radiusX="540.0" radiusY="424.0" stroke="BLACK" strokeType="INSIDE" />
+       <AnchorPane layoutX="60.0" layoutY="76.0" prefHeight="493.0" prefWidth="248.0">
+           <children>
+               <ImageView fitHeight="152.0" fitWidth="159.0" layoutX="87.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@../images/4.png" />
+                   </image>
+               </ImageView>
+               <ImageView fitHeight="176.0" fitWidth="210.0" layoutX="-37.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@../images/7.png" />
+                   </image>
+               </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="95.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/2.png" />
+               </image>
+            </ImageView>
+           </children>
+       </AnchorPane>
+      <AnchorPane fx:id="content" layoutX="346.0" layoutY="73.0" prefHeight="500.0" prefWidth="627.0">
+         <children>
+            <AnchorPane layoutX="25.0" layoutY="110.0" style="-fx-border-color: #334db3; -fx-border-width: 2;">
+               <children>
+                  <TableView fx:id="reportTable" prefHeight="357.0" prefWidth="573.0">
+                    <columns>
+                        <TableColumn fx:id="dateCol" prefWidth="108.6666259765625" text="Date" />
+                        <TableColumn fx:id="eventNameCol" prefWidth="121.33331298828125" text="Event Name" />
+                        <TableColumn fx:id="eventTypeCol" prefWidth="152.66665649414062" text="Event Type" />
+                        <TableColumn fx:id="eventVenueCol" prefWidth="102.0" text="Venue" />
+                        <TableColumn fx:id="attendanceCol" prefWidth="86.5" text="Attendance " />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="28.0" layoutY="13.841796875">
+               <children>
+                  <Button fx:id="load" layoutX="442.0" layoutY="52.9267578125" mnemonicParsing="false" onAction="#loadingEvents" text="Generate Reports" />
+                  <DatePicker fx:id="datePickerFilter" layoutY="52.9267578125" />
+                  <Label fx:id="title" layoutX="264.0" layoutY="11.0" text="Report" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
    </children>
+   <stylesheets>
+
+      <URL value="@../StylingSheets/rootStyles.css" />
+      <URL value="@../StylingSheets/GenerateReports.css" />
+   </stylesheets>
 </AnchorPane>
