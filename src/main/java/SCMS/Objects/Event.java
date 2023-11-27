@@ -136,7 +136,7 @@ public class Event {
         this.type = type;
     }
 
-    // Method to get the number of events from the SQL database
+    // Method to get the number of events from the SQL database to set eventID
     public Integer getNoOfEventsFromSqlDB() {
         String query = "SELECT COUNT(*) AS record_count FROM Event";
         try (Statement statement = connections.createStatement();

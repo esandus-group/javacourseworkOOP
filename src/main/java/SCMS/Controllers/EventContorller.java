@@ -28,8 +28,6 @@ import java.util.ResourceBundle;
 
 // Controller for managing events
 public class EventContorller implements Initializable {
-    private HelloApplication helloApplicationInstance = new HelloApplication();
-
     // FXML elements
     @FXML
     private TextField eventTitle;
@@ -43,8 +41,6 @@ public class EventContorller implements Initializable {
     private ChoiceBox<String> eventTypeChoiceBox;
     @FXML
     private Button backButtonCDD;
-    @FXML
-    private TextField clubIdTextBoxData;
     @FXML
     private TextField timeHourTextBoxData;
     @FXML
@@ -84,7 +80,7 @@ public class EventContorller implements Initializable {
         stage.show();
     }
 
-    // SQL reader method to get event counts
+    // SQL reader method to get number of events, meetings and activities per month
     public static HashMap<String, String> SQLReader(String yearMonth) {
         try {
             String sqlQuery = "SELECT typeOfClubFunction, COUNT(*) AS numberOfEvents FROM Event WHERE DATE_FORMAT(dateTime, '%Y-%m') = ? GROUP BY typeOfClubFunction";
@@ -110,6 +106,7 @@ public class EventContorller implements Initializable {
     public String validateTimeAndTypeOfEvent(LocalDate date, String hour, String minute, String typ) {
         Integer eventHour;
         Integer eventMinute;
+        // Validating if the input are integers
         try {
             eventHour = Integer.parseInt(hour);
             eventMinute = Integer.parseInt(minute);
@@ -118,7 +115,8 @@ public class EventContorller implements Initializable {
             errorMessageLabel.setText(errorMessage);
             return errorMessage;
         }
-
+        // If integers, validating if its a valid time
+        // Any function can be only held from 4am to 6pm
         if ((eventHour > 18 || eventHour <= 4) || (eventMinute > 59 || eventHour <= 0)) {
             errorMessage = "Any club activity should be held between 4.00 to 18.00";
             errorMessageLabel.setText(errorMessage);
@@ -129,12 +127,12 @@ public class EventContorller implements Initializable {
             errorMessageLabel.setText(errorMessage);
             return errorMessage;
         }
+        // Setting time in the DateTime format
         LocalTime time = LocalTime.of(eventHour, eventMinute);
         dateTime = date.atTime(time);
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
         String formattedDateTime = dateTime.format(formatter);
-
+        // Any event can have only 2 events, 1 meetings and 2 activities per month
         HashMap<String, String> eventCount = SQLReader(formattedDateTime);
         int noOfEvents = 0;
         int noOfMeetings = 0;
@@ -172,14 +170,14 @@ public class EventContorller implements Initializable {
         return errorMessage;
     }
 
-    // Initialization method
+    // Initialization method for TypeChoiceBox
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         eventTypeChoiceBox.getItems().addAll(typeList);
         eventTypeChoiceBox.setOnAction(this::onCreateNewEvent);
     }
 
-    // Create new event action
+    // Getting all data and creating the new event object if inputs are valid
     public void onCreateNewEvent(ActionEvent event) {
         errorMessage = "";
         String title = eventTitle.getText();
