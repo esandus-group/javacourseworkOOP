@@ -18,9 +18,8 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
-
 public class clubAdvisorController {
-    HelloApplication helloApplication = new HelloApplication();
+    HelloApplication helloApplication = new HelloApplication(); //creating the instance
     @FXML
     private Button backButtonCDD;
     public String fileName;
@@ -29,10 +28,8 @@ public class clubAdvisorController {
     private ArrayList<String> clubs = new ArrayList<>();
     @FXML
     private Button club1;
-
     @FXML
     private Button club2;
-
     @FXML
     private Button club3;
     String club1name = null;
@@ -50,23 +47,25 @@ public class clubAdvisorController {
     //=====================================================================
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //getting the database connection
     //=====================================================================
+    //to get the information from the previous controller
     public void gettingAdvisorFromPressClubCon(ClubAdvisor advisor){
         this.currentAdvisor=advisor;
-        System.out.println(currentAdvisor.getId());
         this.advisor=currentAdvisor;
     }
     //=====================================================================
+    //to set the label names of the page when loading
     public void setWelcomeText(ClubAdvisor advisor) throws Exception{
         String name = advisor.getFirstName();
         welcome.setText("Welcome "+name);
         this.advisor=advisor;
         getManagedClubs(advisor.getId());
-
     }
     //=====================================================================
+    //setting the club names for the club buttons
     public void getManagedClubs(String advisorId) throws Exception {
         try (Statement st = connections.createStatement()) {
 
+            //to get the clubs that the advisor's clubs from the database
             String advisorClubQuery = "SELECT clubId FROM club WHERE idOfAdvisor = '" + advisorId + "'";
             ResultSet advisorClubResult = st.executeQuery(advisorClubQuery);
 
@@ -74,24 +73,23 @@ public class clubAdvisorController {
             while (advisorClubResult.next()) {
                 clubs.add(advisorClubResult.getString("clubId"));
             }
-            for(String club: clubs){
-                System.out.println(club);
-            }
-
             club1.setVisible(false);
             club2.setVisible(false);
             club3.setVisible(false);
             club4.setVisible(false);
 
+
             for (String clubId : clubs) {
                 String clubQuery = "SELECT name FROM club WHERE clubId = '" + clubId + "'";
                 ResultSet clubResult = st.executeQuery(clubQuery);
 
+                //getting the name of those clubs
                 if (clubResult.next()) {
                     String clubName = clubResult.getString("name");
                     System.out.println(clubName);
                     clubCount++;
 
+                    //making the buttons visible, and putting the name
                     if (clubCount == 1) {
                         club1.setVisible(true);
                         club1name = clubName;
@@ -118,7 +116,7 @@ public class clubAdvisorController {
 
     public void onAddClubClick(ActionEvent event) throws Exception{ // add club
         fileName="/SCMS/FxmlFiles/CreateClub.fxml";      //the fxml path
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName)); //opening the fxml
         Parent root = loader.load();
         System.out.println(advisor.getId());
         createClubController pcc = loader.getController();
@@ -131,6 +129,7 @@ public class clubAdvisorController {
         stage.show();
     }
     //=====================================================================
+    //the method to open the fxml for club dashboard when advisor clicks club
     public void loadingTheClubDashBoard(ActionEvent event,Button club) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/PressClub.fxml"));
         Parent root = loader.load();
@@ -146,17 +145,17 @@ public class clubAdvisorController {
     }
     //=====================================================================
     public void onClub1PressClick(ActionEvent event) throws IOException, SQLException {
-        loadingTheClubDashBoard(event,club1);
+        loadingTheClubDashBoard(event,club1); //also passing which button it is also
     }
     public void onClub2PressClick(ActionEvent event) throws  IOException, SQLException {
-        loadingTheClubDashBoard(event,club2);
+        loadingTheClubDashBoard(event,club2); //also passing which button it is also
     }
     public void onClub3PressClick(ActionEvent event) throws  IOException, SQLException {
-        loadingTheClubDashBoard(event,club3);
+        loadingTheClubDashBoard(event,club3); //also passing which button it is also
     }
     //---------------------------------------------------------------------
     public void onClub4PressClick(ActionEvent event) throws  IOException, SQLException {
-        loadingTheClubDashBoard(event,club4);
+        loadingTheClubDashBoard(event,club4); //also passing which button it is also
     }
     //=========================================================
     public void  backButtonCDD  (ActionEvent event) throws Exception{

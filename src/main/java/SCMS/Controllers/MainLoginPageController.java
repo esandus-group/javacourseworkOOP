@@ -58,7 +58,7 @@ public class MainLoginPageController {
 
                     while (clubIdsResult.next()) {
                         String clubId = clubIdsResult.getString("clubId");
-                        Club club = getClubById(clubId);
+                        Club club = getClubById(clubId);        //1.2.  calling the method to getClub
 
                         if (club != null) {
                             clubsJoined.add(club);
@@ -66,7 +66,7 @@ public class MainLoginPageController {
                     }
                 }
 
-                return new Student(studentId, firstName, lastName, dateOfBirth, password, clubsJoined);
+                return new Student(studentId, firstName, lastName, dateOfBirth, password, clubsJoined);  //4.  calling Student constructor
             }
         }
 
@@ -82,7 +82,7 @@ public class MainLoginPageController {
             if (clubResult.next()) {
                 String name = clubResult.getString("name");
 
-                return new Club(clubId, name);
+                return new Club(clubId, name);         //2.  calling Club constructor
             }
         }
 
@@ -101,12 +101,12 @@ public class MainLoginPageController {
         stageLoader(event, fileName);
     }
 
-    public void Login(ActionEvent event) throws Exception {
+    public void Login(ActionEvent event) throws Exception { //1. calling the login to club method
         stdId = studentIdTextField.getText();
         password = passwordTextField.getText();
 
-        if (isStudentValid(stdId, password)){
-            Student student = getStudentWithClubs(stdId);
+        if (isStudentValid(stdId, password)){  //1.1.  calling the method to check student validity
+            Student student = getStudentWithClubs(stdId);        //1.3.  calling getStudentWithClub method
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/StudentDashboard.fxml"));
             Parent root = loader.load();
             StudentDashboardController SDC = loader.getController();
@@ -127,16 +127,16 @@ public class MainLoginPageController {
                 return true;
             }
         }
-        stdNameErrorText.setText("Incorrect Student ID/ Password");
+        stdNameErrorText.setText("Incorrect Student ID/ Password");  //5.1  calling setText method
         return false;
     }
+
     public void onLoginAsClubAdvisorButtonClick(ActionEvent event) throws IOException {
         fileName = "/SCMS/FxmlFiles/ClubLoginPage.fxml";
 
         Parent root = FXMLLoader.load(getClass().getResource(fileName));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-//        scene.getStylesheets().add(getClass().getResource("/SCMS/StylingSheets/MainLoginPage.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
     }

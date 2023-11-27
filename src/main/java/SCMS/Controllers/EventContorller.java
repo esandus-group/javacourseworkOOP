@@ -61,7 +61,7 @@ public class EventContorller implements Initializable {
     private String adId;
 
     // Method to pass information to the controller
-    public void gettingInformation(Club club, String advisorId) {
+    public void gettingInformation(Club club, String advisorId) {       //1. getting the information from previ controller
         this.club = club;
         this.adId = advisorId;
     }
@@ -178,23 +178,23 @@ public class EventContorller implements Initializable {
     }
 
     // Getting all data and creating the new event object if inputs are valid
-    public void onCreateNewEvent(ActionEvent event) {
+    public void onCreateNewEvent(ActionEvent event) {        //2.1 calling the method to create the event
         errorMessage = "";
         String title = eventTitle.getText();
         String venue = eventVenue.getText();
         String description = eventDescription.getText();
         type = eventTypeChoiceBox.getValue();
 
-        errorMessage = (validateTextFileds(title, venue, description, type));
-        errorMessageLabel.setText(errorMessage);
+        errorMessage = (validateTextFileds(title, venue, description, type));       //2.1. calling the method to validate inputs
+        errorMessageLabel.setText(errorMessage);                                   //4.2. calling the method to setText
         System.out.println(errorMessage);
 
         if (errorMessage.equalsIgnoreCase("")) {
             LocalDate date = eventDate.getValue();
             String strHour = timeHourTextBoxData.getText();
             String strMinute = timeMinuteTextBoxData.getText();
-            errorMessage = validateTimeAndTypeOfEvent(date, strHour, strMinute, type);
-            errorMessageLabel.setText(errorMessage);
+            errorMessage = validateTimeAndTypeOfEvent(date, strHour, strMinute, type);       //2.2. method to validate the time and no.of events
+            errorMessageLabel.setText(errorMessage);                                     //4.2. calling the method to setText
             System.out.println(errorMessage);
 
             if (errorMessage.equalsIgnoreCase("")) {
@@ -207,8 +207,9 @@ public class EventContorller implements Initializable {
                 eventTypeChoiceBox.setValue(null);
                 errorMessageLabel.setText("");
 
-                Event newEvent = new Event(title, dateTime, venue, type, description, new Button());
-                newEvent.writeEventsToSqlDB(club.getClubId());
+                Event newEvent = new Event(title, dateTime, venue, type, description, new Button());   //3. Calling event Constructor
+
+                newEvent.writeEventsToSqlDB(club.getClubId());              //4.1. calling the method to add to the database
             }
         }
     }

@@ -89,7 +89,7 @@ public class RegisterToSCMSController {
     }
     //=====================================================================
     @FXML
-    void onRequestToJoinButtonClick(ActionEvent event) throws Exception {
+    void onRequestToJoinButtonClick(ActionEvent event) throws Exception {       //1. calling the method to register
         Statement st = connections.createStatement();
         stdId = stdIdTextField.getText();
         stdFName = stdFirstNameTextField.getText();
@@ -97,11 +97,11 @@ public class RegisterToSCMSController {
         stdDOB = String.valueOf(stdDOBDatePicker.getValue());
         stdPassword = stdPasswordTextField.getText();
 
-        if(studentInputValidator()){
+        if(studentInputValidator()){        //1.1. calling the method to validate student infor
 
-            Student student= new Student(stdId, stdFName, stdLName, stdDOB, stdPassword);
+            Student student= new Student(stdId, stdFName, stdLName, stdDOB, stdPassword);          //2. calling the Student constructor
 
-            saveNewStudentToDatabase();
+            saveNewStudentToDatabase();      //3.1. method to save to the database
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/StudentDashboard.fxml"));
             Parent root = loader.load();
@@ -128,7 +128,7 @@ public class RegisterToSCMSController {
                     return !resultSet.next(); // Returns true if the result set is empty, indicating that the student ID is not in use
                 }
         }
-        idErrorText.setText("Id cannot be null");
+        idErrorText.setText("Id cannot be null");       //3.2. method to setText
         return false;
     }
     //=====================================================================
@@ -138,7 +138,7 @@ public class RegisterToSCMSController {
             System.out.println("true");
             return true;
         }
-        fNameErrorText.setText("First name cannot be null");
+        fNameErrorText.setText("First name cannot be null");    //3.2. method to setText
         return false;
     }
     //=====================================================================
@@ -147,7 +147,7 @@ public class RegisterToSCMSController {
         if(!studentLName.equals("")){
             return true;
         }
-        lNameErrorText.setText("Last name cannot be null");
+        lNameErrorText.setText("Last name cannot be null");      //3.2. method to setText
         return false;
     }
     //=====================================================================
@@ -161,10 +161,10 @@ public class RegisterToSCMSController {
             if(!selectedDate.isAfter(currentDate)){
                 return true;
             }
-            dOBErrorText.setText("Date of birth cannot be in the future");
+            dOBErrorText.setText("Date of birth cannot be in the future");      //3.2. method to setText
             return false;
         }
-        dOBErrorText.setText("Date of birth cannot be null");
+        dOBErrorText.setText("Date of birth cannot be null");           //3.2. method to setText
         return false;
     }
     //=====================================================================
@@ -173,7 +173,7 @@ public class RegisterToSCMSController {
         if(!studentPassword.equals("")){
             return true;
         }
-        pwErrorText.setText("Password cannot be null");
+        pwErrorText.setText("Password cannot be null");     //3.2. method to setText
         return false;
     }
     //=====================================================================

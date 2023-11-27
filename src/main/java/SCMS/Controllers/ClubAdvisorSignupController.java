@@ -19,7 +19,7 @@ import java.sql.*;
 public class ClubAdvisorSignupController {
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
 
-    HelloApplication h1 = new HelloApplication();
+    HelloApplication h1 = new HelloApplication(); //making the instance to call the stageLoader method
     @FXML
     private DatePicker stdDOBDatePicker;
 
@@ -122,6 +122,8 @@ public class ClubAdvisorSignupController {
         }
         return true;
     }
+
+    //the method to save the new advisor to the database
     public void savingClubAdvisor(ClubAdvisor newAdvisor) throws SQLException {
         String insertAdvisorQuery = "INSERT INTO ClubAdvisor (id, firstName, lastName, dateOfBirth, password) VALUES (?, ?, ?, ?, ?)";
 

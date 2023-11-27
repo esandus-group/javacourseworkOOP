@@ -76,7 +76,7 @@ public class MarkAttendanceController {
                 String type = eventResult.getString("typeOfClubFunction");
                 String description = eventResult.getString("description");
 
-                // Create a list to hold students who joined the event
+                // Created a list to hold students who joined the event
                 ArrayList<Student> studentsWhoJoined = new ArrayList<>();
 
                 // Retrieve students who joined the event from the Attendance table
@@ -87,7 +87,7 @@ public class MarkAttendanceController {
                     while (attendanceResult.next()) {
                         String studentId = attendanceResult.getString("id");
 
-                        // Fetch the student object using the studentId and add to the list
+                        // Fetching the student objects using the studentId and add to the list
                         try (PreparedStatement studentStatement = connections.prepareStatement(studentQuery)) {
                             studentStatement.setString(1, studentId);
                             ResultSet studentResult = studentStatement.executeQuery();
@@ -105,7 +105,7 @@ public class MarkAttendanceController {
                     }
                 }
 
-                // Create the Event object with the retrieved data
+                // Creating the Event object with the retrieved data
                 event = new Event(eventId, title, dateTime, venue, type, description, new Button(), studentsWhoJoined);
             }
         }
@@ -147,12 +147,14 @@ public class MarkAttendanceController {
 
     //=========================================================================
     //this is the method when the fill table button is clicked
-    public void onFillTableClick(ActionEvent event) throws Exception{
-        //allStudentsPresent = getStudentsForClub(club.getClubId());
-        allStudentsPresent = club.getStudentsPresent();
+    public void onFillTableClick(ActionEvent event) throws Exception{           //3.3.1  calling the method to open the students present
+        allStudentsPresent = club.getStudentsPresent();    //2.  calling the method to getStudentsPresent
+
         //method to retrieve students associated with the current club ID (club.getClubId()).
         //ArrayList with the retrieved students.
-        loadingStudents();
+
+        loadingStudents();      //3.  calling the method to load the data to the table
+
         // update the TableView to display the loaded student data.
         //Sets up the TableView's columns and populates it with the student data
         // obtained from allStudentsPresent.
@@ -162,7 +164,7 @@ public class MarkAttendanceController {
     }
     //=========================================================================
     //aims to retrieve selected rows (students) from the TableView's data.
-    public ArrayList getSelectedRows(ObservableList<Student> data){
+    public ArrayList getSelectedRows(ObservableList<Student> data){              //3.3.2.1  calling the method to get the selected rows
         //Initializes an ArrayList named studentsClicked to store selected students.
         ArrayList<Student> studentsClicked = new ArrayList<>();
         //Iterates through each Student object in the provided data list, students in the table view
@@ -196,7 +198,7 @@ public class MarkAttendanceController {
     }
     //=========================================================================
     //this is the method when the submit button is clicked
-    public void submit(ActionEvent event) throws Exception {
+    public void submit(ActionEvent event) throws Exception {     //3.3.2.  calling the method to submit
 
         function = getEventById(eventID);
         function.setStudentsWhoJoined(getSelectedRows(allTheStudents)); //getting the students who are present to a arraylist
@@ -221,8 +223,7 @@ public class MarkAttendanceController {
     }
     //=========================================================================
     //save attendance records for students related to a particular event.
-    public void saveAttendance(Event function) {
-
+    public void saveAttendance(Event function) {           //3.3.3  calling the method to save to the database
         ArrayList<Student> students = function.getStudentsWhoJoined();
         String eventId = function.getEventId();
 

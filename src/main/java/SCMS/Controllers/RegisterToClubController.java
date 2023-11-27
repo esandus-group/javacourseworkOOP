@@ -40,8 +40,7 @@ public class RegisterToClubController {
         this.student = std;
         this.studentFName = student.getFirstName();
         this.stdId = student.getId();
-        setClubsComboBox();
-
+        setClubsComboBox();         //2.1.1.1. calling the setClubsComboBox method
     }
     //=====================================================================
     public String getClubIdByName(String name) throws SQLException {
@@ -54,18 +53,18 @@ public class RegisterToClubController {
         return null;
     }
     //=====================================================================
-    public void onRegisterToClubButtonClick(ActionEvent event) throws Exception{
-        String studentId = stdIdTextField.getText();
-        String studentName = stdNameTextField.getText();
-        String selectedClub = clubComboBox.getValue().toString();
+    public void onRegisterToClubButtonClick(ActionEvent event) throws Exception{ //1.1. calling the RegisterToClub method
+        String studentId = stdIdTextField.getText();        //1.3 calling the getText method
+        String studentName = stdNameTextField.getText();       //1.4 calling the getText method
+        String selectedClub = clubComboBox.getValue().toString();        //1.5 calling the getText method
 
-        String clubId = getClubIdByName(selectedClub);
-        Club club = getClubByName(selectedClub);
+        if (isStudentValid(studentId, studentName)) {       //1.2. calling the isStudentValid checking method
 
-        if (isStudentValid(studentId, studentName)) {
-            if (!isStudentRemoved(studentId, clubId)){
-                student.joinClub(club);
-                registerStudentToClub(event, studentId, clubId);
+            String clubId = getClubIdByName(selectedClub);
+            Club club = getClubByName(selectedClub);
+            if (!isStudentRemoved(studentId, clubId)){      //3.1 calling the isStudentRemoved checking method
+                student.joinClub(club);                     //3.1.1 calling the joinClub method
+                registerStudentToClub(event, studentId, clubId);        //3.1.2 calling the registerStudentToClub method to save to daatabase
             }
         }
     }
@@ -88,7 +87,7 @@ public class RegisterToClubController {
                 // Add more fields as needed
 
                 // Create a Student object with the retrieved data
-                student = new Student(id, firstName, lastName, dateOfBirth,password);
+                student = new Student(id, firstName, lastName, dateOfBirth,password);   //1.5.1 calling the Student constructor
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -133,7 +132,7 @@ public class RegisterToClubController {
                 }
 
                 // Create the Club object with the retrieved data
-                club = new Club(clubId, name, studentsPresent);
+                club = new Club(clubId, name, studentsPresent);         //2. calling the Student constructor
             }
         }
 
@@ -150,7 +149,7 @@ public class RegisterToClubController {
             while (clubsNotJoined.next()) {
                 clubs.add(clubsNotJoined.getString("name"));
             }
-            clubComboBox.getItems().addAll(clubs);
+            clubComboBox.getItems().addAll(clubs);  //2.1.1.2 calling the getItems().addAll(clubs) method
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -168,7 +167,7 @@ public class RegisterToClubController {
                 return true;
             }
             else{
-                IDerrorLabel.setText("Incorrect student ID/student name combination");
+                IDerrorLabel.setText("Incorrect student ID/student name "); //2.1.1.3 calling the setText method
             }
         }
         return false;
@@ -188,7 +187,7 @@ public class RegisterToClubController {
             e.printStackTrace();
 
         }
-        IDerrorLabel.setText("Unable to join, as previously removed");
+        IDerrorLabel.setText("Unable to join, as previously removed");  //4. calling the setText method
         return false;
     }
 

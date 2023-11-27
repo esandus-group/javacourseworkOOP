@@ -38,11 +38,13 @@ public class createClubController {
     @FXML
     private Button backButtonCDD;
 
+    //getting the id from the previous controller
     public void gettingIdOfAdvisor(String id){
         this.idOfAdvisor=id;
 
     }
-    public void  backButtonCDD  (ActionEvent event) throws Exception{
+
+    public void  backButtonCDD  (ActionEvent event) throws Exception{ //the back button
         currentClubAdvisor = getClubAdvisor(idOfAdvisor);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/Club advisor.fxml"));
@@ -58,9 +60,9 @@ public class createClubController {
         stage.show();
     }
     //=========================================================================
-    public String getNewClubId() { //we count how many rows are there and add 1 to get the new id
+    public String getNewClubId() {
         //generating new club id
-
+        //we count how many rows are there and add 1 to get the new id
         int newClubId = 0;
         String countQuery = "SELECT COUNT(*) FROM Club";
 
@@ -74,7 +76,6 @@ public class createClubController {
             e.printStackTrace();
 
         }
-
         return Integer.toString(newClubId);
     }
     //=========================================================================
@@ -124,41 +125,49 @@ public class createClubController {
     }
     //=========================================================================
 
-    public void onSaveNewClubClick(ActionEvent event) throws Exception {
-        clubNam = clubName.getText();                               //getting the information
-        clubAdvisorId = clubAdvisorID.getText();                       //from the text fields
+    public void onSaveNewClubClick(ActionEvent event) throws Exception {     //1.  calling the saveNewClub button when clicked
+        //getting the information from the text fields
+        clubNam = clubName.getText();
+        clubAdvisorId = clubAdvisorID.getText();
 
         //========================================(validation)======
-        if (!isAdvisorIdValid(clubAdvisorId)){ //checking whether the ID is empty
-            idStatus.setText("pls enter the id of the advisor");
+        //checking whether the ID is empty
+        if (!isAdvisorIdValid(clubAdvisorId)) {    //1.1.  calling the isAdvisorIdValid method
+            idStatus.setText("pls enter the id of the advisor");         //3.5. calling the setText method
             return;
         }
 
-        if (!isClubNameValid(clubNam)){ // checking whether tha name is empty
-            nameStatus.setText("pls enter the name of the club");
+        // checking whether tha name is empty
+        if (!isClubNameValid(clubNam)){           //1.2.  calling the isAdvisorIdValid method
+            nameStatus.setText("pls enter the name of the club");       //1.4.1 calling the setText method
         }
 
+        //storing the club advisor to create the club
+        currentClubAdvisor = getClubAdvisor(clubAdvisorId);     //1.3. calling the getClubAdvisor method
+
         //checking whether the id exists
-        if (getClubAdvisor(clubAdvisorId) == null) {
-            idStatus.setText("such a ID not found, re enter");
+        if (currentClubAdvisor== null) {
+            idStatus.setText("such a ID not found, re enter");      //1.4.2 calling setText method
+
         } else {
-            currentClubAdvisor = getClubAdvisor(clubAdvisorId); //storing the club advisor to create the club
+            //checking whether a club with that name exists
+            if (doesClubExists(clubNam)) {          //1.4. calling the doesClubExists method
 
-            if (doesClubExists(clubNam)) {   //checking whether a club with that name exists
-
-                nameStatus.setText("A club with this name already exists.");
+                nameStatus.setText("A club with this name already exists.");         //4.3. calling the setText method
 
             } else {
+                //getting the new club id
+                clubId = getNewClubId();                      //1.4.2.1 calling the getNewClubId method
+                Club newClub = new Club(clubId, clubNam);    //2. calling the Club constructor
 
-                clubId = getNewClubId(); //getting the new club id
-                Club newClub = new Club(clubId, clubNam);
-                if (!currentClubAdvisor.addClub(newClub)){
+                //if the clubs is less than 5 then only it continues
+                if (!currentClubAdvisor.addClub(newClub)){          //3.1. calling the addClub method
                     nameStatus.setText("already manages 4 clubs, unable to create.");
                 }
                 else {
                     if (newClub != null) {
                         System.out.println("Club created successfully.");
-                        addClubToDatabase(newClub, idOfAdvisor);
+                        addClubToDatabase(newClub, idOfAdvisor);        //3.2. calling the addClubToDatabase method
 
                         clubName.setText(""); //clearing the text fields and the labels
                         clubAdvisorID.setText("");
@@ -172,7 +181,7 @@ public class createClubController {
         }
     }
     //=========================================================================
-
+    //method to add the new club to the database
     private void addClubToDatabase(Club newClub,String idOfAdvisor) {
 
         String query = "INSERT INTO Club (clubId, name, idOfAdvisor) VALUES (?, ?, ?)";

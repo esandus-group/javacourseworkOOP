@@ -93,7 +93,7 @@ public class PressClubController {
     }
     //=====================================================================
     public void openingEventStudentList(ActionEvent event,int buttonId) throws IOException, SQLException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/M123.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/M123.fxml"));      //3.3  calling the method to open the students present
         Parent root = loader.load();
 
         MarkAttendanceController mac = loader.getController();
@@ -105,7 +105,7 @@ public class PressClubController {
         stage.show();
     }
     //=====================================================================
-    public void handleMarkAttendanceAction(ActionEvent event) throws IOException, SQLException {
+    public void handleMarkAttendanceAction(ActionEvent event) throws IOException, SQLException {    //3.1  calling the handle button actions method
         if (event.getSource() instanceof Button) {
             Button clickedButton = (Button) event.getSource();
             int buttonId = (int) clickedButton.getUserData();
@@ -113,7 +113,7 @@ public class PressClubController {
 
             // Open another FXML file or perform any action based on the buttonId
             if (buttonId == 0) {
-                openingEventStudentList(event,buttonId);
+                openingEventStudentList(event,buttonId);             //3.2  calling the method to open the students present
 
             } else if (buttonId == 1) {
                 openingEventStudentList(event,buttonId);
@@ -242,7 +242,7 @@ public class PressClubController {
     }
 //=====================================================================
 
-    public void onFillTableClick(ActionEvent event) throws Exception{
+    public void onFillTableClick(ActionEvent event) throws Exception{        //1.  calling the method to fill the table
         allEvents = getClubByName(name).getClubFunctions(); //PUTTING THE STUFF TO THE TABLE
         System.out.println(allEvents.size());    // TO SEE WHETHER ALL THE STUFF ARE LOADED
         loadingEvents();                           // PUTTING IT TO THE TABLE
@@ -319,11 +319,11 @@ public class PressClubController {
                     String clubName = clubsResultSet.getString("name");
 
                     // Create a Club object and add it to the managingClubs list
-                    Club club = new Club(clubId,clubName);
+                    Club club = new Club(clubId,clubName);        //8. call ClubAdvisor constructor
                     managingClubs.add(club);
                 }
 
-                return new ClubAdvisor(id, firstName, lastName, dateOfBirth, password, managingClubs);
+                return new ClubAdvisor(id, firstName, lastName, dateOfBirth, password, managingClubs);   //4. call ClubAdvisor constructor
             }
         }
 
@@ -332,26 +332,27 @@ public class PressClubController {
 
     //=================================================================
     public void onAssignNewAdvClick(ActionEvent event) throws Exception { //using the advisorID create the object
-        confirmation = confirmText.getText();                          //getting the stuff from the text fields
-        advisorIdOfNewPerson = newAdvisorId.getText(); //this should be the advisors id
+        //getting the stuff from the text fields
+        confirmation = confirmText.getText();    //1. call getText method
+        advisorIdOfNewPerson = newAdvisorId.getText();   //2. call getText method //this should be the advisors id
 
         //get confirmation
         if (confirmation.equals("CONFIRM")) {
             currentClubAdvisor = getClubAdvisor(advisorID);
-            newClubAdvisor = getClubAdvisor(advisorIdOfNewPerson);
-            currentClub=getClubByName(name);
+            newClubAdvisor = getClubAdvisor(advisorIdOfNewPerson);  //3. call getClubAdvisor method
+            currentClub=getClubByName(name);                    //5. call getClubAdvisor method
 
             // Checking if the advisor manages the club
             if (newClubAdvisor ==null) {
 
-                deletingStatus.setText("An advisor with That ID does not Exist");
+                deletingStatus.setText("An advisor with That ID does not Exist");   //9.1 calling setText method
                 deletingStatus1.setText("Club not deleted");
 
             } else {
 
-                boolean status = currentClubAdvisor.assignNewAdvisor(newClubAdvisor,currentClub);
+                boolean status = currentClubAdvisor.assignNewAdvisor(newClubAdvisor,currentClub);   //9.1.1 calling assignNewDriver method
                 System.out.println(status);
-                 //pass the new burgers id and the club object
+                 //pass the new advisors id and the club object
 
                 if (status){
                     updateClubAdvisor(currentClub,newClubAdvisor);
@@ -373,7 +374,7 @@ public class PressClubController {
                 }
             }
         } else {
-            deletingStatus1.setText("Action not confirmed,advisor not assigned.");
+            deletingStatus1.setText("Action not confirmed,advisor not assigned.");//11.1 calling setText method
         }
     }
     //=======================================================

@@ -20,13 +20,14 @@ public class ClubAdvisor extends Person{
 
     public boolean addClub(Club newClub){
         if (this.managingClubs.size()<5) {
-            return false;
+            this.managingClubs.add(newClub);
+            return true;
         }
-        this.managingClubs.add(newClub);
-        return true;
+
+        return false;
     }
 
-    public Boolean  assignNewAdvisor(ClubAdvisor advisor,Club club){
+    public Boolean  assignNewAdvisor(ClubAdvisor advisor,Club club){    //10. calling assign advisor method
         ArrayList<Club> clubsOfNewAdvisor = advisor.getManagingClubs();
         if (clubsOfNewAdvisor.size() == 4){
             return false;
@@ -40,7 +41,7 @@ public class ClubAdvisor extends Person{
 
     public void removeStudent(String studentId, Club club){
 
-        ArrayList<Student> studentsPresent = new ArrayList<>();
+        ArrayList<Student> studentsPresent;
         studentsPresent = club.getStudentsPresent();
         Iterator<Student> iterator = studentsPresent.iterator();
         while (iterator.hasNext()) {

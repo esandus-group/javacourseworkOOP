@@ -42,14 +42,15 @@ public class ClubAdvisorLoginController {
     public String password;
     //=========================================================================
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
-
+    //=========================================================================
     @FXML
-    public void backToLoginPage(ActionEvent event) throws IOException {
+    public void backToLoginPage(ActionEvent event) throws IOException { //the back button
         String fileName = "/SCMS/FxmlFiles/MainLoginPage.fxml";
         h1.stageLoader(event,fileName);
     }
 
     //=========================================================================
+    //the method to return the club advisor object from the database
     public ClubAdvisor getClubAdvisor(String clubAdvisorId) throws SQLException {
         String advisorQuery = "SELECT * FROM ClubAdvisor WHERE id = ?";
         String clubsQuery = "SELECT * FROM Club WHERE idOfAdvisor = ?";
@@ -136,7 +137,6 @@ public class ClubAdvisorLoginController {
         Parent root = FXMLLoader.load(getClass().getResource("/SCMS/FxmlFiles/ClubAdvisorSignUp.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-//        scene.getStylesheets().add(getClass().getResource("/SCMS/StylingSheets/ClubAdvisorSignUp.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
     }
