@@ -27,7 +27,7 @@
             <Text fx:id="clubNameText" layoutX="249.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Club name" />
             <Button fx:id="leaveClubButton" layoutX="59.0" layoutY="404.0" mnemonicParsing="false" onAction="#onLeaveClubButtonClick" text="Leave Club" />
             <Button fx:id="loadEventsButton" layoutX="380.0" layoutY="121.0" mnemonicParsing="false" onAction="#loadingStudents" text="Click here to load upcomming Events " />
-            <Button fx:id="backToStudentDashboardButton" layoutX="21.0" layoutY="15.0" mnemonicParsing="false" onAction="#onBackToStudentDashboardClicked" text="&lt;-- Back To Student Dashboard" />
+            <Button fx:id="backToStudentDashboardButton" layoutX="21.0" layoutY="15.0" mnemonicParsing="false" onAction="#onBackToStudentDashboardClicked" text="&lt;==" />
          </children>
       </AnchorPane>
       <ImageView fitHeight="159.0" fitWidth="179.0" layoutX="47.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">

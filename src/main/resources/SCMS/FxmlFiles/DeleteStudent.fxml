@@ -58,7 +58,7 @@
               <Label fx:id="studentIdStatus" layoutX="187.0" layoutY="185.0" prefHeight="18.0" prefWidth="184.0" />
               <Label fx:id="clubIdStatus" layoutX="187.0" layoutY="252.0" prefHeight="18.0" prefWidth="182.0" />
               <Label fx:id="reasonStatus" layoutX="187.0" layoutY="327.0" prefHeight="19.0" prefWidth="182.0" />
-            <Button fx:id="backButtonCDD" layoutX="12.0" layoutY="13.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="26.0" prefWidth="40.0" text="&lt;--" />
+            <Button fx:id="backButtonCDD" layoutX="16.0" layoutY="13.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="26.0" prefWidth="40.0" text="&lt;--" />
          </children>
       </AnchorPane>
     </children>

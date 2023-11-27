@@ -426,7 +426,6 @@ public class PressClubController {
 
 
     //=========================================================================
-
     public boolean updateClubAdvisor(Club currentClub, ClubAdvisor newClubAdvisor) { //i can make it so that i pass the objects and then use getters
         String newAdvisorId = newClubAdvisor.getId();
         String clubId = currentClub.getClubId();
@@ -454,7 +453,10 @@ public class PressClubController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Club club = getClubByName(name);
         GenerateReportsController GRC = loader.getController();
+
         GRC.Start(club);
+        GRC.gettingInformation(getClubByName(name),advisorID);
+
         stage.setScene(scene);
         stage.show();
     }

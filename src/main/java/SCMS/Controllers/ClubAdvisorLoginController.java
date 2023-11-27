@@ -1,5 +1,6 @@
 package SCMS.Controllers;
 
+import SCMS.HelloApplication;
 import SCMS.Objects.Club;
 import SCMS.Objects.ClubAdvisor;
 import SCMS.Utils.SCMSEnvironment;
@@ -33,7 +34,7 @@ public class ClubAdvisorLoginController {
     private Button advisorLoginButton;
     @FXML
     private TextField passwordTextField;
-
+    HelloApplication h1 = new HelloApplication();
     @FXML
     private Button signUpAdvisor;
     public String adId;
@@ -41,6 +42,13 @@ public class ClubAdvisorLoginController {
     public String password;
     //=========================================================================
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
+
+    @FXML
+    public void backToLoginPage(ActionEvent event) throws IOException {
+        String fileName = "/SCMS/FxmlFiles/MainLoginPage.fxml";
+        h1.stageLoader(event,fileName);
+    }
+
     //=========================================================================
     public ClubAdvisor getClubAdvisor(String clubAdvisorId) throws SQLException {
         String advisorQuery = "SELECT * FROM ClubAdvisor WHERE id = ?";

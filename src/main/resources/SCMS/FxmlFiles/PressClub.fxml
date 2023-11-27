@@ -55,9 +55,10 @@
                   <Button fx:id="createNewEvent" layoutX="12.0" layoutY="132.0" mnemonicParsing="false" onAction="#onCreateNewEvent" prefHeight="39.0" prefWidth="223.0" text="Create new event" />
                   <Button fx:id="removeStudent" layoutX="293.0" layoutY="77.0" mnemonicParsing="false" onAction="#onRemoveStudentClick" prefHeight="39.0" prefWidth="223.0" text="Remove Student from Club" />
                   <Button fx:id="generateReportsButton" layoutX="295.0" layoutY="133.0" mnemonicParsing="false" onAction="#onGenerateReportButtonClicked" prefHeight="39.0" prefWidth="223.0" text="Generate Reports" />
-                  <Button fx:id="fillTable" layoutX="441.0" layoutY="177.0" mnemonicParsing="false" onAction="#onFillTableClick" text="Fill Table" />
+                  <Button fx:id="fillTable" layoutX="440.0" layoutY="180.0" mnemonicParsing="false" onAction="#onFillTableClick" text="Fill Table" />
                   <Label fx:id="welcomeClub" alignment="CENTER" layoutX="31.0" layoutY="14.0" prefHeight="32.0" prefWidth="492.0" text="Welcome to Club Dashboard!">
       </Label>
+                  <Button fx:id="backButtonCDD" layoutX="12.0" layoutY="21.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="26.0" prefWidth="40.0" text="&lt;--" />
                </children>
             </AnchorPane>
          </children>
@@ -72,7 +73,6 @@
             <Image url="@../images/6.png" />
          </image>
       </ImageView>
-      <Button fx:id="backButtonCDD" layoutX="295.0" layoutY="42.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="26.0" prefWidth="40.0" text="&lt;--" />
    </children>
    <stylesheets>
       <URL value="@../StylingSheets/rootStyles.css" />

@@ -5,11 +5,18 @@ import SCMS.Objects.Event;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+
 import java.util.ArrayList;
 
 
@@ -35,12 +42,31 @@ public class GenerateReportsController {
     private TableView<Event> reportTable;
 
     Club club;
-
+    public String buttonText;
     @FXML
     private DatePicker datePickerFilter;
     public void Start(Club selectedClub){
         this.club = selectedClub;
         Functions = club.getClubFunctions();
+    }
+
+    public String adId;
+    public Club clubObject;
+    public void gettingInformation(Club club, String advisorId) {
+        this.clubObject = club;
+        this.adId = advisorId;
+    }
+    public void backButtonCDD(ActionEvent event) throws Exception {
+        String fileName = "/SCMS/FxmlFiles/PressClub.fxml";
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName));
+        Parent root = loader.load();
+        buttonText = club.getName();
+        PressClubController pcc = loader.getController();
+        pcc.setWelcomeText(buttonText, adId);
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void loadingEvents() {
@@ -66,11 +92,4 @@ public class GenerateReportsController {
 
         reportTable.setItems(data);
     }
-
-
-
-
-
-
-
 }

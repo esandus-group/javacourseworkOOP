@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Ellipse?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="SCMS.Controllers.ViewStudentsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.ViewStudentsController">
    <children>
        <Ellipse fx:id="ellipseOne" layoutX="260.0" layoutY="788.0" radiusX="323.0" radiusY="130.0" stroke="BLACK" strokeType="INSIDE" />
        <Ellipse fx:id="ellipseTwo" layoutX="886.0" layoutY="1011.0" radiusX="540.0" radiusY="424.0" stroke="BLACK" strokeType="INSIDE" />
@@ -52,7 +52,7 @@
       </TableView>
       <Button fx:id="fillTableButton" layoutX="859.0" layoutY="106.0" mnemonicParsing="false" onAction="#onFillTableButtonClick" prefHeight="34.0" prefWidth="82.0" text="Fill Table" />
       <Label fx:id="idStatusLabel" layoutX="446.0" layoutY="167.0" prefHeight="17.0" prefWidth="148.0" />
-      <Button fx:id="backButtonCDD" layoutX="22.0" layoutY="22.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="26.0" prefWidth="40.0" text="&lt;--" />
+      <Button fx:id="backButtonCDD" layoutX="536.0" layoutY="110.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="27.0" prefWidth="49.0" text="&lt;--" />
    </children>
    <stylesheets>
       <URL value="@../StylingSheets/rootStyles.css" />

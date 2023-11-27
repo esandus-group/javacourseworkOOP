@@ -45,7 +45,7 @@
       </AnchorPane>
       <AnchorPane fx:id="content" layoutX="486.0" layoutY="168.0" prefHeight="323.0" prefWidth="445.0">
          <children>
-            <Text fx:id="titleText" layoutX="66.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register to SCMS" />
+            <Text fx:id="titleText" layoutX="109.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register to SCMS" />
             <Text fx:id="text1" layoutX="36.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name:" />
             <TextField fx:id="stdFirstNameTextField" layoutX="118.0" layoutY="130.0" promptText="Your Name" />
             <TextField layoutX="118.0" layoutY="163.0" promptText="Your Last Name" />
@@ -58,14 +58,14 @@
             <Text fx:id="text5" layoutX="86.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" />
             <TextField fx:id="stdIdTextField" layoutX="118.0" layoutY="97.0" promptText="Student ID" />
             <DatePicker fx:id="stdDOBDatePicker" layoutX="118.0" layoutY="195.0" prefHeight="25.0" prefWidth="163.0" />
-            <Text fx:id="idErrorText" layoutX="303.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0"  />
-            <Text fx:id="pwErrorText" layoutX="303.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0"  />
-            <Text fx:id="dOBErrorText" layoutX="303.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0"  />
-            <Text fx:id="lNameErrorText" layoutX="303.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0"  />
+            <Text fx:id="idErrorText" layoutX="303.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text fx:id="pwErrorText" layoutX="303.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text fx:id="dOBErrorText" layoutX="303.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text fx:id="lNameErrorText" layoutX="303.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" />
             <Text fx:id="fNameErrorText" layoutX="303.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Button fx:id="backButton" layoutX="27.0" layoutY="22.0" mnemonicParsing="false" onAction="#backToLoginPage" prefHeight="25.0" prefWidth="43.0" text="&lt;==" />
          </children>
       </AnchorPane>
-      <Button fx:id="backButton" layoutX="121.0" layoutY="109.0" mnemonicParsing="false" onAction="#backToLoginPage" prefHeight="25.0" prefWidth="43.0" text="&lt;==" />
    </children>
    <stylesheets>
       <URL value="@../StylingSheets/rootStyles.css" />

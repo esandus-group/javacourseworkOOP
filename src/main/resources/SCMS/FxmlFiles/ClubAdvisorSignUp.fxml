@@ -66,9 +66,9 @@
             <Text fx:id="6" layoutX="63.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adviosr ID:" />
             <TextField fx:id="stdIdTextField" layoutX="139.0" layoutY="169.0" promptText="Advisor ID" />
             <Text fx:id="idErrorText" layoutX="139.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="138.0" />
+            <Button fx:id="backButton" layoutX="15.0" layoutY="16.0" mnemonicParsing="false" onAction="#backToLoginPage" prefHeight="25.0" prefWidth="43.0" text="&lt;==" />
          </children>
       </AnchorPane>
-      <Button fx:id="backButton" layoutX="101.0" layoutY="56.0" mnemonicParsing="false" onAction="#backToLoginPage" prefHeight="25.0" prefWidth="43.0" text="&lt;==" />
    </children>
    <stylesheets>
       <URL value="@../StylingSheets/ClubAdvisorSignUp.css" />
