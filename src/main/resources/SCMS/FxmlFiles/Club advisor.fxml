@@ -18,7 +18,7 @@
             <Button fx:id="club3" layoutX="58.0" layoutY="188.0" mnemonicParsing="false" onAction="#onClub3PressClick" prefHeight="33.0" prefWidth="339.0" text="Club 3" wrapText="true" />
             <Button fx:id="club4" layoutX="59.0" layoutY="232.0" mnemonicParsing="false" onAction="#onClub4PressClick" prefHeight="33.0" prefWidth="339.0" text="Club 4" wrapText="true" />
             <Button fx:id="addclub" layoutX="155.0" layoutY="290.0" mnemonicParsing="false" onAction="#onAddClubClick" prefHeight="28.0" prefWidth="147.0" text="Create A New Club" />
-            <Button fx:id="backButtonCDD" layoutX="46.0" layoutY="34.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="25.0" prefWidth="68.0" text="Exit" />
+            <Button fx:id="backButtonCDD" layoutX="36.0" layoutY="34.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="25.0" prefWidth="68.0" text="Exit" />
          </children>
       </AnchorPane>
       <Ellipse fx:id="ellipseOne" layoutX="260.0" layoutY="788.0" radiusX="323.0" radiusY="130.0" stroke="BLACK" strokeType="INSIDE" />
