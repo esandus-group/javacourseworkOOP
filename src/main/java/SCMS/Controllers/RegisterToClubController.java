@@ -16,8 +16,6 @@ import javafx.stage.Stage;
 
 import java.sql.*;
 import java.util.ArrayList;
-
-//Join Club is fully functional
 public class RegisterToClubController {
 //Load data to the 2 array lists.
     @FXML
