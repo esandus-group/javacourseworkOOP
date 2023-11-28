@@ -50,7 +50,7 @@
             <Text fx:id="titleText" layoutX="53.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome!" wrappingWidth="151.70567327695102">
       </Text>
             <Button fx:id="studentLoginButton" layoutX="132.0" layoutY="271.0" mnemonicParsing="false" onAction="#Login" prefHeight="25.0" prefWidth="62.0" text="Login" />
-            <Text fx:id="stdNameErrorText" layoutX="53.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" " wrappingWidth="227.0" />
+            <Text fx:id="stdNameErrorText" layoutX="53.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" " wrappingWidth="227.0" />
             <Text fx:id="passwordErrorText" layoutX="53.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" " wrappingWidth="227.0" />
             <Button fx:id="RegisterButton" layoutX="64.0" layoutY="319.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#onRegisterButtonClick" prefHeight="25.0" prefWidth="205.0" text="Don't have an account?" />
             <Label layoutX="53.0" layoutY="88.0" text="Please enter your details to login " />

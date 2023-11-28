@@ -11,7 +11,11 @@
 }
 
 
-
+#backButtonCDD {
+    -fx-background-color: #7151F0;
+        -fx-text-fill: white;
+        -fx-font-weight: bold;
+}
 .text-field {
     -fx-background-color: #181818;
     -fx-text-fill: white;

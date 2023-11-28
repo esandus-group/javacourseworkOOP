@@ -25,7 +25,7 @@
             <ChoiceBox fx:id="eventTypeChoiceBox" layoutX="228.0" layoutY="242.0" prefHeight="26.0" prefWidth="160.0" />
             <TextField fx:id="timeHourTextBoxData" layoutX="427.0" layoutY="187.0" prefHeight="26.0" prefWidth="94.0" promptText="Hour" />
             <TextField fx:id="timeMinuteTextBoxData" layoutX="427.0" layoutY="222.0" prefHeight="26.0" prefWidth="94.0" promptText="Minute" />
-            <Label fx:id="errorMessageLabel" layoutX="72.0" layoutY="36.0" prefHeight="45.0" prefWidth="322.0" wrapText="true" />
+            <Label fx:id="errorMessageLabel" layoutX="72.0" layoutY="84.0" prefHeight="26.0" prefWidth="322.0" wrapText="true" />
             <Button fx:id="backButtonCDD" layoutX="17.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButtonCDD" prefHeight="26.0" prefWidth="40.0" text="&lt;--" />
             <Label fx:id="1" layoutX="78.0" layoutY="205.0" text="Venue" />
             <Label fx:id="2" layoutX="78.0" layoutY="119.0" text="Event Title" />

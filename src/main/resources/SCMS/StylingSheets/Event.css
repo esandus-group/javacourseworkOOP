@@ -17,19 +17,19 @@
     -fx-font-weight: bold;
 }
 
-#1, #2, #3,#4,#5, #6, #titleText {
+#1, #2, #3,#4,#5, #6, #errorMessageLabel {
     -fx-text-fill: white;
+     -fx-font-weight: bold;
 }
+
 
 #eventTypeChoiceBox {
-    -fx-background-color: #181818;
-    -fx-font-family: "Arial";
-    -fx-font-size: 14;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+
 }
 
-#eventTypeChoiceBox .combo-box-popup .list-view .list-cell {
-    -fx-text-fill: black;
-}
+
 
 #content {
     -fx-background-color: #282828;

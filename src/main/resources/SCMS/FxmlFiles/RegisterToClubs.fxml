@@ -53,7 +53,7 @@
             <ComboBox fx:id="clubComboBox" layoutX="153.0" layoutY="188.0" prefHeight="25.0" prefWidth="163.0" />
             <Text fx:id="text3" layoutX="51.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Name:" />
             <TextField fx:id="stdNameTextField" layoutX="153.0" layoutY="147.0" />
-            <Text fx:id="IDerrorLabel" layoutX="308.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
+            <Text fx:id="IDerrorLabel" layoutX="153.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
             <Button fx:id="backToStudentDashboardButton" layoutX="22.0" layoutY="13.0" mnemonicParsing="false" onAction="#loadStudentDashboard" text="&lt;==" />
          </children>
       </AnchorPane>

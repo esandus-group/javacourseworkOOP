@@ -211,6 +211,7 @@ public class EventContorller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         eventTypeChoiceBox.getItems().addAll(typeList);
+
         eventTypeChoiceBox.setOnAction(event -> {
             try {
                 onCreateNewEvent(event);
