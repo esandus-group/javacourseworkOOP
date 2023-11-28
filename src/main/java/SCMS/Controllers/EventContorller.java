@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 // Controller for managing events
-public class EventContorller implements Initializable {
+public class EventContorller implements Initializable { //(FULLY DONE BY siluni)
     private HelloApplication helloApplicationInstance = new HelloApplication();
 
     // FXML elements
