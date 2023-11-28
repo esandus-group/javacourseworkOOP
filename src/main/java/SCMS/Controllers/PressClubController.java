@@ -329,7 +329,18 @@ public class PressClubController {  //(FULLY DONE BY ESANDU , EXCEPT FOR 2 METHO
 
         return null; // ClubAdvisor not found
     }
-
+    public boolean isActionConfirmed(String confirmation){
+        if (confirmation.equals("CONFIRM")){
+            return true;
+        }
+        return false;
+    }
+    public boolean isNewAdvisorCorrect(String id) throws SQLException {
+        if (getClubAdvisor(id)==null){
+            return false;
+        }
+        return true;
+    }
     //=================================================================
     public void onAssignNewAdvClick(ActionEvent event) throws Exception { //using the advisorID create the object
         //getting the stuff from the text fields
@@ -337,13 +348,15 @@ public class PressClubController {  //(FULLY DONE BY ESANDU , EXCEPT FOR 2 METHO
         advisorIdOfNewPerson = newAdvisorId.getText();   //2. call getText method //this should be the advisors id
 
         //get confirmation
-        if (confirmation.equals("CONFIRM")) {
+        if (isActionConfirmed("CONFIRM")) {
             currentClubAdvisor = getClubAdvisor(advisorID);
-            newClubAdvisor = getClubAdvisor(advisorIdOfNewPerson);  //3. call getClubAdvisor method
-            currentClub=getClubByName(name);                    //5. call getClubAdvisor method
+
+            currentClub=getClubByName(name);                    //3. call getClubAdvisor method
 
             // Checking if the advisor manages the club
-            if (newClubAdvisor ==null) {
+            if (isNewAdvisorCorrect(advisorIdOfNewPerson)) {
+
+                newClubAdvisor = getClubAdvisor(advisorIdOfNewPerson);  //5. call getClubAdvisor method
 
                 deletingStatus.setText("An advisor with That ID does not Exist");   //9.1 calling setText method
                 deletingStatus1.setText("Club not deleted");
