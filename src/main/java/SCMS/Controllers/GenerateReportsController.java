@@ -2,6 +2,7 @@ package SCMS.Controllers;
 
 import SCMS.Objects.Club;
 import SCMS.Objects.Event;
+import SCMS.Utils.SCMSEnvironment;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,10 +18,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 public class GenerateReportsController {
     public ArrayList<Event> Functions = new ArrayList<>();
-
+    private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
     @FXML
     private TableColumn<Event, String> attendanceCol;
 
@@ -74,8 +79,13 @@ public class GenerateReportsController {
         eventVenueCol.setCellValueFactory(new PropertyValueFactory<>("venue"));
 
         attendanceCol.setCellValueFactory(cellData -> {
-            int attendance = cellData.getValue().getStudentsWhoJoined().size();
-            System.out.println(cellData.getValue().getStudentsWhoJoined().size());
+            int attendance = 0;
+            try {
+                attendance = getEventAttendanceCount(cellData.getValue().getEventId());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
             return new SimpleStringProperty(String.valueOf(attendance));
         });
 
@@ -90,5 +100,20 @@ public class GenerateReportsController {
         }
 
         reportTable.setItems(data);
+    }
+
+    public int getEventAttendanceCount(String eventId) throws SQLException {
+        String attendanceQuery = "SELECT COUNT(*) FROM Attendance WHERE eventId = ?";
+
+        try (PreparedStatement attendanceStatement = connections.prepareStatement(attendanceQuery)) {
+            attendanceStatement.setString(1, eventId);
+            ResultSet attendanceResult = attendanceStatement.executeQuery();
+
+            if (attendanceResult.next()) {
+                return attendanceResult.getInt(1); // gets the count from the first column
+            }
+        }
+
+        return 0; // Return 0 if no attendance count is found means no student has joined
     }
 }
