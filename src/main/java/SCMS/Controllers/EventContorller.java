@@ -2,7 +2,6 @@ package SCMS.Controllers;
 
 import SCMS.HelloApplication;
 import SCMS.Objects.Club;
-import SCMS.Objects.ClubAdvisor;
 import SCMS.Objects.Event;
 import SCMS.Utils.SCMSEnvironment;
 import javafx.event.ActionEvent;
@@ -24,11 +23,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+
 // Controller for managing events
-public class EventContorller implements Initializable {     //(FULLY DONE BY SILUNI)
+public class EventContorller implements Initializable {
+    private HelloApplication helloApplicationInstance = new HelloApplication();
+
     // FXML elements
     @FXML
     private TextField eventTitle;
@@ -42,6 +43,8 @@ public class EventContorller implements Initializable {     //(FULLY DONE BY SIL
     private ChoiceBox<String> eventTypeChoiceBox;
     @FXML
     private Button backButtonCDD;
+    @FXML
+    private TextField clubIdTextBoxData;
     @FXML
     private TextField timeHourTextBoxData;
     @FXML
@@ -62,44 +65,9 @@ public class EventContorller implements Initializable {     //(FULLY DONE BY SIL
     private String adId;
 
     // Method to pass information to the controller
-    public void gettingInformation(Club club, String advisorId) {       //1. getting the information from previ controller
+    public void gettingInformation(Club club, String advisorId) {
         this.club = club;
         this.adId = advisorId;
-    }
-    public ClubAdvisor getClubAdvisor(String clubAdvisorId) throws SQLException {
-        String advisorQuery = "SELECT * FROM ClubAdvisor WHERE id = ?";
-        String clubsQuery = "SELECT * FROM Club WHERE idOfAdvisor = ?";
-
-        try (PreparedStatement advisorStatement = this.connections.prepareStatement(advisorQuery);
-             PreparedStatement clubsStatement = this.connections.prepareStatement(clubsQuery)) {
-            advisorStatement.setString(1, clubAdvisorId);
-            clubsStatement.setString(1, clubAdvisorId);
-
-            ResultSet advisorResultSet = advisorStatement.executeQuery();
-            ResultSet clubsResultSet = clubsStatement.executeQuery();
-
-            if (advisorResultSet.next()) {
-                String id = advisorResultSet.getString("id");
-                String firstName = advisorResultSet.getString("firstName");
-                String lastName = advisorResultSet.getString("lastName");
-                String dateOfBirth = advisorResultSet.getString("dateOfBirth");
-                String password = advisorResultSet.getString("password");
-
-                ArrayList<Club> managingClubs = new ArrayList<>();
-                while (clubsResultSet.next()) {
-                    String clubId = clubsResultSet.getString("clubId");
-                    String clubName = clubsResultSet.getString("name");
-
-                    // Create a Club object and add it to the managingClubs list
-                    Club club = new Club(clubId,clubName);        //8. call ClubAdvisor constructor
-                    managingClubs.add(club);
-                }
-
-                return new ClubAdvisor(id, firstName, lastName, dateOfBirth, password, managingClubs);   //4. call ClubAdvisor constructor
-            }
-        }
-
-        return null; // ClubAdvisor not found
     }
 
     // Back button action
@@ -116,7 +84,7 @@ public class EventContorller implements Initializable {     //(FULLY DONE BY SIL
         stage.show();
     }
 
-    // SQL reader method to get number of events, meetings and activities per month
+    // SQL reader method to get event counts
     public static HashMap<String, String> SQLReader(String yearMonth) {
         try {
             String sqlQuery = "SELECT typeOfClubFunction, COUNT(*) AS numberOfEvents FROM Event WHERE DATE_FORMAT(dateTime, '%Y-%m') = ? GROUP BY typeOfClubFunction";
@@ -142,7 +110,6 @@ public class EventContorller implements Initializable {     //(FULLY DONE BY SIL
     public String validateTimeAndTypeOfEvent(LocalDate date, String hour, String minute, String typ) {
         Integer eventHour;
         Integer eventMinute;
-        // Validating if the input are integers
         try {
             eventHour = Integer.parseInt(hour);
             eventMinute = Integer.parseInt(minute);
@@ -151,8 +118,7 @@ public class EventContorller implements Initializable {     //(FULLY DONE BY SIL
             errorMessageLabel.setText(errorMessage);
             return errorMessage;
         }
-        // If integers, validating if its a valid time
-        // Any function can be only held from 4am to 6pm
+
         if ((eventHour > 18 || eventHour <= 4) || (eventMinute > 59 || eventHour <= 0)) {
             errorMessage = "Any club activity should be held between 4.00 to 18.00";
             errorMessageLabel.setText(errorMessage);
@@ -163,12 +129,12 @@ public class EventContorller implements Initializable {     //(FULLY DONE BY SIL
             errorMessageLabel.setText(errorMessage);
             return errorMessage;
         }
-        // Setting time in the DateTime format
         LocalTime time = LocalTime.of(eventHour, eventMinute);
         dateTime = date.atTime(time);
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
         String formattedDateTime = dateTime.format(formatter);
-        // Any event can have only 2 events, 1 meetings and 2 activities per month
+
         HashMap<String, String> eventCount = SQLReader(formattedDateTime);
         int noOfEvents = 0;
         int noOfMeetings = 0;
@@ -206,56 +172,51 @@ public class EventContorller implements Initializable {     //(FULLY DONE BY SIL
         return errorMessage;
     }
 
-    // Initialization method for TypeChoiceBox
+    // Initialization method
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         eventTypeChoiceBox.getItems().addAll(typeList);
-
-        eventTypeChoiceBox.setOnAction(event -> {
-            try {
-                onCreateNewEvent(event);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        eventTypeChoiceBox.setOnAction(this::onCreateNewEvent);
     }
 
-    // Getting all data and creating the new event object if inputs are valid
-    public void onCreateNewEvent(ActionEvent event) throws SQLException {        //2.1 calling the method to create the event
+    // Create new event action
+    public void onCreateNewEvent(ActionEvent event) {
         errorMessage = "";
         String title = eventTitle.getText();
         String venue = eventVenue.getText();
         String description = eventDescription.getText();
         type = eventTypeChoiceBox.getValue();
 
-        errorMessage = (validateTextFileds(title, venue, description, type));       //2.1. calling the method to validate inputs
-        errorMessageLabel.setText(errorMessage);                                   //4.2. calling the method to setText
+        errorMessage = (validateTextFileds(title, venue, description, type));
+        errorMessageLabel.setText(errorMessage);
         System.out.println(errorMessage);
 
         if (errorMessage.equalsIgnoreCase("")) {
             LocalDate date = eventDate.getValue();
             String strHour = timeHourTextBoxData.getText();
             String strMinute = timeMinuteTextBoxData.getText();
-            errorMessage = validateTimeAndTypeOfEvent(date, strHour, strMinute, type);       //2.2. method to validate the time and no.of events
-            errorMessageLabel.setText(errorMessage);                                     //4.2. calling the method to setText
+            errorMessage = validateTimeAndTypeOfEvent(date, strHour, strMinute, type);
+            errorMessageLabel.setText(errorMessage);
             System.out.println(errorMessage);
 
             if (errorMessage.equalsIgnoreCase("")) {
+                Event newEvent = new Event(title, dateTime, venue, type, description, new Button());
+
+                System.out.println(type);
                 eventTitle.setText("");
                 eventVenue.setText("");
                 eventDescription.setText("");
                 timeHourTextBoxData.setText("");
                 timeMinuteTextBoxData.setText("");
+
                 eventDate.setValue(null);
                 eventTypeChoiceBox.setValue(null);
                 errorMessageLabel.setText("");
 
-                Event newEvent = new Event(title, dateTime, venue, type, description, new Button());   //3. Calling event Constructor
 
-                ClubAdvisor advisorOfTheClub = getClubAdvisor(adId);
+                System.out.println(newEvent.getType());
 
-                newEvent.writeEventsToSqlDB(club.getClubId());              //4.2. calling the method to add to the database
-                advisorOfTheClub.scheduleNewEvent(club,newEvent);       //5. calling the method to add to the database
+                newEvent.writeEventsToSqlDB(club.getClubId());
             }
         }
     }
