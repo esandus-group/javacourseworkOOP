@@ -86,9 +86,13 @@ public class PressClubController {  //(FULLY DONE BY ESANDU , EXCEPT FOR 2 METHO
     public ArrayList<Event> allEvents = new ArrayList();
     ObservableList<Event> allTheEvents = FXCollections.observableArrayList();
     //=====================================================================
-
     public void gettingAdvisorFromMarkAttendanceCon(ClubAdvisor advisor){
         this.currentClubAdvisor=advisor;
+        this.advisorID=currentClubAdvisor.getId();
+    }
+
+    public void gettingAdvisorFromGenerateReports(String advisorid) throws SQLException {
+        this.currentClubAdvisor=getClubAdvisor(advisorid);
         this.advisorID=currentClubAdvisor.getId();
     }
     //=====================================================================
@@ -255,7 +259,7 @@ public class PressClubController {  //(FULLY DONE BY ESANDU , EXCEPT FOR 2 METHO
         Parent root = loader.load();
 
         clubAdvisorController cac = loader.getController();
-        cac.setWelcomeText(getClubAdvisor(advisorID));
+        cac.setWelcomeText(currentClubAdvisor);
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

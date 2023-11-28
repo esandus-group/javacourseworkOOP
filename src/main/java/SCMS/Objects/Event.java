@@ -40,7 +40,7 @@ public class Event {
         this.type = type;
         this.description = description;
         this.button = button;
-        this.button.setText("mark stuff");
+        this.button.setText("mark Attend.");
     }
 
     // Constructor for creating an event with a specified eventId and button
@@ -52,7 +52,7 @@ public class Event {
         this.type = type;
         this.description = description;
         this.button = button;
-        this.button.setText("mark stuff");
+        this.button.setText("mark Attend.");
     }
 
     // Constructor for creating an event with specified eventId, button, and studentsWhoJoined

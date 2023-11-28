@@ -75,8 +75,12 @@ public class EventContorller implements Initializable { //(FULLY DONE BY siluni)
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName));
         Parent root = loader.load();
         buttonText = club.getName();
+
         PressClubController pcc = loader.getController();
+
         pcc.setWelcomeText(buttonText, adId);
+        pcc.gettingAdvisorFromGenerateReports(adId);
+
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);

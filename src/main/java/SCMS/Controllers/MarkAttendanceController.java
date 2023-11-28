@@ -214,13 +214,14 @@ public class MarkAttendanceController {     //(FULLY DONE BY NIKOYA)
 
         PressClubController pcc = loader.getController();
         pcc.setWelcomeText(buttonText,club.getClubId());
+        pcc.gettingAdvisorFromMarkAttendanceCon(advisor);
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
-
     }
+
     //=========================================================================
     //save attendance records for students related to a particular event.
     public void saveAttendance(Event function) {           //3.3.3  calling the method to save to the database

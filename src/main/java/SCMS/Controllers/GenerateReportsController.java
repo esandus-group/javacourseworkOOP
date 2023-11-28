@@ -65,7 +65,10 @@ public class GenerateReportsController {
         Parent root = loader.load();
         buttonText = club.getName();
         PressClubController pcc = loader.getController();
+
         pcc.setWelcomeText(buttonText, adId);
+        pcc.gettingAdvisorFromGenerateReports(adId);
+
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
