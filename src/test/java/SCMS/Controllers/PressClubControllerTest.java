@@ -35,8 +35,4 @@ public class PressClubControllerTest {
         PressClubController controller = new PressClubController();
         assertTrue(controller.isNewAdvisorCorrect("T2"));
     }
-
-
-
-
 }

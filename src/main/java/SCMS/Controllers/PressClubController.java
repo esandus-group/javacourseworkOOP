@@ -319,11 +319,11 @@ public class PressClubController {  //(FULLY DONE BY ESANDU , EXCEPT FOR 2 METHO
                     String clubName = clubsResultSet.getString("name");
 
                     // Create a Club object and add it to the managingClubs list
-                    Club club = new Club(clubId,clubName);        //8. call ClubAdvisor constructor
+                    Club club = new Club(clubId,clubName);        //7. call ClubAdvisor constructor
                     managingClubs.add(club);
                 }
 
-                return new ClubAdvisor(id, firstName, lastName, dateOfBirth, password, managingClubs);   //4. call ClubAdvisor constructor
+                return new ClubAdvisor(id, firstName, lastName, dateOfBirth, password, managingClubs);   //5. call ClubAdvisor constructor
             }
         }
 
@@ -335,6 +335,7 @@ public class PressClubController {  //(FULLY DONE BY ESANDU , EXCEPT FOR 2 METHO
         }
         return false;
     }
+
     public boolean isNewAdvisorCorrect(String id) throws SQLException {
         if (getClubAdvisor(id)==null){
             return false;
@@ -348,22 +349,21 @@ public class PressClubController {  //(FULLY DONE BY ESANDU , EXCEPT FOR 2 METHO
         advisorIdOfNewPerson = newAdvisorId.getText();   //2. call getText method //this should be the advisors id
 
         //get confirmation
-        if (isActionConfirmed("CONFIRM")) {
+        if (isActionConfirmed(confirmation)) {         //3. call isActionConfirmed method
             currentClubAdvisor = getClubAdvisor(advisorID);
 
-            currentClub=getClubByName(name);                    //3. call getClubAdvisor method
+            newClubAdvisor = getClubAdvisor(advisorIdOfNewPerson);  //4 call getClubAdvisor method
+            currentClub=getClubByName(name);                        //8. call getClubAdvisor method
 
             // Checking if the advisor manages the club
-            if (isNewAdvisorCorrect(advisorIdOfNewPerson)) {
+            if (!isNewAdvisorCorrect(advisorIdOfNewPerson)) {
 
-                newClubAdvisor = getClubAdvisor(advisorIdOfNewPerson);  //5. call getClubAdvisor method
-
-                deletingStatus.setText("An advisor with That ID does not Exist");   //9.1 calling setText method
+                deletingStatus.setText("An advisor with That ID does not Exist");   //11.1 calling setText method
                 deletingStatus1.setText("Club not deleted");
 
             } else {
 
-                boolean status = currentClubAdvisor.assignNewAdvisor(newClubAdvisor,currentClub);   //9.1.1 calling assignNewDriver method
+                boolean status = currentClubAdvisor.assignNewAdvisor(newClubAdvisor,currentClub);   //9.1.2 calling assignNewDriver method
                 System.out.println(status);
                  //pass the new advisors id and the club object
 
@@ -387,7 +387,7 @@ public class PressClubController {  //(FULLY DONE BY ESANDU , EXCEPT FOR 2 METHO
                 }
             }
         } else {
-            deletingStatus1.setText("Action not confirmed,advisor not assigned.");//11.1 calling setText method
+            deletingStatus1.setText("Action not confirmed,advisor not assigned.");//9.1 calling setText method
         }
     }
     //=======================================================
