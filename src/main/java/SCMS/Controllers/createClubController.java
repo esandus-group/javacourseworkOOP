@@ -141,7 +141,6 @@ import java.util.ArrayList;
         return name != null && !name.equals("");
     }
     //=========================================================================
-
     public void onSaveNewClubClick(ActionEvent event) throws Exception {     //1.  calling the saveNewClub button when clicked
         //getting the information from the text fields
         clubNam = clubName.getText();
@@ -181,7 +180,7 @@ import java.util.ArrayList;
 
                 if (!currentClubAdvisor.addClub(newClub)){          //3.1. calling the addClub method
                     nameStatus.setText("already manages 4 clubs, unable to create.");
-                    System.out.println("nigga");
+
                 }
                 else {
                     if (newClub != null) {
