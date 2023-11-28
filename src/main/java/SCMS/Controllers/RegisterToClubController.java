@@ -14,6 +14,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Objects;
+
 public class RegisterToClubController { //(FULLY DONE BY RANIDU)
 //Load data to the 2 array lists.
     @FXML
@@ -54,12 +56,14 @@ public class RegisterToClubController { //(FULLY DONE BY RANIDU)
     public void onRegisterToClubButtonClick(ActionEvent event) throws Exception{ //1.1. calling the RegisterToClub method
         String studentId = stdIdTextField.getText();        //1.3 calling the getText method
         String studentName = stdNameTextField.getText();       //1.4 calling the getText method
-        String selectedClub = clubComboBox.getValue().toString();        //1.5 calling the getText method
-
+        Object selectedClub = clubComboBox.getValue();        //1.5 calling the getText method
+        if(selectedClub == null){
+            IDerrorLabel.setText("PLease select a club");
+            return;
+        }
         if (isStudentValid(studentId, studentName)) {       //1.2. calling the isStudentValid checking method
-
-            String clubId = getClubIdByName(selectedClub);
-            Club club = getClubByName(selectedClub);
+            String clubId = getClubIdByName(selectedClub.toString());
+            Club club = getClubByName(selectedClub.toString());
             if (!isStudentRemoved(studentId, clubId)){      //3.1 calling the isStudentRemoved checking method
                 student.joinClub(club);                     //3.1.1 calling the joinClub method
                 registerStudentToClub(event, studentId, clubId);        //3.1.2 calling the registerStudentToClub method to save to daatabase
