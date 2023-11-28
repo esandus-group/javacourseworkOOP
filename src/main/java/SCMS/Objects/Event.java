@@ -64,7 +64,7 @@ public class Event {
         this.type = type;
         this.description = description;
         this.button = button;
-        this.button.setText("mark stuff");
+        this.button.setText("mark Attend.");
         this.studentsWhoJoined = studentsWhoJoined;
     }
 

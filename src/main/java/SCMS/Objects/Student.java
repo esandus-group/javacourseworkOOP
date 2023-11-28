@@ -49,7 +49,6 @@ public class Student extends Person{
         System.out.println("Date of Birth: " + this.getDateOfBirth());
         System.out.println("Clubs Joined: " + clubsJoined);
     }
-
     public ArrayList<Club> getClubsJoined() {
         return clubsJoined;
     }

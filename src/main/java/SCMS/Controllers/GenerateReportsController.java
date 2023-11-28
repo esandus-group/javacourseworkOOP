@@ -72,7 +72,7 @@ public class GenerateReportsController {
         stage.show();
     }
 
-    public void loadingEvents() {
+    public void loadingEvents() {       //1.1. calling the method to load to the table
         eventTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
         eventNameCol.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -81,7 +81,7 @@ public class GenerateReportsController {
         attendanceCol.setCellValueFactory(cellData -> {
             int attendance = 0;
             try {
-                attendance = getEventAttendanceCount(cellData.getValue().getEventId());
+                attendance = getEventAttendanceCount(cellData.getValue().getEventId());     //1.1.1 calling the method to get the no.of students
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -93,13 +93,13 @@ public class GenerateReportsController {
 
         if (datePickerFilter.getValue() != null) {
             data.addAll(Functions.stream()
-                    .filter(event -> event.getDateTime().toLocalDate().isEqual(datePickerFilter.getValue()))
+                    .filter(event -> event.getDateTime().toLocalDate().isEqual(datePickerFilter.getValue()))         //1.1.2. calling the method to get picked date
                     .toList());
         } else {
             data.addAll(Functions);
         }
 
-        reportTable.setItems(data);
+        reportTable.setItems(data);          //1.1.3. calling the method ( setItems ) to set data to the table
     }
 
     public int getEventAttendanceCount(String eventId) throws SQLException {
