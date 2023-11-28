@@ -87,7 +87,7 @@ public class ClubAdvisorLoginController {   //(FULLY DONE BY ESANDU)
         return null; // ClubAdvisor not found
     }
     //=========================================================================
-    public boolean isInputEmpty(String input){
+    public boolean isInputNotNull(String input){
         if ( input== null || input.equals("")){
             return false;
         }
@@ -99,11 +99,11 @@ public class ClubAdvisorLoginController {   //(FULLY DONE BY ESANDU)
             password = passwordTextField.getText();
             ClubAdvisor advisor = getClubAdvisor(adId);
 
-        if (!isInputEmpty(adId)){
+        if (!isInputNotNull(adId)){
             idStatus.setText("pls enter the Teacher Id");
             return;
         }
-        if (!isInputEmpty(password)){
+        if (!isInputNotNull(password)){
             passwordStatus.setText("pls enter the password");
             return;
         }

@@ -62,7 +62,7 @@ public class ClubAdvisorSignupController {      //(FULLY DONE BY ESANDU)
     
     String stdDOB;
     String stdPassword;
-    public boolean isInputEmpty(String input){
+    public boolean isInputNotNull(String input){
         if ( input== null || input.equals("")){
             return false;
         }
@@ -87,27 +87,27 @@ public class ClubAdvisorSignupController {      //(FULLY DONE BY ESANDU)
     }
 
     public boolean advisorInputValidator() throws Exception {
-        if (!isInputEmpty(teacherID)){
+        if (!isInputNotNull(teacherID)){
             TidErrorText.setText("pls enter the Teacher Id");
             return false;
         }
-        if (!isInputEmpty(advisorId)){
+        if (!isInputNotNull(advisorId)){
             idErrorText.setText("pls enter the advisor Id");
             return false;
         }
-        if (!isInputEmpty(advisorFName)){
+        if (!isInputNotNull(advisorFName)){
             fNameErrorText.setText("pls enter the First name");
             return false;
         }
-        if (!isInputEmpty(advisorLName)){
+        if (!isInputNotNull(advisorLName)){
             lNameErrorText.setText("pls enter the Last name");
             return false;
         }
-        if (!isInputEmpty(stdDOB)){
+        if (!isInputNotNull(stdDOB)){
             dOBErrorText.setText("pls enter the date of Birth");
             return false;
         }
-        if (!isInputEmpty(stdPassword)){
+        if (!isInputNotNull(stdPassword)){
             TidErrorText.setText("pls enter the Password");
             return false;
         }
