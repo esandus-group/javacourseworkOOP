@@ -14,6 +14,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class RegisterToClubController { //(FULLY DONE BY RANIDU)
 //Load data to the 2 array lists.
@@ -67,7 +68,7 @@ public class RegisterToClubController { //(FULLY DONE BY RANIDU)
                 student.joinClub(club);                     //3.1.1 calling the joinClub method
                 registerStudentToClub(event, studentId, clubId);        //3.1.2 calling the registerStudentToClub method to save to daatabase
             }
-            IDerrorLabel.setText("unable to join");           //4. calling the setText method
+            IDerrorLabel.setText("Unable to join, as previously removed");
         }
     }
     //=====================================================================
@@ -191,7 +192,7 @@ public class RegisterToClubController { //(FULLY DONE BY RANIDU)
             e.printStackTrace();
 
         }
-
+  //4. calling the setText method
         return false;
     }
 

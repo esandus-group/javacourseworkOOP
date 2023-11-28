@@ -116,6 +116,7 @@ public class MainLoginPageController {      //(FULLY DONE BY RANIDU)
             stage.setScene(scene);
             stage.show();
         }
+        stdNameErrorText.setText("Incorrect Student ID/ Password");
     }
 
     public boolean isStudentValid(String stdId, String stdPassword) throws Exception{
@@ -127,7 +128,6 @@ public class MainLoginPageController {      //(FULLY DONE BY RANIDU)
                 return true;
             }
         }
-        stdNameErrorText.setText("Incorrect Student ID/ Password");  //5.1  calling setText method
         return false;
     }
 

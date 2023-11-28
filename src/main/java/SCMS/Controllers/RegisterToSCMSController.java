@@ -96,6 +96,27 @@ public class RegisterToSCMSController { //(FULLY DONE BY RANIDU)
         stdLName = stdLastNameTextField.getText();
         stdDOB = String.valueOf(stdDOBDatePicker.getValue());
         stdPassword = stdPasswordTextField.getText();
+        idErrorText.setText("");
+        fNameErrorText.setText("");
+        lNameErrorText.setText("");
+        dOBErrorText.setText("");
+        pwErrorText.setText("");
+
+        if(!isStudentIdValid(stdId)){
+            idErrorText.setText("Id invalid");      //3.2. method to setText
+        }
+        if(!isStudentFNameValid(stdFName)){
+            fNameErrorText.setText("First name invalid"); //3.2. method to setText
+        }
+        if (!isStudentLNameValid(stdLName)){
+            lNameErrorText.setText("Last name invalid");//3.2. method to setText
+        }
+        if(!isStudentDOBValid(stdDOB)){
+            dOBErrorText.setText("Date of birth invalid");//3.2. method to setText
+        }
+        if(!isStudentPasswordValid(stdPassword)){
+            pwErrorText.setText("Password invalid");//3.2. method to setText
+        }
 
         if(studentInputValidator()){        //1.1. calling the method to validate student infor
 
@@ -116,42 +137,36 @@ public class RegisterToSCMSController { //(FULLY DONE BY RANIDU)
     }
     //=====================================================================
     public boolean isStudentIdValid(String studentId) throws Exception {
-        idErrorText.setText("");
+        System.out.println("isStudentIdValid" + studentId);
         if (studentId != null) {
                 // Check if the student ID already exists in the database
                 String query = "SELECT * FROM student WHERE id = ?";
                 try (PreparedStatement preparedStatement = connections.prepareStatement(query)) {
                     preparedStatement.setString(1, studentId);
                     ResultSet resultSet = preparedStatement.executeQuery();
-                    idErrorText.setText("That Id already exists");
+//                   idErrorText.setText("That Id already exists");
                     return !resultSet.next(); // Returns true if the result set is empty, indicating that the student ID is not in use
                 }
         }
-        idErrorText.setText("Id cannot be null");       //3.2. method to setText
         return false;
     }
     //=====================================================================
     public boolean isStudentFNameValid(String studentFName) throws Exception{
-        fNameErrorText.setText("");
         if(!studentFName.equals("")){
             System.out.println("true");
             return true;
         }
-        fNameErrorText.setText("First name cannot be null");    //3.2. method to setText
         return false;
     }
     //=====================================================================
     public boolean isStudentLNameValid(String studentLName) throws Exception{
-        lNameErrorText.setText("");
         if(!studentLName.equals("")){
             return true;
-        }
-        lNameErrorText.setText("Last name cannot be null");      //3.2. method to setText
+        }      //3.2. method to setText
         return false;
     }
     //=====================================================================
     public boolean isStudentDOBValid(String studentDOB) throws Exception {
-        dOBErrorText.setText("");
         System.out.println(studentDOB);
         if (!studentDOB.equals("")) {
             System.out.println("DOB not null");
@@ -162,17 +177,14 @@ public class RegisterToSCMSController { //(FULLY DONE BY RANIDU)
             }
             dOBErrorText.setText("Date of birth cannot be in the future");      //3.2. method to setText
             return false;
-        }
-        dOBErrorText.setText("Date of birth cannot be null");           //3.2. method to setText
+        }           //3.2. method to setText
         return false;
     }
     //=====================================================================
     public boolean isStudentPasswordValid(String studentPassword) throws Exception{
-        pwErrorText.setText("");
         if(!studentPassword.equals("")){
             return true;
-        }
-        pwErrorText.setText("Password cannot be null");     //3.2. method to setText
+        }     //3.2. method to setText
         return false;
     }
     //=====================================================================
