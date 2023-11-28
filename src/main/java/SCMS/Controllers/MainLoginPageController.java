@@ -20,7 +20,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class MainLoginPageController {
+public class MainLoginPageController {      //(FULLY DONE BY RANIDU)
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
 
     @FXML

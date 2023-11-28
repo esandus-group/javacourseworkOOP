@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.*;
 
-public class createClubController {
+public class createClubController {         //(FULLY DONE BY ESANDU)
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //getting the database connection
     @FXML
     private TextField clubName;

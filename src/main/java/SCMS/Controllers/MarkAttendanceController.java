@@ -24,7 +24,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class MarkAttendanceController {
+public class MarkAttendanceController {     //(FULLY DONE BY NIKOYA)
     CheckBox []checkBoxArray; //declares an array of CheckBox objects named checkBoxArray.
     public ArrayList<Student> allStudentsPresent = new ArrayList(); //to store the objects of the Student class
     ObservableList<Student> allTheStudents = FXCollections.observableArrayList();

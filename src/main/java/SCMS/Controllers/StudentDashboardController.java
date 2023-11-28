@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
-public class StudentDashboardController {
+public class StudentDashboardController {       //(FULLY DONE BY ESANDU)
     HelloApplication h1 = new HelloApplication();
     ArrayList<String> clubs = new ArrayList<>();
     public String studentId;

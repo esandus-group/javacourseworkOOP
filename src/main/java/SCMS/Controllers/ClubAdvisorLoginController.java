@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ClubAdvisorLoginController {
+public class ClubAdvisorLoginController {   //(FULLY DONE BY ESANDU)
     @FXML
     private Label idStatus;
 

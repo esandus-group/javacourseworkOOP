@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class clubAdvisorController {
+public class clubAdvisorController {         //(FULLY DONE BY ESANDU)
     HelloApplication helloApplication = new HelloApplication(); //creating the instance
     @FXML
     private Button backButtonCDD;

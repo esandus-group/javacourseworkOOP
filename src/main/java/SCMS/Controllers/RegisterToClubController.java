@@ -1,5 +1,4 @@
 package SCMS.Controllers;
-
 import SCMS.Objects.Club;
 import SCMS.Objects.Student;
 import SCMS.Utils.SCMSEnvironment;
@@ -13,10 +12,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.sql.*;
 import java.util.ArrayList;
-public class RegisterToClubController {
+public class RegisterToClubController { //(FULLY DONE BY RANIDU)
 //Load data to the 2 array lists.
     @FXML
     private Text IDerrorLabel;

@@ -13,12 +13,11 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDateTime;
 
-public class RegisterToSCMSController {
+public class RegisterToSCMSController { //(FULLY DONE BY RANIDU)
 
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
 
