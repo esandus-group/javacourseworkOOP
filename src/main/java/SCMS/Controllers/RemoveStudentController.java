@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class RemoveStudentController {
+public class RemoveStudentController {      //(FULLY DONE BY ESANDU)
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //getting the connection
     @FXML
     private TextField deleteStudentClub;

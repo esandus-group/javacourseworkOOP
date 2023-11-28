@@ -42,7 +42,7 @@
                      <columns>
                         <TableColumn fx:id="colDate" prefWidth="124.64456176757812" text="Date" />
                         <TableColumn fx:id="colFunction" prefWidth="106.35540771484375" text="Function" />
-                        <TableColumn fx:id="colType" prefWidth="69.2666015625" text="EventID" />
+                        <TableColumn fx:id="colType" prefWidth="69.2666015625" text="Type" />
                         <TableColumn fx:id="colVenue" prefWidth="148.6497802734375" text="Venue" />
                         <TableColumn fx:id="colAttendance" prefWidth="150.35028076171875" text="Mark Attendance" />
                      </columns>

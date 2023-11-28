@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.*;
 
-public class ClubAdvisorSignupController {
+public class ClubAdvisorSignupController {      //(FULLY DONE BY ESANDU)
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
 
     HelloApplication h1 = new HelloApplication(); //making the instance to call the stageLoader method

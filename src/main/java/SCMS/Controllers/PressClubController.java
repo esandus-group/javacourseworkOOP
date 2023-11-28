@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
-public class PressClubController {
+public class PressClubController {  //(FULLY DONE BY ESANDU , EXCEPT FOR 2 METHODS BELOW - mentioned next to the method)
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
     HelloApplication helloApplicationInstance = new HelloApplication();
     @FXML
@@ -92,7 +92,7 @@ public class PressClubController {
         this.advisorID=currentClubAdvisor.getId();
     }
     //=====================================================================
-    public void openingEventStudentList(ActionEvent event,int buttonId) throws IOException, SQLException {
+    public void openingEventStudentList(ActionEvent event,int buttonId) throws IOException, SQLException {     // (done by nikoya)
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/M123.fxml"));      //3.3  calling the method to open the students present
         Parent root = loader.load();
 
@@ -105,7 +105,7 @@ public class PressClubController {
         stage.show();
     }
     //=====================================================================
-    public void handleMarkAttendanceAction(ActionEvent event) throws IOException, SQLException {    //3.1  calling the handle button actions method
+    public void handleMarkAttendanceAction(ActionEvent event) throws IOException, SQLException {      // (done by nikoya)
         if (event.getSource() instanceof Button) {
             Button clickedButton = (Button) event.getSource();
             int buttonId = (int) clickedButton.getUserData();
@@ -151,7 +151,7 @@ public class PressClubController {
     public void loadingEvents() {
         colDate.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
         colFunction.setCellValueFactory(new PropertyValueFactory<>("title"));
-        colType.setCellValueFactory(new PropertyValueFactory<>("eventId"));
+        colType.setCellValueFactory(new PropertyValueFactory<>("type"));
         colVenue.setCellValueFactory(new PropertyValueFactory<>("venue"));
         colAttendance.setCellValueFactory(new PropertyValueFactory<>("button"));
 
@@ -174,7 +174,7 @@ public class PressClubController {
             button[i].setUserData(i); // Set an identifier (can be any unique value)
             button[i].setOnAction(event -> {
                 try {
-                    handleMarkAttendanceAction(event);
+                    handleMarkAttendanceAction(event);   //3.1  calling the handle button actions method
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 } catch (SQLException e) {
@@ -456,7 +456,7 @@ public class PressClubController {
         GenerateReportsController GRC = loader.getController();
 
         GRC.Start(club);
-        GRC.gettingInformation(getClubByName(name),advisorID);
+        GRC.gettingInformation(club,advisorID);
 
         stage.setScene(scene);
         stage.show();

@@ -38,9 +38,11 @@ public class ClubAdvisor extends Person{
             return true;
         }
     }
+
     public void scheduleNewEvent(Club club, Event event){
         club.getClubFunctions().add(event);
     }
+
     public void removeStudent(String studentId, Club club){
 
         ArrayList<Student> studentsPresent;

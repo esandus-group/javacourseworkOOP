@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class ClubDashboardController {
+public class ClubDashboardController {      //(FULLY DONE BY RANIDU)
     public ArrayList<Event> functionsPresent = new ArrayList<>();
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //GETtING THE CONNECTION OF THE DB
     @FXML

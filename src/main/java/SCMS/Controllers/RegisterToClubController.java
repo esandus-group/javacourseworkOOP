@@ -1,5 +1,4 @@
 package SCMS.Controllers;
-
 import SCMS.Objects.Club;
 import SCMS.Objects.Student;
 import SCMS.Utils.SCMSEnvironment;
@@ -13,10 +12,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.sql.*;
 import java.util.ArrayList;
-public class RegisterToClubController {
+import java.util.Objects;
+
+public class RegisterToClubController { //(FULLY DONE BY RANIDU)
 //Load data to the 2 array lists.
     @FXML
     private Text IDerrorLabel;
@@ -41,6 +41,7 @@ public class RegisterToClubController {
         setClubsComboBox();         //2.1.1.1. calling the setClubsComboBox method
     }
     //=====================================================================
+
     public String getClubIdByName(String name) throws SQLException {
         Statement st = connections.createStatement();
         String getClubId = "SELECT * FROM club WHERE name='"+name+"'";
@@ -50,20 +51,24 @@ public class RegisterToClubController {
         }
         return null;
     }
+
     //=====================================================================
     public void onRegisterToClubButtonClick(ActionEvent event) throws Exception{ //1.1. calling the RegisterToClub method
         String studentId = stdIdTextField.getText();        //1.3 calling the getText method
         String studentName = stdNameTextField.getText();       //1.4 calling the getText method
-        String selectedClub = clubComboBox.getValue().toString();        //1.5 calling the getText method
-
+        Object selectedClub = clubComboBox.getValue();        //1.5 calling the getText method
+        if(selectedClub == null){
+            IDerrorLabel.setText("PLease select a club");
+            return;
+        }
         if (isStudentValid(studentId, studentName)) {       //1.2. calling the isStudentValid checking method
-
-            String clubId = getClubIdByName(selectedClub);
-            Club club = getClubByName(selectedClub);
+            String clubId = getClubIdByName(selectedClub.toString());
+            Club club = getClubByName(selectedClub.toString());
             if (!isStudentRemoved(studentId, clubId)){      //3.1 calling the isStudentRemoved checking method
                 student.joinClub(club);                     //3.1.1 calling the joinClub method
                 registerStudentToClub(event, studentId, clubId);        //3.1.2 calling the registerStudentToClub method to save to daatabase
             }
+            IDerrorLabel.setText("Unable to join, as previously removed");
         }
     }
     //=====================================================================
@@ -164,12 +169,14 @@ public class RegisterToClubController {
                 System.out.println("Valid");
                 return true;
             }
+
             else{
                 IDerrorLabel.setText("Incorrect student ID/student name "); //2.1.1.3 calling the setText method
             }
         }
         return false;
     }
+
     //=====================================================================
     public boolean isStudentRemoved(String studentId, String clubId) {
         System.out.println("Checking if student is removed");
@@ -185,7 +192,7 @@ public class RegisterToClubController {
             e.printStackTrace();
 
         }
-        IDerrorLabel.setText("Unable to join, as previously removed");  //4. calling the setText method
+  //4. calling the setText method
         return false;
     }
 
@@ -215,15 +222,4 @@ public class RegisterToClubController {
         stage.show();
     }
     //=====================================================================
-    public void onBackToStudentDashboardClicked(ActionEvent event) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/StudentDashboard.fxml"));
-        Parent root = loader.load();
-        StudentDashboardController SDC = loader.getController();
-        SDC.InitializeStudent(student);
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
-    }
-
 }

@@ -27,9 +27,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-
 // Controller for managing events
-public class EventContorller implements Initializable {
+public class EventContorller implements Initializable {     //(FULLY DONE BY SILUNI)
     // FXML elements
     @FXML
     private TextField eventTitle;
