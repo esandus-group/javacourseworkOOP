@@ -16,8 +16,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 
-public class createClubController {         //(FULLY DONE BY ESANDU)
+ public class createClubController {         //(FULLY DONE BY ESANDU)
     private Connection connections = SCMSEnvironment.getInstance().makeSqlDBConnection(); //getting the database connection
     @FXML
     private TextField clubName;
@@ -80,23 +81,39 @@ public class createClubController {         //(FULLY DONE BY ESANDU)
     }
     //=========================================================================
     public ClubAdvisor getClubAdvisor(String clubAdvisorId) throws SQLException {
+        String advisorQuery = "SELECT * FROM ClubAdvisor WHERE id = ?";
+        String clubsQuery = "SELECT * FROM Club WHERE idOfAdvisor = ?";
 
-        String query = "SELECT * FROM ClubAdvisor WHERE id = ?"; //this is the query
+        try (PreparedStatement advisorStatement = this.connections.prepareStatement(advisorQuery);
+             PreparedStatement clubsStatement = this.connections.prepareStatement(clubsQuery)) {
+            advisorStatement.setString(1, clubAdvisorId);
+            clubsStatement.setString(1, clubAdvisorId);
 
-        try (PreparedStatement statement = this.connections.prepareStatement(query)) {
-            statement.setString(1, clubAdvisorId);
-            ResultSet resultSet = statement.executeQuery();  //resultset is used to store the data from DB
-            if (resultSet.next()) {
-                String id = resultSet.getString("id");
-                String firstName = resultSet.getString("firstName");
-                String lastName = resultSet.getString("lastName");
-                String dateOfBirth = resultSet.getString("dateOfBirth");
-                String password = resultSet.getString("password");
+            ResultSet advisorResultSet = advisorStatement.executeQuery();
+            ResultSet clubsResultSet = clubsStatement.executeQuery();
 
-                return new ClubAdvisor(id, firstName, lastName, dateOfBirth, password); // Create a new ClubAdvisor object
+            if (advisorResultSet.next()) {
+                String id = advisorResultSet.getString("id");
+                String firstName = advisorResultSet.getString("firstName");
+                String lastName = advisorResultSet.getString("lastName");
+                String dateOfBirth = advisorResultSet.getString("dateOfBirth");
+                String password = advisorResultSet.getString("password");
+
+                ArrayList<Club> managingClubs = new ArrayList<>();
+                while (clubsResultSet.next()) {
+                    String clubId = clubsResultSet.getString("clubId");
+                    String clubName = clubsResultSet.getString("name");
+
+                    // Create a Club object and add it to the managingClubs list
+                    Club club = new Club(clubId,clubName);        //7. call ClubAdvisor constructor
+                    managingClubs.add(club);
+                }
+
+                return new ClubAdvisor(id, firstName, lastName, dateOfBirth, password, managingClubs);   //5. call ClubAdvisor constructor
             }
         }
-        return null;
+
+        return null; // ClubAdvisor not found
     }
 
     //=========================================================================
@@ -161,8 +178,10 @@ public class createClubController {         //(FULLY DONE BY ESANDU)
                 Club newClub = new Club(clubId, clubNam);    //2. calling the Club constructor
 
                 //if the clubs is less than 5 then only it continues
+
                 if (!currentClubAdvisor.addClub(newClub)){          //3.1. calling the addClub method
                     nameStatus.setText("already manages 4 clubs, unable to create.");
+                    System.out.println("nigga");
                 }
                 else {
                     if (newClub != null) {

@@ -18,13 +18,14 @@ public class ClubAdvisor extends Person{
         return managingClubs;
     }
 
-    public boolean addClub(Club newClub){
-        if (this.managingClubs.size()<5) {
-            this.managingClubs.add(newClub);
-            return true;
+    public boolean addClub(Club newClub) {
+        if (this.managingClubs.size() >= 4) {
+            System.out.println("false");
+            return false;  // already manages 4 clubs, cannot add more.
         }
-
-        return false;
+        this.managingClubs.add(newClub);
+        System.out.println("true");
+        return true;  // club added successfully.
     }
 
     public Boolean  assignNewAdvisor(ClubAdvisor advisor,Club club){    //10. calling assign advisor method
