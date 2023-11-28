@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.RegisterToClubController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SCMS.Controllers.RegisterToClubController">
    <children>
       <Ellipse fx:id="ellipseOne" layoutX="260.0" layoutY="788.0" radiusX="323.0" radiusY="130.0" stroke="BLACK" strokeType="INSIDE" />
       <Ellipse fx:id="ellipseTwo" layoutX="886.0" layoutY="1011.0" radiusX="540.0" radiusY="424.0" stroke="BLACK" strokeType="INSIDE" />
@@ -53,7 +53,7 @@
             <ComboBox fx:id="clubComboBox" layoutX="153.0" layoutY="188.0" prefHeight="25.0" prefWidth="163.0" />
             <Text fx:id="text3" layoutX="51.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Name:" />
             <TextField fx:id="stdNameTextField" layoutX="153.0" layoutY="147.0" />
-            <Text fx:id="IDerrorLabel" layoutX="308.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
+            <Text fx:id="IDerrorLabel" layoutX="316.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
             <Button fx:id="backToStudentDashboardButton" layoutX="22.0" layoutY="13.0" mnemonicParsing="false" onAction="#loadStudentDashboard" text="&lt;==" />
          </children>
       </AnchorPane>

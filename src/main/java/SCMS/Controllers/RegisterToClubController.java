@@ -64,6 +64,7 @@ public class RegisterToClubController { //(FULLY DONE BY RANIDU)
                 student.joinClub(club);                     //3.1.1 calling the joinClub method
                 registerStudentToClub(event, studentId, clubId);        //3.1.2 calling the registerStudentToClub method to save to daatabase
             }
+            IDerrorLabel.setText("Unable to join, as previously removed");
         }
     }
     //=====================================================================
@@ -187,7 +188,7 @@ public class RegisterToClubController { //(FULLY DONE BY RANIDU)
             e.printStackTrace();
 
         }
-        IDerrorLabel.setText("Unable to join, as previously removed");  //4. calling the setText method
+  //4. calling the setText method
         return false;
     }
 
