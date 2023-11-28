@@ -202,6 +202,7 @@ public class EventContorller implements Initializable {
             if (errorMessage.equalsIgnoreCase("")) {
                 Event newEvent = new Event(title, dateTime, venue, type, description, new Button());
 // changeee
+                //changwww
                 System.out.println(type);
                 eventTitle.setText("");
                 eventVenue.setText("");
