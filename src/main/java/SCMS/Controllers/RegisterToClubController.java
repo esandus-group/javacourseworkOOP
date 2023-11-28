@@ -39,6 +39,7 @@ public class RegisterToClubController { //(FULLY DONE BY RANIDU)
         setClubsComboBox();         //2.1.1.1. calling the setClubsComboBox method
     }
     //=====================================================================
+
     public String getClubIdByName(String name) throws SQLException {
         Statement st = connections.createStatement();
         String getClubId = "SELECT * FROM club WHERE name='"+name+"'";
@@ -48,6 +49,7 @@ public class RegisterToClubController { //(FULLY DONE BY RANIDU)
         }
         return null;
     }
+
     //=====================================================================
     public void onRegisterToClubButtonClick(ActionEvent event) throws Exception{ //1.1. calling the RegisterToClub method
         String studentId = stdIdTextField.getText();        //1.3 calling the getText method
@@ -162,12 +164,14 @@ public class RegisterToClubController { //(FULLY DONE BY RANIDU)
                 System.out.println("Valid");
                 return true;
             }
+
             else{
                 IDerrorLabel.setText("Incorrect student ID/student name "); //2.1.1.3 calling the setText method
             }
         }
         return false;
     }
+
     //=====================================================================
     public boolean isStudentRemoved(String studentId, String clubId) {
         System.out.println("Checking if student is removed");
@@ -213,15 +217,4 @@ public class RegisterToClubController { //(FULLY DONE BY RANIDU)
         stage.show();
     }
     //=====================================================================
-    public void onBackToStudentDashboardClicked(ActionEvent event) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SCMS/FxmlFiles/StudentDashboard.fxml"));
-        Parent root = loader.load();
-        StudentDashboardController SDC = loader.getController();
-        SDC.InitializeStudent(student);
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
-    }
-
 }

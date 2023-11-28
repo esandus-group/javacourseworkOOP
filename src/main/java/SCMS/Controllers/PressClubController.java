@@ -151,7 +151,7 @@ public class PressClubController {  //(FULLY DONE BY ESANDU , EXCEPT FOR 2 METHO
     public void loadingEvents() {
         colDate.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
         colFunction.setCellValueFactory(new PropertyValueFactory<>("title"));
-        colType.setCellValueFactory(new PropertyValueFactory<>("eventId"));
+        colType.setCellValueFactory(new PropertyValueFactory<>("type"));
         colVenue.setCellValueFactory(new PropertyValueFactory<>("venue"));
         colAttendance.setCellValueFactory(new PropertyValueFactory<>("button"));
 
@@ -456,7 +456,7 @@ public class PressClubController {  //(FULLY DONE BY ESANDU , EXCEPT FOR 2 METHO
         GenerateReportsController GRC = loader.getController();
 
         GRC.Start(club);
-        GRC.gettingInformation(getClubByName(name),advisorID);
+        GRC.gettingInformation(club,advisorID);
 
         stage.setScene(scene);
         stage.show();

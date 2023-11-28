@@ -18,8 +18,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-
-
 public class GenerateReportsController {
     public ArrayList<Event> Functions = new ArrayList<>();
 
@@ -49,13 +47,13 @@ public class GenerateReportsController {
         this.club = selectedClub;
         Functions = club.getClubFunctions();
     }
-
     public String adId;
     public Club clubObject;
     public void gettingInformation(Club club, String advisorId) {
         this.clubObject = club;
         this.adId = advisorId;
     }
+
     public void backButtonCDD(ActionEvent event) throws Exception {
         String fileName = "/SCMS/FxmlFiles/PressClub.fxml";
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName));
@@ -77,6 +75,7 @@ public class GenerateReportsController {
 
         attendanceCol.setCellValueFactory(cellData -> {
             int attendance = cellData.getValue().getStudentsWhoJoined().size();
+            System.out.println(cellData.getValue().getStudentsWhoJoined().size());
             return new SimpleStringProperty(String.valueOf(attendance));
         });
 
