@@ -13,7 +13,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -201,9 +200,6 @@ public class EventContorller implements Initializable {
 
             if (errorMessage.equalsIgnoreCase("")) {
                 Event newEvent = new Event(title, dateTime, venue, type, description, new Button());
-// changeee
-                //changwww
-                //sqsqsq
                 System.out.println(type);
                 eventTitle.setText("");
                 eventVenue.setText("");
